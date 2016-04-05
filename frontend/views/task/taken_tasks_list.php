@@ -1,0 +1,95 @@
+<?php
+
+use yii\helpers\Html;
+use yii\widgets\ListView;
+use yii\helpers\Url;
+use yii\bootstrap\Nav;
+use yii\widgets\Pjax;
+use yii\grid\GridView;
+/* @var $this yii\web\View */
+/* @var $searchModel frontend\models\TaskSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Задания';
+$this->params['breadcrumbs'][] = ['label' => 'Студенту', 'url' => Url::to(['site/student'])];
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="task-index">
+     <h1><?= Html::encode($this->title) ?></h1>
+     
+     <?php
+            Pjax::begin(['enablePushState' => false]);
+                     
+            echo GridView::widget([
+                'dataProvider' => $dataProvider,
+                //'filterModel' => $searchModel,                
+                'layout'=>"\n{items}\n{pager}\n{summary}",
+                'rowOptions' => function ($model, $key, $index, $grid)
+                {
+                      return ['class' => $model->statusIdentity['ident']];
+                },
+                'options' => ['class' => 'table table-responsive'],
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
+                    //'name',
+                    [
+                        'attribute' => 'task_id',
+                        'value' => 'task.name',
+                        'label' => 'Задание',
+                        //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
+                    ], 
+                    [
+                        'attribute' => 'discipline_id',
+                        'value' => 'discipline.name',
+                        'label' => 'Дисциплина',
+                        //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
+                    ],         
+                    [
+                        'attribute' => 'status',
+                        'value' => function ($model, $key, $index, $grid)
+                        {
+                              return $model->statusIdentity['rus'];
+                        },
+                        'label' => 'Статус', 
+                        'filter' => common\models\GivenTask::$statusArray,
+                    ],  
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '<div class="btn-group">{update}</div>',
+                        'buttons' => [
+                            /*
+                            'view' => function ($url, $model)
+                            {
+                                return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> $url,
+        'class' => 'btn btn-default modalButton']);
+                            },*/
+                            'update' => function ($url, $model)
+                            {
+                                return Html::a('Решать <span class="glyphicon glyphicon glyphicon-pencil"></span>',Url::to(['task/taken',
+        'id' => $model->id]),
+        ['class' => 'btn btn-primary']);;
+                            },
+                                    /*
+                            'delete' => function ($url, $model)
+                            {
+                                return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
+        'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?']);
+                            },*/
+                        ]
+                     ],
+                  
+                ]
+                
+            ]);
+            Pjax::end();
+        ?>
+     
+    <?php
+    /*
+echo ListView::widget([ 
+    'dataProvider' => $dataProvider, 
+    'itemView' => '_taken_tasks_list',  
+    'layout' => "{summary}\n<table class=\"table table-responsive\">{items}</table>\n{pager}",  
+]); */
+?>
+</div>
