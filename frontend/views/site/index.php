@@ -17,7 +17,7 @@ $this->title = 'ПМ';
 	<?php
 	echo Html::tag('h3','Добро пожаловать)!');                    
     ?>
-    here 42422
+    here 423
 	<!--
     <div class="jumbotron">
         <h1>Congratulations!</h1>
