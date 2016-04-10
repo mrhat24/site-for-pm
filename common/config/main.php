@@ -1,10 +1,19 @@
 <?php
+use kartik\mpdf\Pdf;
+
+
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'components' => [
         'cache' => [
             'class' => 'yii\caching\FileCache',
-        ],       
+        ],  
+        'pdf' => [
+            'class' => Pdf::className(),
+            'format' => Pdf::FORMAT_A4,
+            'orientation' => Pdf::ORIENT_PORTRAIT,
+            'destination' => Pdf::DEST_BROWSER,
+        ],
         'formatter' => [
             'dateFormat' => 'php:d.m.Y',                                    
             'timeZone' => 'Europe/Moscow',
