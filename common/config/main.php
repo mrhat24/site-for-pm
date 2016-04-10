@@ -1,6 +1,5 @@
 <?php
 use kartik\mpdf\Pdf;
-use yii\helpers\Html;
 
 return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
