@@ -240,7 +240,7 @@ class TaskController extends Controller
             else {
             $pdf = Yii::$app->pdf;
             $pdf->content = $this->render('taken_task', ['takenTask' => $takenTask]);
-            return $pdf->render();
+            return $this->render('taken_task', ['takenTask' => $takenTask]);
             
             }
         }
