@@ -21,14 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="task-index"> 
-    <div class="row">
-        <div class="col-md-10"></div>
-        <div class="col-md-2">
-    <?php echo Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
-            Url::to(['task/pdf-task-student', 'id' => $takenTask->id]),
-            ['class' => 'btn btn-primary', 'target'=>'_blank']); ?>
-        </div>
-    </div>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <hr/>
     <?php
@@ -40,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php
     Pjax::begin(['enablePushState' => false, 'id' => 'send']);
+    echo "<div class='btn-group'>";
     switch ($takenTask->status)
     {
         case 2:
@@ -56,10 +50,13 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         break;
     }   
-
+    echo Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
+            Url::to(['task/pdf-task', 'id' => $takenTask->id]),
+            ['class' => 'btn btn-success', 'target'=>'_blank','data-pjax'=>0]); 
+    echo '</div>';
     Pjax::end();
     
-    ?>
+    ?> </div>
     <hr/>
     <?php
     

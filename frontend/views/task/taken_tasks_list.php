@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],  
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group">{update}</div>',
+                        'template' => '<div class="btn-group">{update} {pdf} </div>',
                         'buttons' => [
                             /*
                             'view' => function ($url, $model)
@@ -66,8 +66,14 @@ $this->params['breadcrumbs'][] = $this->title;
                             'update' => function ($url, $model)
                             {
                                 return Html::a('Решать <span class="glyphicon glyphicon glyphicon-pencil"></span>',Url::to(['task/taken',
-        'id' => $model->id]),
-        ['class' => 'btn btn-primary']);;
+                                    'id' => $model->id]),
+                                    ['class' => 'btn btn-primary']); 
+                            },
+                            'pdf' => function ($url, $model)
+                            {
+                                return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
+                                    Url::to(['task/pdf-task', 'id' => $model->id]),
+                                    ['class' => 'btn btn-success', 'target'=>'_blank']); 
                             },
                                     /*
                             'delete' => function ($url, $model)

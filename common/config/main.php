@@ -26,7 +26,7 @@ return [
     'on beforeRequest' => function () {        
         //$timezone = Yii::$app->user->identity->timezone;
         if (!Yii::$app->user->isGuest) {
-           // Yii::$app->formatter->timeZone = Yii::$app->user->identity->timezone;
+            Yii::$app->formatter->timeZone = Yii::$app->user->identity->timezone;
         }
     },
     
