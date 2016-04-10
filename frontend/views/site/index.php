@@ -15,7 +15,7 @@ $this->title = 'ПМ';
 ?>
 <div class="site-index">
 	<?php
-	echo Html::tag('h3','Добро пожаловать!');                    
+	echo Html::tag('h3','Добро пожаловать)!');                    
     ?>
 	<!--
     <div class="jumbotron">
