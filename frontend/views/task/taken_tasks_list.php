@@ -73,7 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             {
                                 return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
                                     Url::to(['task/pdf-task', 'id' => $model->id]),
-                                    ['class' => 'btn btn-success', 'target'=>'_blank']); 
+                                    ['class' => 'btn btn-success', 'target'=>'_blank','data-pjax' => 0]); 
                             },
                                     /*
                             'delete' => function ($url, $model)
