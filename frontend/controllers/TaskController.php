@@ -237,7 +237,6 @@ class TaskController extends Controller
             $takenTask = GivenTask::findOne($id);            
             if($takenTask->student_id != Yii::$app->user->identity->student->id)
               throw new ForbiddenHttpException('У вас нет доступа к этому заданию.');   
-            return true;
             return $this->render('taken_task', ['takenTask' => $takenTask]);             
         }
     }  
