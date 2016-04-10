@@ -241,6 +241,20 @@ class TaskController extends Controller
         }
     }  
     
+    /*
+     * print pdf for student
+     */
+    public function actionPdfTask($id){
+        $model = GivenTask::findOne($id);    
+        
+        //return $this->render('pdf-task-student',['model' => $model]);
+        $content = $this->renderPartial('pdf-task',['model' => $model]);
+        $pdf = Yii::$app->pdf;
+        $pdf->options = ['title' => $model->task->name];
+        $pdf->content = $content;
+        $pdf->render();
+    }
+    
     /**
      * Finds the Task model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.

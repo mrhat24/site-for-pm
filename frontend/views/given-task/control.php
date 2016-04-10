@@ -72,23 +72,25 @@ $this->params['breadcrumbs'][] = $this->title;
                     ], 
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group">{view} {update} {delete}</div>',
+                        'template' => '<div class="btn-group-vertical">{view}{update}</div><div class="btn-group-vertical">{delete}{pdf}</div>',
                         'buttons' => [
-                            'view' => function ($url, $model)
-                            {
+                            'view' => function ($url, $model){
                                 return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> Url::to(['given-task/check','id' => $model->id]),
         'class' => 'btn btn-default modalButton']);
                             },
-                            'update' => function ($url, $model)
-                            {
+                            'update' => function ($url, $model){
                                 return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
         'class' => 'btn btn-default modalButton']);
                             },
-                            'delete' => function ($url, $model)
-                            {
+                            'delete' => function ($url, $model){
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
         'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?']);
                             },
+                            'pdf' => function ($url, $model){
+                                return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> pdf',
+                                    Url::to(['task/pdf-task', 'id' => $model->id]),
+                                    ['class' => 'btn btn-success', 'target' => '_blank','data-pjax'=>0]);
+                            },        
                         ]
                      ],
                   

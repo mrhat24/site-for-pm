@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="task-index"> 
+
     <h1><?= Html::encode($this->title) ?></h1>
     <hr/>
     <?php
@@ -29,8 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
          
     ?>
      <hr/>
+    
     <?php
     Pjax::begin(['enablePushState' => false, 'id' => 'send']);
+    echo "<div class='btn-group'>";
     switch ($takenTask->status)
     {
         case 2:
@@ -39,16 +42,21 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         break;
         case 1:{
-            echo Html::tag('p','Отправлено на проверку',['class' => 'bg-info btn-lg']);
+            echo Html::tag('p','Отправлено на проверку',['class' => 'btn bg-info']);
         }
         break;
         case 3:{
-            echo Html::tag('span','Оценка: '.$takenTask->result,['class' => 'bg-success btn-lg']);
+            echo Html::tag('span','Оценка: '.$takenTask->result,['class' => 'btn bg-success']);
         }
         break;
     }   
+    echo Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
+            Url::to(['task/pdf-task', 'id' => $takenTask->id]),
+            ['class' => 'btn btn-success', 'target'=>'_blank','data-pjax'=>0]); 
+    echo '</div>';
     Pjax::end();
-    ?>
+    
+    ?> </div>
     <hr/>
     <?php
     
