@@ -6,7 +6,6 @@ use common\models\User;
 use yii\data\ActiveDataProvider;
 use common\models\GivenTask;
 use yii\widgets\Pjax;
-
 use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 $parser = new \Netcarver\Textile\Parser();
@@ -15,7 +14,7 @@ $this->title = 'ПМ';
 ?>
 <div class="site-index">
 	<?php
-	echo Html::tag('h3','Добро пожаловать)!');                    
+	echo Html::tag('h3','Добро пожаловать!');                    
     ?>
 	<!--
     <div class="jumbotron">
