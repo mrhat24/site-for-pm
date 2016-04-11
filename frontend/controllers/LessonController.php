@@ -140,7 +140,7 @@ class LessonController extends Controller
             ]);
         }
     }
-
+    
     /**
      * Updates an existing Lesson model.
      * If update is successful, the browser will be redirected to the 'view' page.
