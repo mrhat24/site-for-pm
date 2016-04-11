@@ -8,6 +8,7 @@ use frontend\models\StandartSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * StandartController implements the CRUD actions for Standart model.
@@ -19,7 +20,19 @@ class StandartController extends Controller
      */
     public function behaviors()
     {
-        return [
+        
+        return [                   
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['index', 'manage', 'view','create','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'manage', 'view','create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['chief'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

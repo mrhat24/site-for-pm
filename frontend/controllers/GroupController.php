@@ -25,12 +25,12 @@ class GroupController extends Controller
                     'update','delete','manage','preview'],
                 'rules' => [
                     [
-                        'actions' =>  ['view'],
+                        'actions' =>  ['view','index'],
                         'allow' => true,
                         'roles' => ['user'],
                     ],
                     [
-                        'actions' =>  ['index','my'],
+                        'actions' =>  ['my'],
                         'allow' => true,
                         'roles' => ['student'],
                     ],

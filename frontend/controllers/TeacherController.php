@@ -9,6 +9,7 @@ use yii\web\Controller;
 use frontend\models\TeacherSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TeacherController implements the CRUD actions for Teacher model.
@@ -18,6 +19,22 @@ class TeacherController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['manage','list' ,'view', 'create','update','delete'],
+                'rules' => [
+                    [
+                        'actions' =>  ['manage', 'view', 'create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['chief'],
+                    ],
+                    [
+                        'actions' =>  ['list'],
+                        'allow' => true,
+                        'roles' => ['user'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -30,7 +47,7 @@ class TeacherController extends Controller
     /**
      * Lists all Teacher models.
      * @return mixed
-     */
+     *
     public function actionIndex()
     {
         $searchModel = new TeacherSearch();
@@ -41,7 +58,7 @@ class TeacherController extends Controller
         ]);
     }
     
-    /**
+    **
      * Lists all Teacher models.
      * @return mixed
      */

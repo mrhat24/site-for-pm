@@ -23,15 +23,18 @@ class TaskController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['index', 'view', 'create','update','taken'],
+                'only' => ['index', 'view', 'create','update','taken','control',
+                    'given-list','give','complete-task','listbytype','givepreview',
+                    'exersicespreview','pdf-task'],
                 'rules' => [
                     [   
-                        'actions' =>  ['create','update','give','control','given-list'],
+                        'actions' =>  ['create','update','give','control',
+                            'given-list','listbytype','givepreview','exersicespreview'],
                         'allow' => true,
                         'roles' => ['teacher'],
                     ],
                     [
-                        'actions' =>  ['taken', 'view', 'index','complete-task'],
+                        'actions' =>  ['taken', 'view', 'index','complete-task','pdf-task'],
                         'allow' => true,
                         'roles' => ['student'],
                     ],

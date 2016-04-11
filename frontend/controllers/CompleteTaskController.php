@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\CompleteExercise;
 use yii\base\Model;
+use yii\filters\AccessControl;
 /**
  * CompleteTaskController implements the CRUD actions for CompleteTask model.
  */
@@ -18,6 +19,17 @@ class CompleteTaskController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['index', 'view', 'create', 'check','update','delete'],
+                'rules' => [
+                    [   
+                        'actions' =>  ['index', 'view', 'create', 'check','update','delete'],
+                        'allow' => true,
+                        'roles' => ['student'],
+                    ],                  
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
