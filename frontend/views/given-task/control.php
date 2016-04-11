@@ -62,17 +62,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => 'Статус', 
                         'filter' => common\models\GivenTask::$statusArray,
                     ],  
-                    [
-                        ///'attribute' => 'given_date',
-                        'value' => function ($model, $key, $index, $grid)
-                            {
-                                  return DateHelper::getDateByUserTimezone($model->given_date);
-                            },
-                        'label' => 'Дата выдачи',                        
-                    ], 
+                    'complete_date:dateTime',
+                    'given_date:dateTime',
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group-vertical">{view}{update}</div><div class="btn-group-vertical">{delete}{pdf}</div>',
+                        'template' => '<div class="btn-group">{view}{update}{delete}{pdf}</div>',
                         'buttons' => [
                             'view' => function ($url, $model){
                                 return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> Url::to(['given-task/check','id' => $model->id]),
@@ -103,7 +97,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 Modal::begin([
-            'header' => '<h2>Выдача заданий</h2>',
+            'header' => '',
             //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
             'id' => 'modal',
             'size' => 'modal-lg',                      

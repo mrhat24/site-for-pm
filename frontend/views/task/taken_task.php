@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
         //}
         $index = $key+1;        
         $remake = 'panel-primary';
-        //if($complete&&($exercise->remake != 0)) $remake = 'panel-danger';
+        if($exercise->remake != 0) { $remake = 'panel-danger'; }
         echo Html::beginTag('div',['class' => 'panel '.$remake]);                
         echo Html::tag('div','Задание#'.$index,['class' => 'panel-heading']);
         echo Html::beginTag('div',['class' => 'panel panel-info']);

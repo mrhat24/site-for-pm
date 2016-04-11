@@ -21,10 +21,16 @@ $this->registerJs('$("#form-task").on("pjax:end", function(){
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true ]]); ?>
 
     <?//= $form->field($model, 'given_task_id')->textInput() ?>
-
+    <div class='well well-sm'>
+    <?php
+            echo Html::tag('h5','Студент: '.$model->student->user->fullname);
+            echo Html::tag('h5','Группа: '.$model->student->group->name);
+            echo Html::tag('h5','Дисциплина: '.$model->discipline->name);
+    ?>
+    </div>
     <?php
             echo Html::beginTag('div',['class' => 'panel panel-info']);
-            echo Html::tag('div','Текст задания',['class' => 'panel-heading']);
+            echo Html::tag('div',$model->task->name,['class' => 'panel-heading']);
             echo Html::tag('div',$parser->textileThis($model->task->text),['class' => 'panel-body']);
             echo Html::endTag('div');
     ?>
