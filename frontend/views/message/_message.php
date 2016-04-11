@@ -28,3 +28,4 @@ echo Html::tag('p',Html::a(Html::img($model->sender->image,['class' => $img_clas
             Html::tag('span',$model->text.Html::tag('span',$date->format("d:m:Y H:i:s"),['class' => 'message-time']), ['class' => $span_class]),
     ['class' => $p_class]);
     echo Html::tag('br',['class' => 'clear']);
+?>

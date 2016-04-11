@@ -17,11 +17,24 @@ $this->params['breadcrumbs'][] = ['label' => 'Диалоги', 'url' => Url::to(
 $this->params['breadcrumbs'][] = $this->title;
   
 
-$this->registerJs('
-        $("#refresh").on("click",function(){
-$.pjax.reload({container:"#messages"});
-}); 
-        ');
+$this->registerJs("
+    
+    $('#refresh_button').on('click',function(){
+            $.pjax.reload({container:'#messages'});
+            rotate();
+            $('#messages').on('pjax:end',   function() { clearTimeout(timer); });
+    }); ");
+$this->registerJs("
+    var elie = $('#refresh'), degree = 0, timer;
+    function rotate() {
+        
+        elie.css({ WebkitTransform: 'rotate(' + degree + 'deg)'});  
+        elie.css({ '-moz-transform': 'rotate(' + degree + 'deg)'});                      
+        timer = setTimeout(function() {
+            ++degree; rotate();
+        },5);
+    }
+");
 ?>
 <div class="message-index">
 
@@ -30,7 +43,12 @@ $.pjax.reload({container:"#messages"});
       ?>
     <p>
         <?= Html::tag('h3',"Диалог c {$user->fullname}")  ?>
-        <?= Html::img('@web/images/reload.png',['id' => 'refresh']) ?>
+    <div class='row'>
+        <div class='col-md-11'></div>
+        <div class='col-md-1' style="text-align: right;">
+            <button class='btn btn-primary' id='refresh_button'><span class="glyphicon glyphicon-refresh" id='refresh' aria-hidden="true"></span></button>
+        </div>
+    </div>
     </p>
 
     <?php Pjax::begin(['id' => 'messages', 'enablePushState' => false, ]); ?>
@@ -43,10 +61,10 @@ $.pjax.reload({container:"#messages"});
     ?>
     <?php  echo ListView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
+        'itemOptions' => ['class' => ''],
         'itemView' => '_message',
         'layout' => '{summary}{items}{pager}',       
-        'options' => ['class' => 'message-list'],
+        'options' => ['class' => 'panel panel-default'],
         //'pager' => ['class' => \kop\y2sp\ScrollPager::className()]
     ])  ?>
     <?php Pjax::end(); ?>

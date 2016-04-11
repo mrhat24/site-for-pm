@@ -21,10 +21,8 @@ $.pjax.reload({container:"#messages"});
 }); 
         ');
 ?>
-<div class="message-index">
-
+<div class="message-index">  
     <h1><?= Html::encode($this->title) ?></h1>
-    
-    <?= $this->render('dialog_list'); ?>
-
+   <?= $this->render('dialog_list'); ?>
+        
 </div>

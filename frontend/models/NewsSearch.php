@@ -41,13 +41,14 @@ class NewsSearch extends News
      */
     public function search($params)
     {
-        $query = News::find();
+        $query = News::find()->orderBy('date DESC');
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        $dataProvider->pagination->pageSize = 10;
 
         $this->load($params);
 

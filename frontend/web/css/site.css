@@ -190,11 +190,7 @@ a.desc:after {
     color: #0E76A8;
     margin: 0px 2px;
 }
-#refresh
-{
-    float: right;
-    cursor: pointer;
-}
+
 .date
 {
     color: #333;
