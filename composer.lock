@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "72804a5de3847ef768d917a3de0fc062",
-    "content-hash": "b127d8ae1415f55dca5a23ba2d58ae8e",
+    "hash": "b1cddc9bcfdb5b111acd373f8af1500c",
+    "content-hash": "2f23b836b07f71b931e07c09baf79d98",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -716,6 +716,42 @@
                 "yii2"
             ],
             "time": "2016-03-29 02:46:33"
+        },
+        {
+            "name": "mathjax/mathjax",
+            "version": "2.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mathjax/MathJax.git",
+                "reference": "d4ab1b35c96dd964eaa9e1ed2c86e39fffbdacf6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mathjax/MathJax/zipball/d4ab1b35c96dd964eaa9e1ed2c86e39fffbdacf6",
+                "reference": "d4ab1b35c96dd964eaa9e1ed2c86e39fffbdacf6",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "MathJax Consortium",
+                    "homepage": "https://github.com/mathjax"
+                }
+            ],
+            "description": "MathJax is an open-source JavaScript display engine for LaTeX, MathML, and AsciiMath notation that works in all modern browsers.",
+            "homepage": "http://www.mathjax.org/",
+            "keywords": [
+                "AsciiMath",
+                "JS",
+                "MathML",
+                "latex",
+                "math"
+            ],
+            "time": "2016-02-08 16:46:12"
         },
         {
             "name": "mpdf/mpdf",
