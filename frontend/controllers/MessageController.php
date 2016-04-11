@@ -37,17 +37,18 @@ class MessageController extends Controller
             ],
         ];
     }
-
+    
+    
     /**
      * Lists all Message models.
      * @return mixed
      */
     public function actionIndex($usr = null)
     {
-        if($usr == null) {                
-            return $this->render('index', [                
-            ]);
-        } 
+               
+        if($usr == null) {
+            return $this->render('index');
+        }
         
         $model = new Message();
         $model->recipient_id = Yii::$app->request->get()['usr'];
@@ -61,7 +62,7 @@ class MessageController extends Controller
         unset(Yii::$app->request->post()['text']);
         $dataProvider = new ActiveDataProvider([
             'query' => Message::find()->where(['and','sender_id='.Yii::$app->user->id, 'recipient_id='.Yii::$app->request->get()['usr']])
-                ->orWhere(['and','recipient_id='.Yii::$app->user->id, 'sender_id='.Yii::$app->request->get()['usr']])->orderBy('id ASC'),
+                ->orWhere(['and','recipient_id='.Yii::$app->user->id, 'sender_id='.Yii::$app->request->get()['usr']])->orderBy('id DESC'),
             'pagination' => [
                 'pageSize' => 10, 
             ],

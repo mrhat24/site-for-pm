@@ -43,6 +43,21 @@ class NewsController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * manage News.
+     * @return mixed
+     */
+    public function actionManage()
+    {
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('manage', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single News model.
@@ -50,10 +65,22 @@ class NewsController extends Controller
      * @return mixed
      */
     public function actionView($id)
-    {
+    {           
         return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+                'model' => $this->findModel($id),
+            ]);
+    }
+    
+    /**
+     * Displays a single News model manage.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionViewManage($id)
+    {           
+        return $this->renderAjax('view-manage', [
+                'model' => $this->findModel($id),
+            ]);
     }
 
     /**
@@ -68,7 +95,7 @@ class NewsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -87,7 +114,7 @@ class NewsController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }

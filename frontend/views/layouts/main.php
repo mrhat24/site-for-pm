@@ -41,7 +41,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
-       // ['label' => 'О нас', 'url' => ['/site/about']],
+        ['label' => 'Новости', 'url' => ['/news/index']],
       //  ['label' => 'Контакты', 'url' => ['/site/contact']],
     ]; 
     if (Yii::$app->user->isGuest) {
@@ -91,6 +91,13 @@ AppAsset::register($this);
             $menuSubItems[] = ['label' => 'Студенты', 'url' => Url::to(['student/manage'])];
             $menuSubItems[] = ['label' => 'Преподаватели', 'url' => Url::to(['teacher/manage'])];
             $menuItems[] = ['label' => 'Заведующему',
+                'url' => Url::to(['group/my']), 'items' => $menuSubItems];
+            $menuSubItems = null;
+        }
+        
+        if((Yii::$app->user->can('chief'))){   
+            $menuSubItems[] = ['label' => 'Новости', 'url' => Url::to(['news/manage'])];
+            $menuItems[] = ['label' => 'Управление',
                 'url' => Url::to(['group/my']), 'items' => $menuSubItems];
             $menuSubItems = null;
         }

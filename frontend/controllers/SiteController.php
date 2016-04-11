@@ -12,7 +12,7 @@ use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
+use frontend\models\NewsSearch;
 /**
  * Site controller
  */
@@ -72,9 +72,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        
-        return $this->render('index', [
-            'time' => date('U'),]);
+        return $this->render('index');
     }
     
     /**

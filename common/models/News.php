@@ -29,11 +29,26 @@ class News extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'text', 'date'], 'required'],
+            [['title', 'text'], 'required'],
             [['user_id', 'date'], 'integer'],
             [['text'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];
+    }
+    
+    public function beforeSave($insert) {
+        if (parent::beforeSave($insert)) {
+
+             $this->user_id = Yii::$app->user->id;
+            $this->date = date('U');
+
+            return true;
+        }
+        return false;       
+    }
+    
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id']);
     }
 
     /**
@@ -44,9 +59,10 @@ class News extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'title' => 'Title',
-            'text' => 'Text',
-            'date' => 'Date',
+            'title' => 'Название',
+            'text' => 'Текст',
+            'date' => 'Дата',
+            'user.fullname' => 'Автор'
         ];
     }
 }
