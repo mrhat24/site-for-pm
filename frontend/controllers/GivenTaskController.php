@@ -88,6 +88,7 @@ class GivenTaskController extends Controller
     {        
         $searchModel = new GivenTaskSearch();        
         $dataProvider = $searchModel->search(Yii::$app->request->get());        
+        $dataProvider->query->orderBy(['complete_date' => SORT_DESC]);
         return $this->render('control',['dataProvider' => $dataProvider, 
             'searchModel' => $searchModel]);
     }

@@ -89,7 +89,7 @@ class Student extends \yii\db\ActiveRecord
     
     public function getNewTasksCount()
     {
-        return GivenTask::find()->where(['student_id' => $this->id])
+        return GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])
                 ->andWhere(['!=','status','3'])->andWhere(['!=','status','1'])->count();    
     }
     

@@ -195,6 +195,7 @@ class TaskController extends Controller
         $gtask = GivenTask::findOne($id);
         if(!GivenExercise::find()->where(['given_task_id' => $gtask->id])->andWhere(['solution' => ''])->all()){
         $gtask->status = 1;
+        $gtask->complete_date = date('U');
         $gtask->save();
         return false;
         }                
