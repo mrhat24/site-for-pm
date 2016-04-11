@@ -20,11 +20,11 @@ class MessageController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index'],
+                'only' => ['index','create'],
                 'rules' => [
                     [
                         'allow' => true,
-                        'actions' => ['index'],
+                        'actions' => ['index','create'],
                         'roles' => ['user'],
                     ],
                 ],

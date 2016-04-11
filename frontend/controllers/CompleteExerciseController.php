@@ -8,6 +8,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * CompleteExerciseController implements the CRUD actions for CompleteExercise model.
@@ -17,6 +18,17 @@ class CompleteExerciseController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['index', 'view', 'edit','update','delete'],
+                'rules' => [
+                    [   
+                        'actions' =>  ['index', 'view', 'edit','update','delete'],
+                        'allow' => true,
+                        'roles' => ['student'],
+                    ],                  
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\base\Model;
 use frontend\models\GivenTaskSearch;
+use yii\filters\AccessControl;
 /**
  * GivenTaskController implements the CRUD actions for GivenTask model.
  */
@@ -18,6 +19,17 @@ class GivenTaskController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['index','control','give','check','view', 'create','update','delete'],
+                'rules' => [
+                    [   
+                        'actions' =>  ['index','control','give','check','view', 'create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['teacher'],
+                    ],                  
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -95,7 +107,7 @@ class GivenTaskController extends Controller
         }
                
         $model = new GivenTask();
-
+        $model->status = 0;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
         } else {

@@ -8,6 +8,7 @@ use frontend\models\SpecialitySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SpecialityController implements the CRUD actions for Speciality model.
@@ -20,6 +21,17 @@ class SpecialityController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['index', 'manage', 'view','create','update','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'manage', 'view','create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['chief'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

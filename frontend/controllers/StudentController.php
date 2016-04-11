@@ -21,7 +21,7 @@ class StudentController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['index', 'view', 'create','update', 'manage','delete'],
+                'only' => ['index', 'view', 'create','update', 'manage','delete','lists'],
                 'rules' => [
                     [   
                         'actions' =>  ['manage','create','update','delete'],
@@ -32,6 +32,11 @@ class StudentController extends Controller
                         'actions' =>  ['index','view'],
                         'allow' => true,
                         'roles' => ['student'],
+                    ],
+                    [
+                        'actions' =>  ['lists'],
+                        'allow' => true,
+                        'roles' => ['teacher'],
                     ],
                 ],
             ],

@@ -40,15 +40,14 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Главная', 'url' => ['/site/index']],
-        ['label' => 'Новости', 'url' => ['/news/index']],
+        ['label' => 'Главная', 'url' => ['/site/index']],        
       //  ['label' => 'Контакты', 'url' => ['/site/contact']],
     ]; 
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
     } else {
-        
+           $menuItems[] = ['label' => 'Новости', 'url' => ['/news/index']];
         //for student
         if((Yii::$app->user->can('student'))&&(Yii::$app->user->identity->isStudent)){
             //$menuSubItems[] = ['label' => 'Студенту','url' => Url::to(['site/student'])];
@@ -103,7 +102,7 @@ AppAsset::register($this);
         }
         
         //information
-        $menuItems[] = ['label' => 'Информация', 'items' => [           
+        $menuItems[] = ['label' => 'Информация', 'items' => [
             ['label' => 'Расписание','url' => Url::to(['lesson/index'])],            
             ['label' => 'Пользователи','url' => Url::to(['user/index'])],
             ['label' => 'Группы','url' => Url::to(['group/index'])],
