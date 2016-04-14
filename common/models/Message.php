@@ -51,7 +51,19 @@ class Message extends \yii\db\ActiveRecord
         ];
     }
     
-    /**
+    public function beforeSave($insert) {
+       if (parent::beforeSave($insert)) {
+
+            $this->sender_id = Yii::$app->user->id;
+            $this->datetime = date('U');
+
+            return true;
+        }
+        return false;
+        
+    }
+
+        /**
      * @get user 
      */
     public function getSender()

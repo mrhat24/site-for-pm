@@ -83,6 +83,11 @@ class Group extends \yii\db\ActiveRecord
                 ->all();
     }
     
+    public function getLesson()
+    {
+         return Lesson::find()->all();
+    }
+    
     /**
      * @get speciality
      */

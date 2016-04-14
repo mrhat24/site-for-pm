@@ -18,7 +18,7 @@ $this->registerJs("
         $('.list-group-item span').on('click',function(e) { if (e.target != this) { return true; } if (e.target == this) { 
             $(this).children('.glyphicon').toggleClass('glyphicon-chevron-right').toggleClass('glyphicon-chevron-down');
             $(this).toggleClass('list-group-item-info');
-            $(this).parent().children('div.list-group').toggle(100); }              
+            $(this).next('div.list-group').toggle(100); }              
         });         
 ");
 
@@ -124,7 +124,7 @@ $this->beginBlock('archive');
         if(!$count) break;
         echo Html::beginTag('div',['class' => 'list-group-item']);
         echo "<span class='list-group-item'><i class='glyphicon glyphicon-chevron-right'></i>{$gr->name}</span>";
-        echo "<div class='list-group'>";        
+        echo "<div class='list-group'  style='display: none;'>";        
         foreach($gr->semesters as $semester) {
             if($semester->end_date > date('U'))
                 break;

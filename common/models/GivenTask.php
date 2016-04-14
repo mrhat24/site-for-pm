@@ -72,9 +72,9 @@ class GivenTask extends \yii\db\ActiveRecord
         switch ($this->status)
         {
             case 0:
-                return ['ident' => 'active','rus' => 'Не решено'];
+                return ['ident' => 'warning','rus' => 'Не решено'];
             case 1:
-                return ['ident' => 'warning','rus' => 'Отправлено на проверку'];
+                return ['ident' => 'info','rus' => 'Отправлено на проверку'];
             case 2:
                 return ['ident' => 'danger','rus' => 'Есть нарекания'];
             case 3:

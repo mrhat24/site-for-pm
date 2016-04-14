@@ -94,17 +94,17 @@ class MessageController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
         $model = new Message();
-
+        $model->recipient_id = $id;
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        } else {
-            return $this->render('create', [
+            
+        } 
+        return $this->renderAjax('create', [
                 'model' => $model,
             ]);
-        }
     }
 
     /**
@@ -138,8 +138,9 @@ class MessageController extends Controller
 
         return $this->redirect(['index']);
     }
-    */
-    /**
+    */   
+
+   /**
      * Finds the Message model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id

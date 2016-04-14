@@ -36,7 +36,7 @@ class Lesson extends \yii\db\ActiveRecord
             [['ghd_id', 'lesson_type_id', 'teacher_id', 'week', 'day',  'auditory'], 'required'],
             [['time'] , 'safe'], 
             [['day', 'ghd_id', 'lesson_type_id', 'teacher_id', 'week'], 'integer'],
-            [['auditory'], 'string', 'max' => 50],            
+            [['auditory'], 'string', 'max' => 50],
         ];
     }
 

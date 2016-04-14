@@ -3,52 +3,39 @@
 namespace frontend\controllers;
 
 use Yii;
-use common\models\User;
-use frontend\models\UserSearch;
+use common\models\Comments;
+use frontend\models\CommentsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
+
 /**
- * UserController implements the CRUD actions for User model.
+ * CommentsController implements the CRUD actions for Comments model.
  */
-class UserController extends Controller
+class CommentsController extends Controller
 {
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['index','view','update'],
-                'rules' => [
-                   /* [
-                        'allow' => true,
-                        'actions' => ['login', 'signup'],
-                        'roles' => ['?'],
-                    ], */
-                    [
-                        'allow' => true,
-                        'actions' => ['index','view','update'],
-                        'roles' => ['user'],
-                    ],
-                ],
-            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                /*    'delete' => ['post'], */
+                    'delete' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * Lists all User models.
+     * Lists all Comments models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new UserSearch();        
+        $searchModel = new CommentsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -58,36 +45,25 @@ class UserController extends Controller
     }
 
     /**
-     * Displays a single User model.
+     * Displays a single Comments model.
      * @param integer $id
      * @return mixed
      */
-    public function actionView($id = null)
+    public function actionView($id)
     {
-        if($id != null){
-            if(Yii::$app->request->isAjax)
-                return $this->renderAjax('view', [
-                'model' => $this->findModel(Yii::$app->request->get()['id']),
-            ]);
-            return $this->render('view', [
-                'model' => $this->findModel(Yii::$app->request->get()['id']),
-            ]);
-        }
-        else{
-            return $this->render('profile', [
-            'model' => $this->findModel(Yii::$app->user->id),
+        return $this->render('view', [
+            'model' => $this->findModel($id),
         ]);
-        }
     }
 
     /**
-     * Creates a new User model.
+     * Creates a new Comments model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
-     
+     */
     public function actionCreate()
     {
-        $model = new User();
+        $model = new Comments();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -97,49 +73,49 @@ class UserController extends Controller
             ]);
         }
     }
-        
-    
-     * Updates an existing User model.
+
+    /**
+     * Updates an existing Comments model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate()
+    public function actionUpdate($id)
     {
-        $model = $this->findModel(Yii::$app->user->id);
+        $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view']);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
             ]);
         }
     }
+
     /**
-   
-     * Deletes an existing User model.
+     * Deletes an existing Comments model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
-     
+     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
-        */
+
     /**
-     * Finds the User model based on its primary key value.
+     * Finds the Comments model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return User the loaded model
+     * @return Comments the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = User::findOne($id)) !== null) {
+        if (($model = Comments::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

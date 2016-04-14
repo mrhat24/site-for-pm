@@ -118,4 +118,11 @@ class Teacher extends \yii\db\ActiveRecord
     {
         return $this->user->fullname;
     }
+    
+    public function getGroups()
+    {
+        return Group::find()
+                ->innerJoin("group_has_discipline ghd", '`ghd`.`group_id` = `group`.`id`')
+                ->innerJoin("lesson", '`lesson`.`ghd_id` = `ghd`.`id`')->all();
+    }
 }
