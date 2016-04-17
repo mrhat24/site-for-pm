@@ -45,6 +45,7 @@ class ExerciseController extends Controller
    {
        $searchModel = new ExerciseSearch();
        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+       $dataProvider->query->where(['exercise.teacher_id' => Yii::$app->user->identity->teacher->id]);
        return $this->render('control', [
            'searchModel' => $searchModel,
            'dataProvider' => $dataProvider,

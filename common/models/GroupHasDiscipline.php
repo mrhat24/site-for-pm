@@ -95,4 +95,9 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
         return $this->discipline->name;
     }
     
+    public function getTeacherHasDiscipline()
+    {
+        return $this->hasMany(TeacherHasDiscipline::className(), ['ghd_id' => 'id']);
+    }
+    
 }

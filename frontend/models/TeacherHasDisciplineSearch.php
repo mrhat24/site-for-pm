@@ -5,26 +5,23 @@ namespace frontend\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Task;
+use common\models\TeacherHasDiscipline;
 
 /**
- * TaskSearch represents the model behind the search form about `common\models\Task`.
+ * TeacherHasDisciplineSearch represents the model behind the search form about `common\models\TeacherHasDiscipline`.
  */
-class TaskSearch extends Task
-{    
-
+class TeacherHasDisciplineSearch extends TeacherHasDiscipline
+{
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'teacher_id'], 'integer'],
-            [['name', 'text', 'type_id'], 'safe'],            
+            [['id', 'teacher_id', 'ghd_id', 'begin_date', 'end_date'], 'integer'],
         ];
     }
-    
-    
+
     /**
      * @inheritdoc
      */
@@ -43,15 +40,14 @@ class TaskSearch extends Task
      */
     public function search($params)
     {
-        $query = Task::find();
+        $query = TeacherHasDiscipline::find();
+
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-        
-             
-        $query->joinWith('taskType');
-        
+
         $this->load($params);
 
         if (!$this->validate()) {
@@ -60,15 +56,15 @@ class TaskSearch extends Task
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'teacher_id' => $this->teacher_id,
-            //'type_id' => $this->type_id,
+            'ghd_id' => $this->ghd_id,
+            'begin_date' => $this->begin_date,
+            'end_date' => $this->end_date,
         ]);
 
-        $query->andFilterWhere(['like', 'task.name', $this->name])
-            ->andFilterWhere(['like', 'task.text', $this->text])
-            ->andFilterWhere(['like', 'task_type.name', $this->type_id]);
         return $dataProvider;
     }
 }
