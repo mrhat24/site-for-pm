@@ -87,7 +87,8 @@ class GivenTaskController extends Controller
     public function actionControl()
     {        
         $searchModel = new GivenTaskSearch();        
-        $dataProvider = $searchModel->search(Yii::$app->request->get());        
+        $dataProvider = $searchModel->search(Yii::$app->request->get());   
+        $dataProvider->query->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);
         $dataProvider->query->orderBy(['complete_date' => SORT_DESC]);
         return $this->render('control',['dataProvider' => $dataProvider, 
             'searchModel' => $searchModel]);

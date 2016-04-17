@@ -30,13 +30,14 @@ $this->registerJs('
     
     <?= Html::label('Дисциплина')?>
     
-    <?= Html::dropDownList('discipline','',ArrayHelper::map(Yii::$app->user->identity->teacher->disciplineList,'id','name'), 
-             ['prompt'=>'-Выберите преподаваемую дисциплину-',
-              'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('group/lists?id=').'"+$(this).val(), function( data ) {
-                  $( "select#group_list" ).html( data );
-                });
-            ',
+    <?= Html::dropDownList('discipline','',ArrayHelper::map(Yii::$app->user->identity->teacher->teacherHasDiscipline,'groupHasDiscipline.discipline.id','groupHasDiscipline.discipline.name'), 
+             [
+                'prompt'=>'-Выберите преподаваемую дисциплину-',
+                'onchange'=>'
+                    $.post( "'.Yii::$app->urlManager->createUrl('group/lists?id=').'"+$(this).val(), function( data ) {
+                      $( "select#group_list" ).html( data );
+                    });
+                ',
             'class' => 'form-control',
             'id' => 'discipline_list',     
                  ]); ?>

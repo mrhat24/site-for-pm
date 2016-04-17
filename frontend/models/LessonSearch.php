@@ -21,7 +21,7 @@ class LessonSearch extends Lesson
    public function rules() 
    { 
        return [ 
-           [['id', 'ghd_id', 'lesson_type_id', 'teacher_id', 'week', 'day', 'date'], 'integer'], 
+           [['id', 'ghd_id', 'lesson_type_id', 'week', 'day', 'date'], 'integer'], 
            [['time', 'auditory','groupName','disciplineName','teacherFullname','lessonTypeName'], 'safe'], 
        ]; 
    } 
@@ -94,7 +94,7 @@ class LessonSearch extends Lesson
            'id' => $this->id, 
            'ghd_id' => $this->ghd_id, 
            'lesson_type_id' => $this->lesson_type_id, 
-           'teacher_id' => $this->teacher_id, 
+           'teacher_id' => $this->teacher->id, 
            'week' => $this->week, 
            'day' => $this->day, 
            'time' => $this->time, 
@@ -111,7 +111,7 @@ class LessonSearch extends Lesson
                 $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
        }]);
        
-       $query->joinWith('teacher')->joinWith(['teacher.user' => function ($q) {
+       $query->joinWith('thd')->joinWith('thd.teacher')->joinWith(['thd.teacher.user' => function ($q) {
                 $q->where('user.first_name LIKE "%' . $this->teacherFullname . '%" ' .
             'OR user.last_name LIKE "%' . $this->teacherFullname . '%"'.
             'OR user.middle_name LIKE "%' . $this->teacherFullname . '%"'

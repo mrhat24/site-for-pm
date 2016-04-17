@@ -12,6 +12,14 @@ use common\models\GivenTask;
  */
 class GivenTaskSearch extends GivenTask
 {
+    /*
+     * var
+     */
+    public $teacherFullname;
+    public $studentFullname;
+    public $taskName;
+
+
     /**
      * @inheritdoc
      */
@@ -19,7 +27,7 @@ class GivenTaskSearch extends GivenTask
     {
         return [
             [['id', 'given_date', 'teacher_id', 'status', 'result', 'complete_date'], 'integer'],
-            [['task_id', 'discipline_id', 'student_id', 'comment', 'group_key'], 'safe'],
+            [['task_id', 'discipline_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName'], 'safe'],
         ];
     }
 
@@ -42,9 +50,9 @@ class GivenTaskSearch extends GivenTask
     public function search($params)
     {
         $query = GivenTask::find()
-                ->where(['given_task.teacher_id' => Yii::$app->user->identity->teacher->id]);    
+                ->where(['given_task.teacher_id' => Yii::$app->user->identity->teacher->id]);
         
-        $query->joinWith('user');
+        //$query->joinWith('user');
         $query->joinWith('discipline');        
         $query->joinWith('task');
 
@@ -52,8 +60,18 @@ class GivenTaskSearch extends GivenTask
             'query' => $query,
             'sort' => ['defaultOrder' => ['status' => SORT_ASC, 'given_date' => SORT_DESC]]
         ]);
-
-       
+          
+        $dataProvider->setSort([
+            'attributes' => [                
+                'teacherFullname' => [
+                    'asc' => ['user.last_name' => SORT_ASC,'user.middle_name' => SORT_ASC,'user.first_name' => SORT_ASC],
+                    'desc' => ['user.last_name' => SORT_DESC,'user.middle_name' => SORT_DESC,'user.first_name' => SORT_DESC],                   
+                ],
+                'id',
+                'status'
+                
+            ]
+        ]);
         
         $this->load($params);
 
@@ -79,10 +97,23 @@ class GivenTaskSearch extends GivenTask
             ->andFilterWhere(['like','discipline.name', $this->discipline_id])
             ->andFilterWhere(['like','task.name',$this->task_id]);
             //->andFilterWhere(['like','user.last_name',$this->student_id]);
-        $query->andWhere('user.first_name LIKE "%' . $this->student_id . '%" ' .
-        'OR user.last_name LIKE "%' . $this->student_id . '%"'.
-        'OR user.middle_name LIKE "%' . $this->student_id . '%"'
-    );   
+        
+        $query->joinWith(['task' => function($q){
+            $q->where('task.name LIKE "%' . $this->taskName . '%" ');
+        }]);
+        
+        $query->joinWith('student')->joinWith(['student.user as suser' => function($q){
+            $q->where('suser.first_name LIKE "%' . $this->studentFullname . '%" ' .
+            'OR suser.last_name LIKE "%' . $this->studentFullname . '%"'.
+            'OR suser.middle_name LIKE "%' . $this->studentFullname . '%"'
+            );
+        }]);
+        $query->joinWith('teacher')->joinWith(['teacher.user as tuser' => function($q){
+            $q->where('tuser.first_name LIKE "%' . $this->teacherFullname . '%" ' .
+            'OR tuser.last_name LIKE "%' . $this->teacherFullname . '%"'.
+            'OR tuser.middle_name LIKE "%' . $this->teacherFullname . '%"'
+            );
+        }]);
 
         return $dataProvider;
     }

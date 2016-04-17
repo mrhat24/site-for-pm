@@ -109,6 +109,12 @@ class Teacher extends \yii\db\ActiveRecord
         return $discipline;
     }    
     
+    public function getTeacherHasDiscipline()
+    {
+        return $this->hasMany(TeacherHasDiscipline::className(),['teacher_id' => 'id']);
+    }
+    
+    
     public function getNewTasksCheckCount()
     {
         return GivenTask::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->andWhere(['status' => '1'])->count();    

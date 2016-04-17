@@ -38,21 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'options' => ['class' => 'table table-responsive'],
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-                    [
-                        'attribute' => 'task_id',
-                        'value' => 'task.name',
-                        'label' => 'Задание',                        
-                    ],
+                    'taskName',
                     [
                         'attribute' => 'discipline_id',
                         'value' => 'discipline.name',
                         'label' => 'Дисциплина',   
                     ],
-                    [
-                        'attribute' => 'student_id',
-                        'value' => 'user.fullname',
-                        'label' => 'Студент',                        
-                    ],  
+                    'studentFullname',
                     [
                         'attribute' => 'status',
                         'value' => function ($model, $key, $index, $grid)

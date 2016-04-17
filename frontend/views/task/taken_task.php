@@ -49,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
         break;
     }   
-    echo Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
+    echo Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Подготовить к печати',
             Url::to(['task/pdf-task', 'id' => $takenTask->id]),
             ['class' => 'btn btn-success', 'target'=>'_blank','data-pjax'=>0]); 
     echo '</div>';
