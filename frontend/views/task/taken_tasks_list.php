@@ -5,6 +5,7 @@ use yii\widgets\ListView;
 use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
 use yii\grid\GridView;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\TaskSearch */
@@ -71,11 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'pdf' => function ($url, $model)
                             {
-                                return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',
-                                    Url::to(['task/pdf-task', 'id' => $model->id]),
-                                    ['class' => 'btn btn-success', 'target'=>'_blank','data-pjax' => 0]); 
+                                return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',                                    
+                                    Url::to(['task/pdf-task', 'id' => $model->id]) ,[ 'class' => 'btn btn-success', 'target'=>'_blank', 'data-pjax' => 0 ]); 
                             },
-                                    /*
+                            /*
                             'delete' => function ($url, $model)
                             {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
@@ -99,3 +99,13 @@ echo ListView::widget([
 ]); */
 ?>
 </div>
+<?php
+Modal::begin([
+            //'header' => '<h2>Управление заданиями</h2>',
+            //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+            'id' => 'modal',
+            'size' => 'modal-lg',                      
+        ]);        
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+?>

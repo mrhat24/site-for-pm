@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\widgets\Pjax;
-$parser = new \Netcarver\Textile\Parser();
+use yii\helpers\Markdown;
 /* @var $this yii\web\View */
 /* @var $model common\models\Exercise */
 
@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'text:ntext',
             [ 
                 'attribute' => $model->getAttributeLabel('text'),
-                'value' => $parser->textileThis($model->text),
+                'value' => Markdown::process($model->text),
                 'format' => 'html',
             ],
            

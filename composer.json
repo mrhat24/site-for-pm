@@ -26,7 +26,8 @@
         "kartik-v/yii2-widget-datepicker": "@dev",
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
-        "mathjax/mathjax": "^2.6"
+        "ijackua/yii2-lepture-markdown-editor-widget": "^1.0",
+        "cebe/markdown-latex": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

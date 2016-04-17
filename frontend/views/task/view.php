@@ -2,9 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-use Netcarver\Textile;
 use yii\widgets\Pjax;
-$parser = new \Netcarver\Textile\Parser();
+use yii\helpers\Markdown;
+
 /* @var $this yii\web\View */
 /* @var $model common\models\Task */
 
@@ -16,7 +16,31 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php Pjax::begin(['id' => 'pjax-view', 'enablePushState' => false]); ?>
 
 <div class="task-view">
-    
+    <script>
+        //
+        //  Use a closure to hide the local variables from the
+        //  global namespace
+        //
+        (function () {
+          var QUEUE = MathJax.Hub.queue;  // shorthand for the queue
+          var math = null;                // the element jax for the math output.
+
+          //
+          //  Get the element jax when MathJax has produced it.
+          //
+          QUEUE.Push(function () {
+            math = MathJax.Hub.getAllJax("math-tex")[0];
+          });
+
+          //
+          //  The onchange event handler that typesets the
+          //  math entered by the user
+          //
+          window.UpdateMath = function (TeX) {
+            QUEUE.Push(["Text",math,"\\displaystyle{"+TeX+"}"]);
+          }
+        })();
+      </script>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -42,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'text',
-                'value' => $parser->textileThis($model->text),
+                'value' => Markdown::process($model->text),
                 'format' => 'html'
             ],
         ],

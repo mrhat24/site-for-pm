@@ -28,7 +28,7 @@ class AppAsset extends AssetBundle
         'markitup/jquery.markitup.js',
         'markitup/sets/default/set.js',
         'js/scripts.js',
-        'js/ckeditor/ckeditor.js',
+        'js/mathjax/mathjax/MathJax.js?config=TeX-MML-AM_CHTML',
     ];
     public $depends = [
         'yii\web\YiiAsset',

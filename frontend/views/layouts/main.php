@@ -106,7 +106,7 @@ AppAsset::register($this);
             ['label' => 'Расписание','url' => Url::to(['lesson/index'])],            
             ['label' => 'Пользователи','url' => Url::to(['user/index'])],
             ['label' => 'Группы','url' => Url::to(['group/index'])],
-            ['label' => 'Преподаватели','url' => Url::to(['teacher/list'])],
+            //['label' => 'Преподаватели','url' => Url::to(['teacher/list'])],
             ]];
         
         

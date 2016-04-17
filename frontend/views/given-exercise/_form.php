@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
+use ijackua\lepture\Markdowneditor;
 /* @var $this yii\web\View */
 /* @var $model common\models\CompleteExercise */
 /* @var $form yii\widgets\ActiveForm */
@@ -28,8 +29,7 @@ use yii\widgets\Pjax;
     <?php Pjax::begin(['enablePushState' => false, 'id' => 'form-exersice']); ?>
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true ]]); ?>
     <?= Html::tag('p',$model->exercise->text,['class' => 'alert alert-info']); ?> 
-    <?= $form->field($model, 'solution')->textarea(['rows' => 10])->label('') ?>
-    <?php $this->registerJs(" $('#givenexercise-solution').markItUp(myTextileSettings);  ");  ?>
+    <?= $form->field($model, 'solution')->widget(Markdowneditor::className()) ?>    
     
 
     <div class="form-group">

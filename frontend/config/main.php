@@ -30,6 +30,25 @@ return [
             'errorAction' => 'site/error',
         ],        
     ],
+    'modules' => [
+  
+        'markdown' => [
+            'class' => 'kartik\markdown\Module',
+            
+        // the controller action route used for markdown editor preview
+        'previewAction' => '/parse/preview',
+            
+        'downloadAction' => '/parse/download',
+ 
+        // the list of custom conversion patterns for post processing
+        'customConversion' => [
+            '<table>' => '<table class="table table-bordered table-striped">'
+        ],
+ 
+        // whether to use PHP SmartyPantsTypographer to process Markdown output
+        'smartyPants' => true
+        ]
+    ],
     'aliases' => [
         '@mathjax' => '@vendor/mathjax/mathjax',
     ],

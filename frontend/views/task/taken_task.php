@@ -7,8 +7,7 @@ use common\components\DateHelper;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
-use Netcarver\Textile;
-$parser = new \Netcarver\Textile\Parser();
+use yii\helpers\Markdown;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\TaskSearch */
@@ -25,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <hr/>
     <?php
-   echo $parser->textileThis($takenTask->task->text);
+   echo Markdown::process($takenTask->task->text);
    echo Html::tag("span",'Дата выдачи задания: '.DateHelper::getDateByUserTimezone($takenTask->given_date),['class' => 'date']);
          
     ?>
@@ -71,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
         echo Html::tag('div','Задание#'.$index,['class' => 'panel-heading']);
         echo Html::beginTag('div',['class' => 'panel panel-info']);
         echo Html::tag('div','Описание',['class' => 'panel-heading']);
-        echo Html::tag('div',$parser->textileThis($exercise->exercise->text),['class' => 'panel-body']);
+        echo Html::tag('div',Markdown::process($exercise->exercise->text),['class' => 'panel-body']);
         echo Html::endTag('div');        
     
        // if($complete){        
@@ -79,13 +78,13 @@ $this->params['breadcrumbs'][] = $this->title;
         //echo Html::beginTag('blockquote');
         echo Html::beginTag('div',['class' => 'panel panel-info']);
         echo Html::tag('div','Ваше решение',['class' => 'panel-heading']);
-        echo Html::tag('div',$parser->textileThis($exercise->solution),['class' => 'panel-body']);
+        echo Html::tag('div',Markdown::process($exercise->solution),['class' => 'panel-body']);
         echo Html::endTag('div');      
         //echo Html::endTag('blockquote');
         if($exercise->comment != null){
             echo Html::beginTag('div',['class' => 'panel panel-info']);
             echo Html::tag('div','Коментарий преподавателя',['class' => 'panel-heading']);
-            echo Html::tag('div',$exercise->comment,['class' => 'panel-body']);
+            echo Html::tag('div',Markdown::process($exercise->comment),['class' => 'panel-body']);
             echo Html::endTag('div');
         }       
         //echo Html::tag('div','Дата последнего редактирования: '.DateHelper::getDateByUserTimezone($exercise->date),['class' => 'panel-footer']);

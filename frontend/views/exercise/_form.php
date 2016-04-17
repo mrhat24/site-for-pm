@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\models\ExerciseSubject;
 use yii\helpers\ArrayHelper;
+use ijackua\lepture\Markdowneditor;
 /* @var $this yii\web\View */
 /* @var $model common\models\Exercise */
 /* @var $form yii\widgets\ActiveForm */
@@ -20,9 +21,7 @@ use yii\helpers\ArrayHelper;
     
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
-    
-    <?php $this->registerJs(" $('#exercise-text').markItUp(myTextileSettings);  ");  ?>
+    <?= $form->field($model, 'text')->widget(Markdowneditor::className()) ?>        
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

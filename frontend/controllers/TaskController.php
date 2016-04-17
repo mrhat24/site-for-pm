@@ -12,7 +12,6 @@ use yii\filters\AccessControl;
 use common\models\GivenTask;
 use yii\web\ForbiddenHttpException;
 use common\models\GivenExercise;
-use kartik\mpdf;
 /**
  * TaskController implements the CRUD actions for Task model.
  */
@@ -119,7 +118,7 @@ class TaskController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['control']);
         } else {
             return $this->renderAjax('update', [
                 'model' => $model,
@@ -251,12 +250,15 @@ class TaskController extends Controller
     public function actionPdfTask($id){
         $model = GivenTask::findOne($id);    
         
-        //return $this->render('pdf-task-student',['model' => $model]);
+        return $this->render('pdf-task',['model' => $model]);
         $content = $this->renderPartial('pdf-task',['model' => $model]);
         $pdf = Yii::$app->pdf;
         $pdf->options = ['title' => $model->task->name];
+        //$content = preg_replace("/$$([^&]*)$$/", 1488,$content);
+        //preg_match("/($$)(.*)($$)/", $content, $eq);
         $pdf->content = $content;
         $pdf->render();
+        //return $this->render('pdf-task-view',['mod' => $pdf]);        
     }
     
     /**

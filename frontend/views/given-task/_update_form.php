@@ -40,7 +40,7 @@ $this->registerJs('
              ['prompt'=>'-Выберите тип заданий-',
               'onchange'=>'
                 $.post( "'.Yii::$app->urlManager->createUrl('task/listbytype?id=').'"+$(this).val(), function( data ) {
-                  $( "select#task" ).html( data );
+                  $( "select#task" ).html( data );                 
                 });
             ',
             'class' => 'form-control',
