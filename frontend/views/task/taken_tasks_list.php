@@ -23,28 +23,28 @@ $this->params['breadcrumbs'][] = $this->title;
                      
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
-                //'filterModel' => $searchModel,                
-                'layout'=>"\n{items}\n{pager}\n{summary}",
+                'filterModel' => $searchModel,
+               // 'layout'=>"\n{items}\n{pager}\n{summary}",
                 'rowOptions' => function ($model, $key, $index, $grid)
                 {
                       return ['class' => $model->statusIdentity['ident']];
                 },
                 'options' => ['class' => 'table table-responsive'],
                 'columns' => [
-                    ['class' => 'yii\grid\SerialColumn'],
-                    //'name',
+                    ['class' => 'yii\grid\SerialColumn'],                    
                     [
                         'attribute' => 'task_id',
                         'value' => 'task.name',
                         'label' => 'Задание',
                         //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
-                    ], 
+                    ],                     
                     [
                         'attribute' => 'discipline_id',
                         'value' => 'discipline.name',
                         'label' => 'Дисциплина',
                         //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
-                    ],         
+                    ],
+                    'teacherFullname',
                     [
                         'attribute' => 'status',
                         'value' => function ($model, $key, $index, $grid)
@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'pdf' => function ($url, $model)
                             {
-                                return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Скачать в pdf',                                    
+                                return Html::a('<span class="glyphicon glyphicon-print" aria-hidden="true"></span> Печать',                                    
                                     Url::to(['task/pdf-task', 'id' => $model->id]) ,[ 'class' => 'btn btn-success', 'target'=>'_blank', 'data-pjax' => 0 ]); 
                             },
                             /*
