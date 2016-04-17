@@ -12,8 +12,6 @@ use yii\filters\AccessControl;
 use common\models\GivenTask;
 use yii\web\ForbiddenHttpException;
 use common\models\GivenExercise;
-use frontend\models\GivenTaskSearch;
-use yii\helpers\ArrayHelper;
 /**
  * TaskController implements the CRUD actions for Task model.
  */
@@ -148,8 +146,7 @@ class TaskController extends Controller
     public function actionControl()
     {
         $searchModel = new TaskSearch();        
-        $dataProvider = $searchModel->search(Yii::$app->request->get());
-        $dataProvider->query->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);    
+        $dataProvider = $searchModel->search(Yii::$app->request->get());        
         return $this->render('control',['dataProvider' => $dataProvider, 
             'searchModel' => $searchModel]);
     }
@@ -167,7 +164,8 @@ class TaskController extends Controller
     
     public function actionGivenList()
     {
-        $gTask = GivenTask::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])                
+        $gTask = GivenTask::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])
+                //->joinWith('completeTask')
                 ->orderBy('status ASC, given_date DESC');                
         
         $dataProvider = new \yii\data\ActiveDataProvider([
@@ -228,19 +226,15 @@ class TaskController extends Controller
             $gTask = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])
                 //->joinWith('completeTask')->//where(['>=', 'complete_task.status', 1])->
                ->orderBy('status ASC, given_date DESC');                
-            //['student_id' => Yii::$app->user->identity->student->id]
-            $searchModel = new GivenTaskSearch();                                  
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->query->where(['student_id' => Yii::$app->user->identity->student->id]);            
-            
-           /* $dataProvider = new \yii\data\ActiveDataProvider([
+        
+            $dataProvider = new \yii\data\ActiveDataProvider([
                 'query' => $gTask,
                 'pagination' => [
                     'pageSize' => 10,
                 ],
-            ]);*/
+            ]);
             $takenTasks = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])->orderBy('id DESC')->all();
-        return $this->render('taken_tasks_list', ['dataProvider' => $dataProvider,'searchModel' => $searchModel]);         
+        return $this->render('taken_tasks_list', ['dataProvider' => $dataProvider]);         
         }
         else{
             $takenTask = GivenTask::findOne($id);            

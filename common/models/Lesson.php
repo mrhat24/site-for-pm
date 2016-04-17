@@ -33,9 +33,9 @@ class Lesson extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ghd_id', 'lesson_type_id', 'thd_id', 'week', 'day',  'auditory'], 'required'],
+            [['ghd_id', 'lesson_type_id', 'teacher_id', 'week', 'day',  'auditory'], 'required'],
             [['time'] , 'safe'], 
-            [['day', 'ghd_id', 'lesson_type_id', 'thd_id', 'week'], 'integer'],
+            [['day', 'ghd_id', 'lesson_type_id', 'teacher_id', 'week'], 'integer'],
             [['auditory'], 'string', 'max' => 50],
         ];
     }
@@ -49,7 +49,7 @@ class Lesson extends \yii\db\ActiveRecord
             'id' => 'ID',
             'ghd_id' => 'Ghd ID',
             'lesson_type_id' => 'Lesson Type',
-            'thd_id' => 'Teacher Has Discipline ID',
+            'teacher_id' => 'Teacher ID',
             'week' => 'Неделя',
             'day' => 'День',
             'time' => 'Время',
@@ -72,17 +72,12 @@ class Lesson extends \yii\db\ActiveRecord
     /**
      * @get teacher
      */
-    public function getTeacherHasDiscipline()
-    {
-        return $this->hasOne(TeacherHasDiscipline::className(),['id' => 'thd_id']);
-    }
-    
     public function getTeacher()
     {
-        return $this->thd->teacher->id;
+        return $this->hasOne(Teacher::className(),['id' => 'teacher_id']);
     }
-
-        /**
+    
+    /**
      * @get teacher
      */
     public function getLessonType()
@@ -102,7 +97,7 @@ class Lesson extends \yii\db\ActiveRecord
     
     public function getTeacherFullname()
     {
-        return $this->teacherHasDiscipline->teacher->user->fullname;
+        return $this->teacher->user->fullname;
     }
     
     public function getLessonTypeName()
@@ -183,17 +178,16 @@ class Lesson extends \yii\db\ActiveRecord
             return $lessons;
         }
         elseif($teacher !== null){
-
-                    $lessons = Lesson::find()
-                    ->select('lesson.*')                    
-                    ->innerJoin("teacher_has_discipline thd")
+            
+            $lessons = Lesson::find()
+                    ->select('lesson.*')
                     ->innerJoin("group_has_discipline ghd", '`ghd`.`id` = `lesson`.`ghd_id`')
                     ->innerJoin("group g", '`g`.`id` = `ghd`.`group_id`')
                     ->innerJoin("group_semesters gs", '`gs`.`group_id` = `g`.`id` AND `ghd`.`semestr_number`  = `gs`.`semester_number`')
                     ->where(['<=','gs.begin_date',date('U')])
                     ->andWhere(['>=','gs.end_date',date('U')])                    
-                    ->andWhere(['thd.teacher_id' => $teacher])    
-                    ->orderBy('week ASC, day ASC, time ASC, id ASC')->all();  
+                    ->andWhere(['teacher_id' => $teacher])    
+                    ->orderBy('week ASC, day ASC, time ASC, id ASC')->all(); 
             return $lessons;
         }
              

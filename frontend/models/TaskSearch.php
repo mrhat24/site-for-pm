@@ -11,8 +11,7 @@ use common\models\Task;
  * TaskSearch represents the model behind the search form about `common\models\Task`.
  */
 class TaskSearch extends Task
-{    
-
+{
     /**
      * @inheritdoc
      */
@@ -20,7 +19,7 @@ class TaskSearch extends Task
     {
         return [
             [['id', 'teacher_id'], 'integer'],
-            [['name', 'text', 'type_id'], 'safe'],            
+            [['name', 'text', 'type_id'], 'safe'],
         ];
     }
     
@@ -43,7 +42,7 @@ class TaskSearch extends Task
      */
     public function search($params)
     {
-        $query = Task::find();
+        $query = Task::find()->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

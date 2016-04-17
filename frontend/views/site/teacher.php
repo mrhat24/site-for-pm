@@ -27,7 +27,7 @@ $this->title = 'Преподавателю';
             ['label' => 'Распределение заданий '.Html::tag('span',Yii::$app->user->identity->teacher->newTasksCheckCount,['class' => 'badge'])
                 , 'url' => Url::to(['given-task/control'])],
             ['label' => 'Задания', 'url' => Url::to(['task/control'])],
-            ['label' => 'Упражнения', 'url' => Url::to(['exercise/control'])],
+            ['label' => 'Упражнениямя', 'url' => Url::to(['exercise/control'])],
             ['label' => 'Расписание', 'url' => Url::to(['lesson/index','teacher' => Yii::$app->user->identity->teacher->id])],
         ];
         

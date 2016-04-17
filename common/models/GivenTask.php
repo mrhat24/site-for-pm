@@ -36,10 +36,10 @@ class GivenTask extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student_id', 'teacher_id', 'task_id','discipline_id'], 'required'],            
+            [['student_id', 'teacher_id', 'task_id','discipline_id'], 'required'],
+            //[['date'], 'safe'],
             [['student_id', 'teacher_id', 'task_id', 'discipline_id','status','complete_date','given_date','result'], 'integer'],
-            [['comment','group_key'], 'string'],
-            
+            [['comment','group_key'], 'string']
         ];
     }
 
@@ -58,10 +58,7 @@ class GivenTask extends \yii\db\ActiveRecord
             'comment' => 'Комментарий',
             'discipline_id' => 'id дисциплины',
             'status' => 'Статус',
-            'result' => 'Результат',   
-            'teacherFullname' => 'Преподаватель',
-            'studentFullname' => 'Студент',
-            'taskName' => 'Название задания'
+            'result' => 'Результат',           
         ];
     }
     
@@ -105,23 +102,6 @@ class GivenTask extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Teacher::className(),['id' => 'teacher_id']);
     }
-    
-    /*
-     * @get teacher fullname
-     */
-    public function getTeacherFullname()
-    {
-        return $this->teacher->user->fullname;
-    }
-    
-    /*
-     * @get student fullname
-     */
-    public function getStudentFullname()
-    {
-        return $this->student->user->fullname;
-    }
-
     /**
      * @get discipline
      */
@@ -146,14 +126,9 @@ class GivenTask extends \yii\db\ActiveRecord
     {
         
         return $this->hasOne(Task::className(),['id' => 'task_id']);
-    } 
+    }  
     
-    public function getTaskName()
-    {
-        return $this->task->name;
-    }
-
-        public function getUser()
+    public function getUser()
     {
         return $this->hasOne(User::className(),['id' => 'user_id'])
                 ->via('student');
