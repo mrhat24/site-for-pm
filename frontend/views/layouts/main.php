@@ -54,7 +54,7 @@ AppAsset::register($this);
             //$menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
             $menuSubItems[] = ['label' => 'Группа ('.Yii::$app->user->identity->student->group->name.')',
                 'url' => Url::to(['group/my'])];
-            $menuSubItems[] = ['label' => 'Задания '.Html::tag('span',Yii::$app->user->identity->student->newTasksCount,['class' => 'badge']),'url' => Url::to(['task/taken'])];  
+            $menuSubItems[] = ['label' => 'Задания '.Html::tag('span',Yii::$app->user->identity->student->newTasksCount,['class' => 'badge']),'url' => Url::to(['given-task/taken'])];  
             $menuSubItems[] = ['label' => 'Диплом','url' => Url::to(['work/graduate'])];  
             $menuSubItems[] = ['label' => 'Курсовые работы','url' => Url::to(['work/term'])];  
             $menuItems[] = ['label' => 'Студенту',

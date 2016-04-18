@@ -44,8 +44,8 @@ class ExerciseController extends Controller
    public function actionControl()
    {
        $searchModel = new ExerciseSearch();
-       $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-       $dataProvider->query->where(['exercise.teacher_id' => Yii::$app->user->identity->teacher->id]);
+       $query = Exercise::find()->where(['exercise.teacher_id' => Yii::$app->user->identity->teacher->id]);
+       $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
        return $this->render('control', [
            'searchModel' => $searchModel,
            'dataProvider' => $dataProvider,

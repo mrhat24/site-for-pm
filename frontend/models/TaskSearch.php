@@ -41,9 +41,12 @@ class TaskSearch extends Task
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $way = null)
     {
-        $query = Task::find();
+        if($way == null)
+            $query = Task::find();
+        else 
+            $query = $way;
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

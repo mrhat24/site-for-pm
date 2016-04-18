@@ -148,8 +148,9 @@ class TaskController extends Controller
     public function actionControl()
     {
         $searchModel = new TaskSearch();        
-        $dataProvider = $searchModel->search(Yii::$app->request->get());
-        $dataProvider->query->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);    
+        $query = Task::find()->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);    
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), $query);
+        
         return $this->render('control',['dataProvider' => $dataProvider, 
             'searchModel' => $searchModel]);
     }
@@ -225,21 +226,9 @@ class TaskController extends Controller
             }
         }
         if(($id == NULL)||(!GivenTask::findOne($id))){
-            $gTask = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])
-                //->joinWith('completeTask')->//where(['>=', 'complete_task.status', 1])->
-               ->orderBy('status ASC, given_date DESC');                
-            //['student_id' => Yii::$app->user->identity->student->id]
-            $searchModel = new GivenTaskSearch();                                  
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-            $dataProvider->query->where(['student_id' => Yii::$app->user->identity->student->id]);            
-            
-           /* $dataProvider = new \yii\data\ActiveDataProvider([
-                'query' => $gTask,
-                'pagination' => [
-                    'pageSize' => 10,
-                ],
-            ]);*/
-            $takenTasks = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])->orderBy('id DESC')->all();
+            $searchModel = new GivenTaskSearch();          
+            $query = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id]);
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);                                   
         return $this->render('taken_tasks_list', ['dataProvider' => $dataProvider,'searchModel' => $searchModel]);         
         }
         else{

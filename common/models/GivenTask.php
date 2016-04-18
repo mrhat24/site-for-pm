@@ -39,6 +39,7 @@ class GivenTask extends \yii\db\ActiveRecord
             [['student_id', 'teacher_id', 'task_id','discipline_id'], 'required'],            
             [['student_id', 'teacher_id', 'task_id', 'discipline_id','status','complete_date','given_date','result'], 'integer'],
             [['comment','group_key'], 'string'],
+            ['status', 'default', 'value' => 0],
             
         ];
     }

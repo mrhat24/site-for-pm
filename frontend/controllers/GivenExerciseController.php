@@ -55,24 +55,9 @@ class GivenExerciseController extends Controller
     public function actionEdit($id = null, $gid = null)
     {
         
-        /*if(Yii::$app->request->isAjax){
-            if($model = $this->findModelByExercise($id, $gid)){
-                
-            }
-            else{
-                $model = new CompleteExercise();
-                $model->exercise_id = $id;
-                $model->given_task_id = $gid;
-            }    
-            $date = new \DateTime();
-            $model->date = $date->getTimestamp();
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['task/taken', 'id' => $gid] );
-        }*/
-        //$exercise = \common\models\Exercise::findOne($id);
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['task/taken', 'id' => $gid] );
+            return $this->redirect(['given-task/taken-view', 'id' => $gid] );
         }
         return $this->renderAjax('edit',
             ['model' => $model]

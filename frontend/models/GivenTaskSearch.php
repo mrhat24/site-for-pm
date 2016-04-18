@@ -47,10 +47,12 @@ class GivenTaskSearch extends GivenTask
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $way = null)
     {
-        $query = GivenTask::find()
-                ->where(['given_task.teacher_id' => Yii::$app->user->identity->teacher->id]);
+        if($way == null)
+            $query = GivenTask::find();
+        else 
+            $query = $way;
         
         //$query->joinWith('user');
         $query->joinWith('discipline');        

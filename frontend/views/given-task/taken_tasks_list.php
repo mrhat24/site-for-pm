@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },*/
                             'update' => function ($url, $model)
                             {
-                                return Html::a('Решать <span class="glyphicon glyphicon glyphicon-pencil"></span>',Url::to(['task/taken',
+                                return Html::a('Решать <span class="glyphicon glyphicon glyphicon-pencil"></span>',Url::to(['given-task/taken-view',
                                     'id' => $model->id]),
                                     ['class' => 'btn btn-primary']); 
                             },

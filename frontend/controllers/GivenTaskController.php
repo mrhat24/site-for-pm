@@ -87,9 +87,8 @@ class GivenTaskController extends Controller
     public function actionControl()
     {        
         $searchModel = new GivenTaskSearch();        
-        $dataProvider = $searchModel->search(Yii::$app->request->get());   
-        $dataProvider->query->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);
-        $dataProvider->query->orderBy(['complete_date' => SORT_DESC]);
+        $query = GivenTask::find()->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);
+        $dataProvider = $searchModel->search(Yii::$app->request->get(), $query);        
         return $this->render('control',['dataProvider' => $dataProvider, 
             'searchModel' => $searchModel]);
     }
@@ -157,7 +156,45 @@ class GivenTaskController extends Controller
         return $this->renderAjax('_check_form', ['model' => $model,'exercises' => $exercises]);
     }
     
+    /**
+     * @taken tasks
+     */
+    public function actionTaken()
+    {        
+        $searchModel = new GivenTaskSearch();          
+        $query = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id]);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);                                   
+        return $this->render('taken_tasks_list', ['dataProvider' => $dataProvider,'searchModel' => $searchModel]);         
+                      
+    }
     
+    /**
+     * @taken view
+     */
+    public function actionTakenView($id = null){        
+            
+            /*$takenTask = GivenTask::find($id)->one();             
+            if(isset(Yii::$app->request->post()['close'])){
+                return $this->render('taken_task', ['takenTask' => $takenTask, 'openform' => false]);                
+            }
+            elseif(isset(Yii::$app->request->post()['submit'])){
+                $cEx = new \common\models\CompleteExercise();
+                $cEx->text = Yii::$app->request->post()['textarea'];
+                $cEx->save();
+                return $this->render('taken_task', ['takenTask' => $takenTask, 'complete' => true]);
+            } 
+            else{
+                return $this->render('taken_task', ['takenTask' => $takenTask, 'openform' => true]);
+            }*/
+            
+            $takenTask = GivenTask::findOne($id);            
+            if($takenTask->student_id != Yii::$app->user->identity->student->id)
+              throw new ForbiddenHttpException('У вас нет доступа к этому заданию.');
+            return $this->render('taken_task', ['takenTask' => $takenTask]);
+            
+    }
+
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);

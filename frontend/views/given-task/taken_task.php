@@ -15,7 +15,7 @@ use yii\helpers\Markdown;
 
 $this->title = $takenTask->task->name;
 $this->params['breadcrumbs'][] = ['label' => 'Студенту', 'url' => Url::to(['site/student'])];
-$this->params['breadcrumbs'][] = ['label' => 'Задания', 'url' => Url::to(['task/taken'])];
+$this->params['breadcrumbs'][] = ['label' => 'Задания', 'url' => Url::to(['given-task/taken'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

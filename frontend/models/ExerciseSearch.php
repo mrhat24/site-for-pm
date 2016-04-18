@@ -39,11 +39,12 @@ class ExerciseSearch extends Exercise
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $way = null)
     {
-        $query = Exercise::find()->where(['exercise.teacher_id' => Yii::$app->user
-                ->identity->teacher->id]);
-
+        if($way == null)
+            $query = Exercise::find();
+        else 
+            $query = $way;
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
