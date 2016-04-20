@@ -111,7 +111,7 @@ class LessonSearch extends Lesson
                 $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
        }]);
        
-       $query->joinWith('thd')->joinWith('thd.teacher')->joinWith(['thd.teacher.user' => function ($q) {
+       $query->joinWith('teacherHasDiscipline')->joinWith('teacherHasDiscipline.teacher')->joinWith(['teacherHasDiscipline.teacher.user' => function ($q) {
                 $q->where('user.first_name LIKE "%' . $this->teacherFullname . '%" ' .
             'OR user.last_name LIKE "%' . $this->teacherFullname . '%"'.
             'OR user.middle_name LIKE "%' . $this->teacherFullname . '%"'

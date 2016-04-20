@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'lesson_type_id')->textInput() ?>
 
-    <?= $form->field($model, 'teacher_id')->textInput() ?>
+    <?= $form->field($model, 'thd_id')->textInput() ?>
 
     <?= $form->field($model, 'week')->textInput() ?>
 

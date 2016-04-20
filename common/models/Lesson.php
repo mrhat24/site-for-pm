@@ -79,7 +79,7 @@ class Lesson extends \yii\db\ActiveRecord
     
     public function getTeacher()
     {
-        return $this->thd->teacher->id;
+        return $this->teacherHasDiscipline->teacher->id;
     }
 
         /**
