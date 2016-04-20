@@ -69,28 +69,28 @@ $this->title = 'Преподавателю';
                         ]
                     ]
                 ]);
-                    echo Tabs::widget([
-                            'options' => ['class' => 'nav nav-pills nav-justified'],
-                            'itemOptions' => ['class' => 'well'],                            
-                            'items' => [
-                                [
-                                    'label' => 'Группы',
-                                    'content' => $groupT,
-                                ],
-                                [
-                                    'label' => 'Дипломники',
-                                    'content' => 'Информация', 
-                                ],
-                                [
-                                    'label' => 'Курсовые',
-                                    'content' => 'Информация',
-                                ],
-                                [
-                                    'label' => 'Расписание',
-                                    'content' => $schedule,              
-                                ],
+                echo Tabs::widget([
+                        'options' => ['class' => 'nav nav-pills nav-justified'],
+                        'itemOptions' => ['class' => 'well'],                            
+                        'items' => [
+                            [
+                                'label' => 'Группы',
+                                'content' => $groupT,
                             ],
-                        ]);
+                            [
+                                'label' => 'Дипломники',
+                                'content' => 'Информация', 
+                            ],
+                            [
+                                'label' => 'Курсовые',
+                                'content' => 'Информация',
+                            ],
+                            [
+                                'label' => 'Расписание',
+                                'content' => $schedule,              
+                            ],
+                        ],
+                    ]);
                 ?>
             </div>
 
