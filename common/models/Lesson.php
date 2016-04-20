@@ -33,9 +33,9 @@ class Lesson extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ghd_id', 'lesson_type_id', 'week', 'day',  'auditory'], 'required'],
+            [['ghd_id', 'lesson_type_id', 'thd_id', 'week', 'day',  'auditory'], 'required'],
             [['time'] , 'safe'], 
-            [['day', 'ghd_id', 'lesson_type_id', 'week'], 'integer'],
+            [['day', 'ghd_id', 'lesson_type_id', 'thd_id', 'week'], 'integer'],
             [['auditory'], 'string', 'max' => 50],
         ];
     }
@@ -48,7 +48,8 @@ class Lesson extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'ghd_id' => 'Ghd ID',
-            'lesson_type_id' => 'Lesson Type',            
+            'lesson_type_id' => 'Lesson Type',
+            'thd_id' => 'Teacher Has Discipline ID',
             'week' => 'Неделя',
             'day' => 'День',
             'time' => 'Время',
