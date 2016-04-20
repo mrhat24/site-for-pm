@@ -50,27 +50,27 @@ AppAsset::register($this);
            $menuItems[] = ['label' => 'Новости', 'url' => ['/news/index']];
         //for student
         if((Yii::$app->user->can('student'))&&(Yii::$app->user->identity->isStudent)){
-            //$menuSubItems[] = ['label' => 'Студенту','url' => Url::to(['site/student'])];
-            //$menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
+            $menuSubItems[] = ['label' => 'Кабинет студента','url' => Url::to(['/student/cabinet'])];
+            $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
             $menuSubItems[] = ['label' => 'Группа ('.Yii::$app->user->identity->student->group->name.')',
-                'url' => Url::to(['group/my'])];
-            $menuSubItems[] = ['label' => 'Задания '.Html::tag('span',Yii::$app->user->identity->student->newTasksCount,['class' => 'badge']),'url' => Url::to(['given-task/taken'])];  
-            $menuSubItems[] = ['label' => 'Диплом','url' => Url::to(['work/graduate'])];  
-            $menuSubItems[] = ['label' => 'Курсовые работы','url' => Url::to(['work/term'])];  
+                'url' => Url::to(['/group/my'])];
+            $menuSubItems[] = ['label' => 'Задания '.Html::tag('span',Yii::$app->user->identity->student->newTasksCount,['class' => 'badge']),'url' => Url::to(['/given-task/taken'])];  
+            $menuSubItems[] = ['label' => 'Диплом','url' => Url::to(['/work/graduate'])];  
+            $menuSubItems[] = ['label' => 'Курсовые работы','url' => Url::to(['/work/term'])];  
             $menuItems[] = ['label' => 'Студенту',
-                'url' => Url::to(['group/my']), 'items' => $menuSubItems];
+                'url' => Url::to(['/group/my']), 'items' => $menuSubItems];
             $menuSubItems = null;
         }
         //for teacher
         if((Yii::$app->user->can('teacher'))&&(Yii::$app->user->identity->isTeacher)){
-            //$menuSubItems[] = ['label' => 'Преподавателю','url' => Url::to(['site/teacher'])];
-            //$menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
-            $menuSubItems[] = ['label' => 'Выдача заданий '.Html::tag('span',Yii::$app->user->identity->teacher->newTasksCheckCount,['class' => 'badge'])
-                , 'url' => Url::to(['given-task/control'])]; 
-            $menuSubItems[] = ['label' => 'Управление заданиями', 'url' => Url::to(['task/control'])];
-            $menuSubItems[] = ['label' => 'Управление упражнениями', 'url' => Url::to(['exercise/control'])];
-            $menuSubItems[] = ['label' => 'Дипломы', 'url' => Url::to(['work/teacher-graduate'])];
-            $menuSubItems[] = ['label' => 'Курсовые', 'url' => Url::to(['work/teacher-term'])];
+            $menuSubItems[] = ['label' => 'Кабинет преподавателя','url' => Url::to(['/teacher/cabinet'])];
+            $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
+            $menuSubItems[] = ['label' => 'Выдать задания '.Html::tag('span',Yii::$app->user->identity->teacher->newTasksCheckCount,['class' => 'badge'])
+                , 'url' => Url::to(['/given-task/control'])]; 
+            $menuSubItems[] = ['label' => 'Управление заданиями', 'url' => Url::to(['/task/control'])];
+            $menuSubItems[] = ['label' => 'Управление упражнениями', 'url' => Url::to(['/exercise/control'])];
+            $menuSubItems[] = ['label' => 'Дипломы', 'url' => Url::to(['/work/teacher-graduate'])];
+            $menuSubItems[] = ['label' => 'Курсовые', 'url' => Url::to(['/work/teacher-term'])];
             $menuItems[] = ['label' => 'Преподавателю',
                 'url' => Url::to(['group/my']), 'items' => $menuSubItems];
             $menuSubItems = null;
@@ -79,33 +79,33 @@ AppAsset::register($this);
         //for chief
         
         if((Yii::$app->user->can('chief'))){   
-            //$menuSubItems[] = ['label' => 'Заведующему','url' => Url::to(['site/chief'])];
-           // $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
-            $menuSubItems[] = ['label' => 'Группы', 'url' => Url::to(['group/manage'])];
-            $menuSubItems[] = ['label' => 'Дисциплины', 'url' => Url::to(['discipline/manage'])];
-            $menuSubItems[] = ['label' => 'Предметы', 'url' => Url::to(['group-has-discipline/manage'])];
-            $menuSubItems[] = ['label' => 'Расписание', 'url' => Url::to(['lesson/manage'])];
-            $menuSubItems[] = ['label' => 'Специальности', 'url' => Url::to(['speciality/manage'])];
-            $menuSubItems[] = ['label' => 'Стандарты', 'url' => Url::to(['standart/manage'])];
-            $menuSubItems[] = ['label' => 'Студенты', 'url' => Url::to(['student/manage'])];
-            $menuSubItems[] = ['label' => 'Преподаватели', 'url' => Url::to(['teacher/manage'])];
+            $menuSubItems[] = ['label' => 'Кабинет заведующего','url' => Url::to(['/chief/cabinet'])];
+            $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
+            $menuSubItems[] = ['label' => 'Группы', 'url' => Url::to(['/group/manage'])];
+            $menuSubItems[] = ['label' => 'Дисциплины', 'url' => Url::to(['/discipline/manage'])];
+            $menuSubItems[] = ['label' => 'Предметы', 'url' => Url::to(['/group-has-discipline/manage'])];
+            $menuSubItems[] = ['label' => 'Расписание', 'url' => Url::to(['/lesson/manage'])];
+            $menuSubItems[] = ['label' => 'Специальности', 'url' => Url::to(['/speciality/manage'])];
+            $menuSubItems[] = ['label' => 'Стандарты', 'url' => Url::to(['/standart/manage'])];
+            $menuSubItems[] = ['label' => 'Студенты', 'url' => Url::to(['/student/manage'])];
+            $menuSubItems[] = ['label' => 'Преподаватели', 'url' => Url::to(['/teacher/manage'])];
             $menuItems[] = ['label' => 'Заведующему',
-                'url' => Url::to(['group/my']), 'items' => $menuSubItems];
+                'items' => $menuSubItems];
             $menuSubItems = null;
         }
         
         if((Yii::$app->user->can('chief'))){   
-            $menuSubItems[] = ['label' => 'Новости', 'url' => Url::to(['news/manage'])];
+            $menuSubItems[] = ['label' => 'Новости', 'url' => Url::to(['/news/manage'])];
             $menuItems[] = ['label' => 'Управление',
-                'url' => Url::to(['group/my']), 'items' => $menuSubItems];
+                'url' => Url::to(['/group/my']), 'items' => $menuSubItems];
             $menuSubItems = null;
         }
         
         //information
         $menuItems[] = ['label' => 'Информация', 'items' => [
-            ['label' => 'Расписание','url' => Url::to(['lesson/index'])],            
-            ['label' => 'Пользователи','url' => Url::to(['user/index'])],
-            ['label' => 'Группы','url' => Url::to(['group/index'])],
+            ['label' => 'Расписание','url' => Url::to(['/lesson/index'])],            
+            ['label' => 'Пользователи','url' => Url::to(['/user/index'])],
+            ['label' => 'Группы','url' => Url::to(['/group/index'])],
             //['label' => 'Преподаватели','url' => Url::to(['teacher/list'])],
             ]];
         

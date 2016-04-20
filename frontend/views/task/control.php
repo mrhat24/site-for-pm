@@ -14,7 +14,7 @@ use yii\widgets\Pjax;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
 $this->title = 'Управление заданиями';
-$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['site/teacher']];
+$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['/teacher/cabinet']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

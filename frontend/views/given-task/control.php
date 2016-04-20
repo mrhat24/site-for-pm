@@ -15,7 +15,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\components\DateHelper;
 $this->title = 'Выдача заданий';
-$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['site/teacher']];
+$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['/teacher/cabinet']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

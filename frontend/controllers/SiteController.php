@@ -76,14 +76,6 @@ class SiteController extends Controller
     }
     
     /**
-     * teacher page
-     */
-    public function actionTeacher()
-    {
-        return $this->render('teacher');
-    }
-
-    /**
      * Logs in a user.
      *
      * @return mixed

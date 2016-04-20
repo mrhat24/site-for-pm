@@ -57,7 +57,7 @@ class TeacherController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
-    
+             
     **
      * Lists all Teacher models.
      * @return mixed
@@ -70,6 +70,12 @@ class TeacherController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+    
+    
+    public function actionCabinet()
+    {
+        return $this->render('cabinet');
     }
     
     public function actionList()

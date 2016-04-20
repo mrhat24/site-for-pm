@@ -10,7 +10,7 @@ use yii\helpers\Url;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Упражнения';
-$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['site/teacher']];
+$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['/teacher/cabinet']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="exercise-index">
