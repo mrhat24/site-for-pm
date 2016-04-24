@@ -27,7 +27,9 @@
         "kartik-v/yii2-grid": "@dev",
         "kartik-v/yii2-mpdf": "dev-master",
         "ijackua/yii2-lepture-markdown-editor-widget": "^1.0",
-        "cebe/markdown-latex": "*"
+        "cebe/markdown-latex": "*",
+        "kartik-v/yii2-widget-timepicker": "*",
+        "michelf/php-smartypants": "dev-lib"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

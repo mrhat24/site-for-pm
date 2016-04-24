@@ -13,9 +13,11 @@ $this->registerJs("
         });         
 ");
 echo Html::beginTag('div',['class' => 'well']);
+echo Html::button('Добавить объявление',['value'=> Url::to(['//group/create-anounce', 'id' => $group->id]),
+    'class' => 'btn btn-primary modalButton']); 
 echo Html::tag('h4','Список студентов');
-    $menuItems = [];    
-    $formatter = Yii::$app->formatter;    
+    $menuItems = [];
+    $formatter = Yii::$app->formatter;
     echo Html::beginTag('div',['class' => 'list-group']);
         echo Html::beginTag('div',['class' => 'list-group-item']);
         foreach($group->students as $student) {

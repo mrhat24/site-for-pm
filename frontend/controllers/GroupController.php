@@ -22,10 +22,10 @@ class GroupController extends Controller
             'access' => [
                 'class' => AccessControl::className(),                
                 'only' => ['index', 'view', 'my','create',
-                    'update','delete','manage','preview'],
+                    'update','delete','manage','preview','create-anounce'],
                 'rules' => [
                     [
-                        'actions' =>  ['view','index'],
+                        'actions' =>  ['view','index','create-anounce'],
                         'allow' => true,
                         'roles' => ['user'],
                     ],
@@ -92,13 +92,14 @@ class GroupController extends Controller
         ]);
     }
     
-    public function actionCreateAnounce()
+    public function actionCreateAnounce($id)
     {
         if(Yii::$app->request->isAjax) {
         $model = new \common\models\GroupAnounces();
+        if($id != null) $model->group_id = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return "Добавлено";//$this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderAjax('create-anounce',[
                 'model' => $model,

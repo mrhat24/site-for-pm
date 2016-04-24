@@ -65,7 +65,7 @@ class WorkController extends Controller
      * @return mixed
      */
     public function actionTerm()
-    {
+    {        
         $query = Work::find()->where(['work_type_id' => Work::TYPE_TERM,
             'student_id' => Yii::$app->user->identity->student->id])->orderBy('id DESC');
         $dataProvider = new ActiveDataProvider([

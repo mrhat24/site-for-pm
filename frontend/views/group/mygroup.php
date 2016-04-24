@@ -61,8 +61,17 @@ $this->params['breadcrumbs'][] = $this->title;
     $this->beginBlock('disciplines');
     echo Html::tag('br');
     echo Html::beginTag('ul',['class' => 'list-group']);
-    foreach($model->disciplineList as $discipline){
-    echo Html::tag('li',$discipline->name,['class' => 'list-group-item']);
+    foreach($model->disciplines as $ghd){
+        $teachers = array();
+        foreach ($ghd->teacherHasDiscipline as $thd){
+            $teachers[] = $thd->teacher;
+        }
+    echo Html::beginTag('li',['class' => 'list-group-item']);
+    echo Html::encode($ghd->discipline->name);
+    foreach($teachers as $teacher){
+        echo " - ".Html::a($teacher->user->fullname, Url::to(['user/view', 'id' => $teacher->user->id]));
+    }
+    echo Html::endTag('li');
     }
     //echo Html::tag('li',$model->speciality->name);
     echo Html::endTag('ul');

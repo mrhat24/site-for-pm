@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\LessonSearch;
+use common\models\GroupHasDiscipline;
+use yii\helpers\Json;
 /**
  * LessonController implements the CRUD actions for Lesson model.
  */
@@ -109,6 +111,30 @@ class LessonController extends Controller
            'searchModel' => $searchModel,
            'dataProvider' => $dataProvider,
        ]);       
+    }
+    
+    public function actionThd()
+    {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $ghd_id = $parents[0];
+                $model = GroupHasDiscipline::findOne($ghd_id);
+                foreach(\yii\helpers\ArrayHelper::map($model->teacherHasDiscipline,'id','teacher.user.fullname') as $key => $element){
+                    $out[] = ['id' => $key, 'name' => $element];
+                }
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']); 
     }
 
     /**
