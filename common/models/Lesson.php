@@ -47,9 +47,9 @@ class Lesson extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'ghd_id' => 'Ghd ID',
-            'lesson_type_id' => 'Lesson Type',
-            'thd_id' => 'Teacher Has Discipline ID',
+            'ghd_id' => 'Группа - семестр - дисциплина',
+            'lesson_type_id' => 'Тип занятия',
+            'thd_id' => 'Преподаватель',
             'week' => 'Неделя',
             'day' => 'День',
             'time' => 'Время',

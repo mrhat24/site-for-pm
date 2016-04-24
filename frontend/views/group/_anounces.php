@@ -13,8 +13,7 @@ $dataProvider = new ActiveDataProvider([
         'pageSize' => 10,
     ],
 ]);
-Pjax::begin();
-echo Html::button('Добавить объявление',['value'=> Url::to(['group/create-anounce']),
+echo Html::button('Добавить объявление',['value'=> Url::to(['//group/create-anounce', 'id' => $model->id]),
     'class' => 'btn btn-primary modalButton']); 
 echo Html::tag('hr');
 echo ListView::widget([
@@ -22,9 +21,7 @@ echo ListView::widget([
     'itemView' => '_anounces_view',
     'layout' => "{items}\n{summary}\n{pager}",    
 ]);
-Pjax::end();
-Modal::begin([
-        'header' => '<h2>Добавить объявление</h2>',
+Modal::begin([        
         //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
         'id' => 'modal',
         'size' => 'modal-lg',                      
