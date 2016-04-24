@@ -14,7 +14,8 @@ use yii\widgets\Pjax;
     <h2>Добавить объявление</h2>
 
     <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>   
-
+ 
+    
     <?= $form->field($model, 'text')->widget(Markdowneditor::className()); ?>
 
     <div class="form-group">
