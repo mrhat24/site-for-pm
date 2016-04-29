@@ -41,8 +41,8 @@ class TeacherHasDiscipline extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'teacher_id' => 'Teacher ID',
-            'ghd_id' => 'Ghd ID',
+            'teacher_id' => 'Преподаватель',
+            'ghd_id' => 'Предмет',
             'begin_date' => 'Begin Date',
             'end_date' => 'End Date',
         ];

@@ -12,7 +12,7 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Задания';
-$this->params['breadcrumbs'][] = ['label' => 'Студенту', 'url' => Url::to(['site/student'])];
+$this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => Url::to(['//student/cabinet'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-index">

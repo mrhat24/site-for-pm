@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "892d0280c673f621cdc3a64029d93f30",
-    "content-hash": "3349c74ce379e9908c71d0e1010ad33b",
+    "hash": "fd48fe6eb8e1b4c03a635ae67b033110",
+    "content-hash": "3477098c55d74ac47dfcb7de5fbe3146",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -342,16 +342,16 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.6.0",
+            "version": "v4.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd"
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/6f389f0f25b90d0b495308efcfa073981177f0fd",
-                "reference": "6f389f0f25b90d0b495308efcfa073981177f0fd",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
+                "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
                 "shasum": ""
             },
             "require": {
@@ -382,7 +382,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2013-11-30 08:25:19"
+            "time": "2015-08-05 01:03:42"
         },
         {
             "name": "ijackua/yii2-lepture-markdown-editor-widget",
@@ -478,12 +478,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "fe29bcf8f46bde42aa3eb067851b38dc07cd4d8a"
+                "reference": "28a762ba2fb2dec1c36c1a29fe3d0cd71e71a37c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/fc709eda7a2bfb154f895a33ac05321475a8a153",
-                "reference": "fe29bcf8f46bde42aa3eb067851b38dc07cd4d8a",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/28a762ba2fb2dec1c36c1a29fe3d0cd71e71a37c",
+                "reference": "28a762ba2fb2dec1c36c1a29fe3d0cd71e71a37c",
                 "shasum": ""
             },
             "require": {
@@ -519,7 +519,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-04-09 20:31:20"
+            "time": "2016-04-28 12:27:02"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
@@ -733,12 +733,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "cb2a5992cb96bd2939e30ec1c76eba418d6a30af"
+                "reference": "6919d5096ca83ab4a1b163fcd09fb023814d1003"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/6919d5096ca83ab4a1b163fcd09fb023814d1003",
-                "reference": "cb2a5992cb96bd2939e30ec1c76eba418d6a30af",
+                "reference": "6919d5096ca83ab4a1b163fcd09fb023814d1003",
                 "shasum": ""
             },
             "require": {
@@ -778,7 +778,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-03-10 11:33:59"
+            "time": "2016-04-19 13:22:56"
         },
         {
             "name": "kartik-v/yii2-widget-timepicker",
@@ -973,21 +973,28 @@
         },
         {
             "name": "mpdf/mpdf",
-            "version": "v6.0.0",
+            "version": "v6.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mpdf/mpdf.git",
-                "reference": "a15743d030ce3b5b7be36c6e83f76589b27c3f2c"
+                "reference": "27641244fbd6c42e875b2ef3625bc7aa1db8af8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/a15743d030ce3b5b7be36c6e83f76589b27c3f2c",
-                "reference": "a15743d030ce3b5b7be36c6e83f76589b27c3f2c",
+                "url": "https://api.github.com/repos/mpdf/mpdf/zipball/27641244fbd6c42e875b2ef3625bc7aa1db8af8f",
+                "reference": "27641244fbd6c42e875b2ef3625bc7aa1db8af8f",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
-                "php": ">=4.3.10"
+                "php": ">=5.4.0",
+                "setasign/fpdi": "1.6.*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.7"
+            },
+            "suggest": {
+                "ext-zlib": "Needed for compression of embedded resources, such as fonts"
             },
             "type": "library",
             "autoload": {
@@ -998,21 +1005,22 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-1.0+"
+                "GPL-2.0"
             ],
             "authors": [
                 {
-                    "name": "Ian Back"
+                    "name": "Ian Back",
+                    "role": "Developer"
                 }
             ],
             "description": "A PHP class to generate PDF files from HTML with Unicode/UTF-8 and CJK support",
-            "homepage": "http://www.mpdf1.com/mpdf/index.php",
+            "homepage": "http://mpdf.github.io",
             "keywords": [
                 "pdf",
                 "php",
                 "utf-8"
             ],
-            "time": "2015-03-01 10:27:49"
+            "time": "2016-04-26 15:09:38"
         },
         {
             "name": "netcarver/textile",
@@ -1068,6 +1076,55 @@
             "time": "2014-01-02 09:39:06"
         },
         {
+            "name": "setasign/fpdi",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Setasign/FPDI.git",
+                "reference": "5b899b2b41463bf261aa69840fd30b50950a500c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/5b899b2b41463bf261aa69840fd30b50950a500c",
+                "reference": "5b899b2b41463bf261aa69840fd30b50950a500c",
+                "shasum": ""
+            },
+            "suggest": {
+                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use \"tecnickcom/tcpdf\" as an alternative there's no fixed dependency configured.",
+                "setasign/fpdi-fpdf": "Use this package to automatically evaluate dependencies to FPDF.",
+                "setasign/fpdi-tcpdf": "Use this package to automatically evaluate dependencies to TCPDF."
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "filters/",
+                    "fpdi.php",
+                    "fpdf_tpl.php",
+                    "fpdi_pdf_parser.php",
+                    "pdf_context.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jan Slabon",
+                    "email": "jan.slabon@setasign.com",
+                    "homepage": "https://www.setasign.com"
+                }
+            ],
+            "description": "FPDI is a collection of PHP classes facilitating developers to read pages from existing PDF documents and use them as templates in FPDF. Because it is also possible to use FPDI with TCPDF, there are no fixed dependencies defined. Please see suggestions for packages which evaluates the dependencies automatically.",
+            "homepage": "https://www.setasign.com/fpdi",
+            "keywords": [
+                "fpdf",
+                "fpdi",
+                "pdf"
+            ],
+            "time": "2015-11-30 10:53:14"
+        },
+        {
             "name": "swiftmailer/swiftmailer",
             "version": "v5.4.1",
             "source": {
@@ -1121,6 +1178,51 @@
             "time": "2015-06-06 14:19:39"
         },
         {
+            "name": "unclead/yii2-multiple-input",
+            "version": "1.2.14",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/unclead/yii2-multiple-input.git",
+                "reference": "9f2d4ea5f22c92a0b6023ce0201d901bcf76a7bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/9f2d4ea5f22c92a0b6023ce0201d901bcf76a7bb",
+                "reference": "9f2d4ea5f22c92a0b6023ce0201d901bcf76a7bb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "unclead\\widgets\\examples\\": "examples/",
+                    "unclead\\widgets\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Eugene Tupikov",
+                    "email": "unclead.nsk@gmail.com"
+                }
+            ],
+            "description": "Widget for handle multiple inputs for an attribute of Yii2 framework model",
+            "keywords": [
+                "yii2",
+                "yii2 array input",
+                "yii2 multiple field",
+                "yii2 multiple input",
+                "yii2 tabular input"
+            ],
+            "time": "2016-04-18 04:31:29"
+        },
+        {
             "name": "webcreate/jquery-ias",
             "version": "v2.2.1",
             "source": {
@@ -1162,16 +1264,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.7",
+            "version": "2.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "f45651582cb853b4326730d9d187a0f7a44a45a3"
+                "reference": "53992b136b993e32ca7b6f399cf42b143f8685a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/f45651582cb853b4326730d9d187a0f7a44a45a3",
-                "reference": "f45651582cb853b4326730d9d187a0f7a44a45a3",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/53992b136b993e32ca7b6f399cf42b143f8685a6",
+                "reference": "53992b136b993e32ca7b6f399cf42b143f8685a6",
                 "shasum": ""
             },
             "require": {
@@ -1182,7 +1284,7 @@
                 "cebe/markdown": "~1.0.0 | ~1.1.0",
                 "ext-ctype": "*",
                 "ext-mbstring": "*",
-                "ezyang/htmlpurifier": "4.6.*",
+                "ezyang/htmlpurifier": "~4.6",
                 "lib-pcre": "*",
                 "php": ">=5.4.0",
                 "yiisoft/yii2-composer": "~2.0.4"
@@ -1252,7 +1354,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2016-02-14 14:45:55"
+            "time": "2016-04-28 14:50:20"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

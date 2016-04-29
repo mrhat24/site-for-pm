@@ -29,7 +29,8 @@
         "ijackua/yii2-lepture-markdown-editor-widget": "^1.0",
         "cebe/markdown-latex": "*",
         "kartik-v/yii2-widget-timepicker": "*",
-        "michelf/php-smartypants": "dev-lib"
+        "michelf/php-smartypants": "dev-lib",
+        "unclead/yii2-multiple-input": "^1.2"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 <?php
 Modal::begin([
-            'header' => '<h2>Назначить курсовые</h2>',
+            //'header' => '<h2>Назначить курсовые</h2>',
             //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
             'id' => 'modal',
             'size' => 'modal-lg',                      

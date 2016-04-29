@@ -44,7 +44,7 @@ class Teacher extends \yii\db\ActiveRecord
             'academic_degree' => 'Ученая степень',
             'fullname' => 'Ф.И.О.'
         ];
-    }    
+    }
     
     public function getUser()
     {
@@ -92,6 +92,22 @@ class Teacher extends \yii\db\ActiveRecord
     }
     
     /**
+     * @get graduate
+     */
+    public function getGraduates()
+    {
+        return $this->hasMany(Work::className(),['teacher_id' => 'id'])->where(['work_type_id' => Work::TYPE_GRADUATE]);
+    }
+    
+    /**
+     * @get works
+     */
+    public function getTerms()
+    {
+        return $this->hasMany(Work::className(),['teacher_id' => 'id'])->where(['work_type_id' => Work::TYPE_TERM]);
+    }
+    
+    /**
      * @get work list
      */
     public function getWorkList()
@@ -130,5 +146,10 @@ class Teacher extends \yii\db\ActiveRecord
         return Group::find()
                 ->innerJoin("group_has_discipline ghd", '`ghd`.`group_id` = `group`.`id`')
                 ->innerJoin("lesson", '`lesson`.`ghd_id` = `ghd`.`id`')->all();
+    }
+    
+    public function getAnounces()
+    {
+        return GroupAnounces::find()->where(['user_id' => $this->user->id])->orderBy('id DESC')->all();
     }
 }

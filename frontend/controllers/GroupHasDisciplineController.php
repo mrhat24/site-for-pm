@@ -99,12 +99,15 @@ class GroupHasDisciplineController extends Controller
     public function actionCreate()
     {
         $model = new GroupHasDiscipline();
+        $tModel = new \common\models\TeacherHasDiscipline();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return '2';
             return $this->redirect(['manage']);
         } else {
             return $this->renderAjax('create', [
                 'model' => $model,
+                'tModel' => $tModel,
             ]);
         }
     }

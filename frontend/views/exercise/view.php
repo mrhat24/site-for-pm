@@ -32,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             //'teacher.user.fullname',
-            //'text:ntext',
+            //'text:ntext',            
             [ 
-                'attribute' => $model->getAttributeLabel('text'),
-                'value' => Markdown::process($model->text),
-                'format' => 'html',
+                'attribute' => 'textMd',
+                'value' => Markdown::process($model->textMd),               
+                'format' => 'html'
             ],
            
             //'name',

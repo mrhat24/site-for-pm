@@ -11,6 +11,8 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\GroupSearch;
 use common\models\GroupSemesters;
+use yii\helpers\Url;
+use common\models\GroupAnounces;
 /**
  * GroupController implements the CRUD actions for Group model.
  */
@@ -100,6 +102,33 @@ class GroupController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return "Добавлено";//$this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->renderAjax('create-anounce',[
+                'model' => $model,
+            ]);
+        }
+        }
+        else {
+             throw new NotFoundHttpException('Страница не существует.');
+        }
+    }
+    
+    public function actionDeleteAnounce($id)
+    {
+        $model = \common\models\GroupAnounces::findOne($id);
+        if($model->user_id == Yii::$app->user->id)
+            {   $model->delete(); }
+       return $this->redirect(Url::to(['//teacher/cabinet']));
+    }
+
+        public function actionUpdateAnounce($id)
+    {
+        if(Yii::$app->request->isAjax) {
+        $model = \common\models\GroupAnounces::findOne($id);
+        if($model->user_id !== Yii::$app->user->id)
+            throw new NotFoundHttpException('Страница не существует.');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return "Сохранено";//$this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->renderAjax('create-anounce',[
                 'model' => $model,

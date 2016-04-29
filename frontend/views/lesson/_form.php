@@ -47,7 +47,7 @@ use yii\helpers\Url;
     <?= $form->field($model, 'auditory')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', 
+        <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', 
                 ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 

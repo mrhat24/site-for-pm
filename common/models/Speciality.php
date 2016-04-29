@@ -65,4 +65,5 @@ class Speciality extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Group::className(),['speciality_id' => 'id']);
     }  
+      
 }

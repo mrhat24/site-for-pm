@@ -74,7 +74,10 @@ class Work extends \yii\db\ActiveRecord
             'studentFullname' => 'Ф.И.О. студента',
             'groupName' => 'Группа',
             'status' => 'Статус',
-            'discipline_id' => 'Дисциплина'
+            'discipline_id' => 'Дисциплина',
+            'student.user.fullname' => 'Ф.И.О. студента',
+            'teacher.user.fullname' => 'Ф.И.О. преподавателя',
+            'workType.name' => 'Тип'
         ];
     }
     
@@ -296,6 +299,6 @@ class Work extends \yii\db\ActiveRecord
     public function getGroupName()
     {
         return $this->student->group->name;
-    }
+    }   
     
 }

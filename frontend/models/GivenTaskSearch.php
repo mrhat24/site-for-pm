@@ -18,6 +18,7 @@ class GivenTaskSearch extends GivenTask
     public $teacherFullname;
     public $studentFullname;
     public $taskName;
+    public $group;
 
 
     /**
@@ -27,7 +28,7 @@ class GivenTaskSearch extends GivenTask
     {
         return [
             [['id', 'given_date', 'teacher_id', 'status', 'result', 'complete_date'], 'integer'],
-            [['task_id', 'discipline_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName'], 'safe'],
+            [['task_id', 'discipline_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName','group'], 'safe'],
         ];
     }
 
@@ -54,9 +55,10 @@ class GivenTaskSearch extends GivenTask
         else 
             $query = $way;
         
-        //$query->joinWith('user');
+        $query->joinWith('user');
         $query->joinWith('discipline');        
         $query->joinWith('task');
+        $query->joinWith('student')->joinWith('student.group');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,10 +66,18 @@ class GivenTaskSearch extends GivenTask
         ]);
           
         $dataProvider->setSort([
-            'attributes' => [                
+            'attributes' => [     
+                'studentFullname' => [
+                    'asc' => ['user.last_name' => SORT_ASC,'user.middle_name' => SORT_ASC,'user.first_name' => SORT_ASC],
+                    'desc' => ['user.last_name' => SORT_DESC,'user.middle_name' => SORT_DESC,'user.first_name' => SORT_DESC],                   
+                ],
                 'teacherFullname' => [
                     'asc' => ['user.last_name' => SORT_ASC,'user.middle_name' => SORT_ASC,'user.first_name' => SORT_ASC],
                     'desc' => ['user.last_name' => SORT_DESC,'user.middle_name' => SORT_DESC,'user.first_name' => SORT_DESC],                   
+                ],
+                'group' => [
+                    'asc' => ['student.group.name' => SORT_ASC],
+                    'desc' => ['student.group.name' => SORT_DESC],                   
                 ],
                 'id',
                 'status'
@@ -110,13 +120,19 @@ class GivenTaskSearch extends GivenTask
             'OR suser.middle_name LIKE "%' . $this->studentFullname . '%"'
             );
         }]);
+        
         $query->joinWith('teacher')->joinWith(['teacher.user as tuser' => function($q){
             $q->where('tuser.first_name LIKE "%' . $this->teacherFullname . '%" ' .
             'OR tuser.last_name LIKE "%' . $this->teacherFullname . '%"'.
             'OR tuser.middle_name LIKE "%' . $this->teacherFullname . '%"'
             );
         }]);
-
+        
+        $query->joinWith('student')->joinWith(['student.group as sgroup' => function($q){
+            $q->where('sgroup.name LIKE "%' . $this->group . '%"'
+            );
+        }]);
+        
         return $dataProvider;
     }
 }

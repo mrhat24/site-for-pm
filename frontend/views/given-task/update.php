@@ -2,10 +2,8 @@
 use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\GivenTask */
-$this->title = 'Update Given Task: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Given Tasks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Редактирование: ' . ' ' . $model->task->name . ' - ' . $model->student->user->fullname. ' - ' . $model->student->group->name;
+
 ?>
 <div class="given-task-update">
 

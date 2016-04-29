@@ -80,6 +80,14 @@ class Student extends \yii\db\ActiveRecord
     }
     
     /**
+     * @get is steward
+     */
+    public function getIsSteward()
+    {
+        return ($this->group->steward_student_id == $this->id);
+    }
+    
+    /**
      * @get group
      */
     public function getGroup()
@@ -109,6 +117,8 @@ class Student extends \yii\db\ActiveRecord
         $this->education_end_date = Yii::$app->formatter->asTimestamp($this->education_end_date);
         return true;
     }
+    
+
     
     
 }

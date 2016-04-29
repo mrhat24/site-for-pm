@@ -224,7 +224,8 @@ class User extends ActiveRecord implements IdentityInterface
             'last_name' => 'Фамилия',
             'fullname' => 'Ф.И.О.',
             'role' => 'Роль',
-            'timezone' => 'Часовой пояс',
+            'timezone' => 'Часовой пояс',            
+            'usernameFullname' => 'Пользователь',
         ];
     }
     
@@ -262,6 +263,10 @@ class User extends ActiveRecord implements IdentityInterface
         return Message::find()->where(['recipient_id' => $this->id])
                 ->andWhere(['active' => 1])
                 ->count();
+    }
+    public function getUsernameFullname()
+    {
+        return $this->fullname." : ".$this->username;
     }
     
 }

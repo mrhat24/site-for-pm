@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Work */
 
-$this->title = $model->name;
+$this->title = $model->workTitle->name;
 $this->params['breadcrumbs'][] = ['label' => 'Works', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,11 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -27,13 +27,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
-        'attributes' => [
-            'id',
-            'work_type_id',
-            'name',
-            'student_id',
-            'teacher_id',
-            'date',
+        'attributes' => [            
+            'workType.name',
+            'workTitle.name',
+            'student.user.fullname',
+            'teacher.user.fullname',
+            'date:dateTime',
             'approve_status',
         ],
     ]) ?>

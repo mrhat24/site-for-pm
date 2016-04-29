@@ -14,7 +14,7 @@ use yii\helpers\Markdown;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = $takenTask->task->name;
-$this->params['breadcrumbs'][] = ['label' => 'Студенту', 'url' => Url::to(['site/student'])];
+$this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => Url::to(['//student/cabinet'])];
 $this->params['breadcrumbs'][] = ['label' => 'Задания', 'url' => Url::to(['given-task/taken'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

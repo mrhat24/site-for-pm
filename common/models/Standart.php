@@ -47,4 +47,12 @@ class Standart extends \yii\db\ActiveRecord
             'key' => 'Код'
         ];
     }
+    
+     /**
+     * @get nameKey
+     */
+    public function getNameKey()
+    {
+        return $this->key.' : '.$this->name;
+    }  
 }

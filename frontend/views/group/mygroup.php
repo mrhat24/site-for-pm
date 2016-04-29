@@ -11,7 +11,7 @@ use common\widgets\Schedule;
 /* @var $model common\models\Group */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Студенту', 'url' => ['site/student']];
+$this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => ['//student/cabinet']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

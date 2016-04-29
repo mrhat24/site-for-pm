@@ -162,7 +162,7 @@ class GivenTaskController extends Controller
     public function actionTaken()
     {        
         $searchModel = new GivenTaskSearch();          
-        $query = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id]);
+        $query = GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])->orderBy('status');
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);                                   
         return $this->render('taken_tasks_list', ['dataProvider' => $dataProvider,'searchModel' => $searchModel]);         
                       
@@ -171,7 +171,7 @@ class GivenTaskController extends Controller
     /**
      * @taken view
      */
-    public function actionTakenView($id = null){        
+    public function actionTakenView($id = null){
             
             /*$takenTask = GivenTask::find($id)->one();             
             if(isset(Yii::$app->request->post()['close'])){

@@ -11,7 +11,7 @@ use common\components\DateHelper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Диплом';
-$this->params['breadcrumbs'][] = ['label' => 'Студенту', 'url' => Url::to(['site/studen'])];
+$this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => Url::to(['//student/cabinet'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="work-graduate">

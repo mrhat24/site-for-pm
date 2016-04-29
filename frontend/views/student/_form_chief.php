@@ -22,8 +22,8 @@ use yii\jui\DatePicker;
     <?php $form = ActiveForm::begin(['id'=>'project-form']); ?>
         
     
-    <?= $model->isNewRecord? $form->field($model, 'user_id')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(User::find()->all(),'id','fullname','username'),        
+    <?= $model->isNewRecord ? $form->field($model, 'user_id')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(User::find()->all(),'id','usernameFullname'),        
         'options' => ['placeholder' => 'Введите Ф.И.О...'],
         'pluginOptions' => [
             'allowClear' => true

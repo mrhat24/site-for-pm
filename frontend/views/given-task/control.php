@@ -45,6 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => 'Дисциплина',   
                     ],
                     'studentFullname',
+                    'group',
                     [
                         'attribute' => 'status',
                         'value' => function ($model, $key, $index, $grid)

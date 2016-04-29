@@ -39,7 +39,7 @@ class GivenTask extends \yii\db\ActiveRecord
             [['student_id', 'teacher_id', 'task_id','discipline_id'], 'required'],            
             [['student_id', 'teacher_id', 'task_id', 'discipline_id','status','complete_date','given_date','result'], 'integer'],
             [['comment','group_key'], 'string'],
-            ['status', 'default', 'value' => 0],
+            [['status','result'], 'default', 'value' => 0],
             
         ];
     }
@@ -62,7 +62,8 @@ class GivenTask extends \yii\db\ActiveRecord
             'result' => 'Результат',   
             'teacherFullname' => 'Преподаватель',
             'studentFullname' => 'Студент',
-            'taskName' => 'Название задания'
+            'taskName' => 'Название задания',
+            'group' => 'Группа'
         ];
     }
     
@@ -246,6 +247,11 @@ class GivenTask extends \yii\db\ActiveRecord
         } else {
             return false;
         }
+    }
+    
+    public function getGroup()
+    {
+        return $this->student->group->name;
     }
 
 }

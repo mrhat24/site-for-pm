@@ -30,7 +30,7 @@ use yii\jui\DatePicker;
 ]) ?>
 
     <?= $form->field($model, 'standart_id')->widget(Select2::classname(), [
-        'data' => ArrayHelper::map(Standart::find()->all(),'id','name','key'),        
+        'data' => ArrayHelper::map(Standart::find()->all(),'id','nameKey'),        
         'options' => ['placeholder' => 'Введите стандарт...'],
         'pluginOptions' => [
             'allowClear' => true,

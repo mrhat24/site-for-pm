@@ -21,7 +21,7 @@ class StudentController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['index', 'view', 'create','update', 'manage','delete','lists'],
+                'only' => ['index', 'view', 'create','update', 'manage','delete','lists','cabinet'],
                 'rules' => [
                     [   
                         'actions' =>  ['manage','create','update','delete'],
@@ -29,7 +29,7 @@ class StudentController extends Controller
                         'roles' => ['chief'],
                     ],
                     [
-                        'actions' =>  ['index','view'],
+                        'actions' =>  ['index','view','cabinet'],
                         'allow' => true,
                         'roles' => ['student'],
                     ],
@@ -87,6 +87,16 @@ class StudentController extends Controller
         return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+    
+    /**
+     * Displays a single Student model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionCabinet()
+    {
+        return $this->render('cabinet');
     }
 
     /**

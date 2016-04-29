@@ -16,15 +16,17 @@ use common\widgets\Schedule;
 /* @var $this yii\web\View */
 $parser = new \Netcarver\Textile\Parser();
 
-$this->title = 'Преподавателю';
+$this->title = 'Кабинет преподавателя';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="site-index">
 	<?php
-	echo Html::tag('h1',$this->title);                    
+            echo Html::tag('h1',$this->title);   
+            echo Html::tag('h4',Yii::$app->user->identity->fullname);
         ?>
         <div class="row">
-        <div class="col-md-3"><?php            
+        <div class="col-md-3"><?php
 
         $menuItems = [
             ['label' => 'Распределение заданий '.Html::tag('span',Yii::$app->user->identity->teacher->newTasksCheckCount,['class' => 'badge'])
@@ -43,12 +45,12 @@ $this->title = 'Преподавателю';
                 $groups = Yii::$app->user->identity->teacher->groups;
                 foreach($groups as $group) {
                     $groupTabs[] = ['label' => $group->name,
-                        'content' => $this->render('teacher/groups',['group' => $group])];
+                        'content' => $this->render('//teacher/cabinet/groups',['group' => $group])];
                 };
                 $groupT = Tabs::widget([
                             'options' => ['class' => 'nav nav-pills nav-justified'],
                             'items' => 
-                                $groupTabs, 
+                                $groupTabs,
                         ]);
                 $lessons = Lesson::getLessonsList(['teacher' => Yii::$app->user->identity->teacher->id]);
                 $schedule = Tabs::widget([
@@ -71,7 +73,7 @@ $this->title = 'Преподавателю';
                 ]);
                 echo Tabs::widget([
                         'options' => ['class' => 'nav nav-pills nav-justified'],
-                        'itemOptions' => ['class' => 'well'],                            
+                       // 'itemOptions' => ['class' => 'well'],                            
                         'items' => [
                             [
                                 'label' => 'Группы',
@@ -79,11 +81,11 @@ $this->title = 'Преподавателю';
                             ],
                             [
                                 'label' => 'Дипломы',
-                                'content' => 'Информация', 
+                                'content' => $this->render('//teacher/cabinet/graduate'), 
                             ],
                             [
                                 'label' => 'Курсовые',
-                                'content' => 'Информация',
+                                'content' => $this->render('//teacher/cabinet/term'), 
                             ],
                             [
                                 'label' => 'Расписание',

@@ -2,11 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View 2*/
 /* @var $model common\models\Le2sson */
 
-$this->title = $model->id; 
+$this->title = 'Редактирование: ' . $model->groupHasDiscipline->group->name." - ". $model->groupHasDiscipline->discipline->name;
 $this->params['breadcrumbs'][] = ['label' => 'Lessons', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -15,11 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::button('Редактировать', ['value' => Url::to(['update', 'id' => $model->id]),'class' => 'btn btn-primary modalButton']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы уверены что хотите это удалить?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'ghd_id',
             'lesson_type_id',
-            'teacher_id',
+            'teacherHasDiscipline.teacher.user.fullname',
             'week',
             'day',
             'time',

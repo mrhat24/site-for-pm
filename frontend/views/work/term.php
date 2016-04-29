@@ -10,6 +10,7 @@ use common\components\DateHelper;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Курсовые работы';
+$this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => Url::to(['//student/cabinet'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="work-index">

@@ -15,7 +15,7 @@ use Yii;
  * @property string $end_date
  */
 class GroupHasDiscipline extends \yii\db\ActiveRecord
-{
+{    
     /**
      * @inheritdoc
      */

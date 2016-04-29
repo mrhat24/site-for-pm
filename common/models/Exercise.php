@@ -45,7 +45,8 @@ class Exercise extends \yii\db\ActiveRecord
             'teacher_id' => 'Преподаватель',
             'text' => 'Текст',
             'subject_id' => 'Категория',
-            'name' => 'Название'
+            'name' => 'Название',
+            'textMd' => 'Текст',
         ];
     }
     
@@ -55,6 +56,14 @@ class Exercise extends \yii\db\ActiveRecord
     public function getSubject()
     {
         return $this->hasOne(ExerciseSubject::className(),['id' => 'subject_id']);
+    }
+    
+    /**
+     * @get subject
+     */
+    public function getTextMd()
+    {
+        return $this->text;
     }
     
     /**

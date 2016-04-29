@@ -7,6 +7,7 @@ use common\models\Group;
 use yii\helpers\ArrayHelper;
 use common\models\GroupSemesters;
 use common\components\DateHelper;
+use unclead\widgets\MultipleInput;
 /* @var $this yii\web\View */
 /* @var $model common\models\GroupHasDiscipline */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,8 +23,25 @@ if($semesterList != []){
 ?>
 
 <div class="group-has-discipline-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+    
+    <?php $form = ActiveForm::begin([
+    'id'=>'project-form',
+    'enableAjaxValidation'      => true,
+    'enableClientValidation'    => false,
+    'validateOnChange'          => false,
+    'validateOnSubmit'          => true,
+    'validateOnBlur'            => false,
+        ]); ?>
+    
+    <?= $form->field($model, 'teacherHasDiscipline')->widget(MultipleInput::className(),  ['columns' => [
+        [
+            'name'  => 'teacher_id',
+            'type'  => 'dropDownList',
+            //'title' => 'Преподаватель',
+            'defaultValue' => 1,
+            'items' => ArrayHelper::map(\common\models\Teacher::find()->all(),'id','user.fullname')
+        ],
+    ]])?>
 
     <?= $form->field($model, 'discipline_id')->dropDownList(ArrayHelper::map(Discipline::find()->all(),'id','name')) ?>
 
@@ -41,6 +59,5 @@ if($semesterList != []){
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
-
+    <?php ActiveForm::end(); ?>    
 </div>

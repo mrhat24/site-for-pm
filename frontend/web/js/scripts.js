@@ -18,8 +18,9 @@ $(document).ready(function()	{
     }); 
 
         $('body').delegate('.modalButton','click',function(){
-        $('#modal').modal('show').find('#modalContent').html("").load($(this).attr('value'), function(){
             
+        $('#modal').modal('show').find('#modalContent').html("").load($(this).attr('value'), function(){
+            $('#modal').removeAttr('tabindex');
         });
         
     });

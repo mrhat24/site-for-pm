@@ -34,6 +34,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'disciplineName',
             'groupName',
             'semesterNumber',
+            [
+                'label' => 'Преподаватели',
+                'value' => function($model){
+                    $teachers = $model->teacherHasDiscipline;
+                    $result = "";
+                    foreach($teachers as $teacher){
+                        $result = $result."<br>".$teacher->teacher->user->fullname;
+                    }
+                    return $result;
+                },
+                'format' => 'html',
+            ],
              
             ['class' => 'common\components\ActionColumn'],
         ],
@@ -45,7 +57,11 @@ Modal::begin([
             'header' => '<h2>Управление заданиями</h2>',
             //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
             'id' => 'modal',
-            'size' => 'modal-lg',                      
+            'size' => 'modal-lg', 
+            'options' => [
+                //'id' => 'kartik-modal',
+                'tabindex' => false // important for Select2 to work properly
+            ],
         ]);        
     echo "<div id='modalContent'></div>";
     Modal::end();
