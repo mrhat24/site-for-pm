@@ -35,7 +35,7 @@ echo Html::beginTag('div',['class' => 'well well-sm']);
                     'aria-label' => Yii::t('yii', 'Delete'),
                     'data-confirm' => Yii::t('yii', 'Вы уверены что хотите это удалить?'),
                     'data-method' => 'post',
-                    'value'=> $url,
+                    'value'=> $btnUrl,
                     'class' => 'btn btn-xs btn-default',]);
                 echo "<span class='list-group-item'><i class='glyphicon glyphicon-chevron-right'></i>{$dateTime}
                     <button type='button' class='btn btn-default btn-xs modalButton' value='{$btnUrl}'>
