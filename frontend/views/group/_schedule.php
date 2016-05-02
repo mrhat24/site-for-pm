@@ -9,10 +9,11 @@ use yii\bootstrap\Html;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-echo Html::tag('br');  
+
 $lessons = Lesson::getLessonsList(['group' => $model->id]);
         
         echo Tabs::widget([
+            'options' => ['class' => 'nav nav-pills nav-justified'],
             'items' => [
                 [
                 'label' => 'Неделя - 1',

@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],  
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group">{update} {pdf} </div>',
+                        'template' => '{update} {pdf}',
                         'buttons' => [
                             /*
                             'view' => function ($url, $model)

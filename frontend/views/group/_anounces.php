@@ -6,27 +6,30 @@ use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
-echo Html::tag('br');
+$this->registerJs(
+    '$("document").ready(function(){
+        $("#new_note").on("pjax:end", function() {
+            $.pjax.reload({container:"#notes"});  //Reload GridView
+        });
+    });'
+);
+
+
 $dataProvider = new ActiveDataProvider([
     'query' => $model->getAnounces(),
     'pagination' => [
         'pageSize' => 10,
     ],
 ]);
+
 echo Html::button('Добавить объявление',['value'=> Url::to(['//group/create-anounce', 'id' => $model->id]),
-    'class' => 'btn btn-primary modalButton']); 
-echo Html::tag('hr');
+    'class' => 'btn btn-sm btn-primary modalButton btn-block']); 
+echo '<hr/>';
+Pjax::begin(['enablePushState' => false,]);
 echo ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_anounces_view',
     'layout' => "{items}\n{summary}\n{pager}",    
 ]);
-Modal::begin([        
-        //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
-        'id' => 'modal',
-        'size' => 'modal-lg',                      
-    ]);        
-echo "<div id='modalContent'></div>";
-Modal::end();
-
+Pjax::end();
 

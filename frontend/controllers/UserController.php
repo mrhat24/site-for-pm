@@ -67,10 +67,10 @@ class UserController extends Controller
         if($id != null){
             if(Yii::$app->request->isAjax)
                 return $this->renderAjax('view', [
-                'model' => $this->findModel(Yii::$app->request->get()['id']),
+                'model' => $this->findModel($id),
             ]);
             return $this->render('view', [
-                'model' => $this->findModel(Yii::$app->request->get()['id']),
+                'model' => $this->findModel($id),
             ]);
         }
         else{

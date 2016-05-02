@@ -7,6 +7,7 @@ use yii\bootstrap\Tabs;
 use yii\helpers\Url;
 use common\models\Lesson;
 use common\widgets\Schedule;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $model common\models\Group */
 
@@ -69,7 +70,7 @@ $this->params['breadcrumbs'][] = $this->title;
     echo Html::beginTag('li',['class' => 'list-group-item']);
     echo Html::encode($ghd->discipline->name);
     foreach($teachers as $teacher){
-        echo " - ".Html::a($teacher->user->fullname, Url::to(['user/view', 'id' => $teacher->user->id]));
+        echo Html::button($teacher->user->fullname, ['value' => Url::to(['user/view', 'id' => $teacher->user->id]),'class' => 'btn-link modalButton']);
     }
     echo Html::endTag('li');
     }
@@ -77,40 +78,45 @@ $this->params['breadcrumbs'][] = $this->title;
     echo Html::endTag('ul');
     $this->endBlock('disciplines');
 ?>
-    
-    <div class="panel panel-default">
-        <div class="panel-body">
      <?php
-     echo Tabs::widget([
-    'items' => [
-        [
-            'label' => 'Информация',
-            'content' => $this->blocks['info'],
+     echo Tabs::widget([    
+        'items' => [
+            [
+                'label' => 'Информация',
+                'content' => $this->blocks['info'],
+            ],
+            [
+                'label' => 'Объявления',
+                'content' => $this->render('_anounces',['model' => $model]),
+            ],
+            [
+                'label' => 'Список студентов',
+                'content' => $this->blocks['students'],
+            ],
+            [
+                'label' => 'Список дисциплин',
+                'content' => $this->blocks['disciplines'],
+            ],
+            [
+                'label' => 'Расписание',
+                'content' => $this->render('_schedule',['model' => $model]),
+            ],
+
         ],
-        [
-            'label' => 'Объявления',
-            'content' => $this->render('_anounces',['model' => $model]),
-        ],
-        [
-            'label' => 'Список студентов',
-            'content' => $this->blocks['students'],
-        ],
-        [
-            'label' => 'Список дисциплин',
-            'content' => $this->blocks['disciplines'],
-        ],
-        [
-            'label' => 'Расписание',
-            'content' => $this->render('_schedule',['model' => $model]),
-        ],
-        
-    ],
-    'options' => ['tag' => 'div', 'class' => 'nav nav-tabs nav-justified'],
-    'itemOptions' => ['tag' => 'div'],
-    'headerOptions' => ['class' => 'my-class'],
-    'clientOptions' => ['collapsible' => true],
-]);      
+        'options' => ['class' => 'nav nav-pills nav-justified'],
+        'itemOptions' => ['tag' => 'div','class' => 'well well-sm'],
+        'headerOptions' => ['class' => 'my-class'],
+        'clientOptions' => ['collapsible' => true],
+    ]);      
     ?>
-        </div>
-    </div>
 </div>
+<?php
+    
+Modal::begin([        
+        //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+        'id' => 'modal',
+        'size' => 'modal-lg',                      
+    ]);        
+echo "<div id='modalContent'></div>";
+Modal::end();
+?>

@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '<div class="btn-group">{view}{update}{viue}{delete}</div>',
+                'template' => '{view} {update} {delete}',
                 'buttons' => [
                     'view' => function ($url, $model){
                         return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> Url::to(['news/view-manage','id' => $model->id]),

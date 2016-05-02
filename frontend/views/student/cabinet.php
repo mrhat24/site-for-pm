@@ -22,8 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="site-index">
 	<?php
-            echo Html::tag('h1',$this->title);   
-            echo Html::tag('h4',Yii::$app->user->identity->fullname);
+            echo Html::tag('h1',$this->title);              
         ?>
         <div class="row">
         <div class="col-md-3"><?php
@@ -45,9 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 
                 $lessons = Lesson::getLessonsList(['teacher' => Yii::$app->user->identity->student->id]);
                 $schedule = Tabs::widget([
+                    'options' => ['class' => 'nav nav-pills nav-justified'],
                     'items' => [
                         [
-                        'label' => 'Неделя - 1',
+                        'label' => 'Неделя - 1',                        
                         'content' => Schedule::widget([
                             'scenario' => 'group',
                             'lessons' => $lessons,
@@ -67,8 +67,8 @@ $this->params['breadcrumbs'][] = $this->title;
                        // 'itemOptions' => ['class' => 'well'],                            
                         'items' => [
                             [
-                                'label' => 'Профиль',
-                                'content' => 'Профиль',              
+                                'label' => 'Профиль студента',
+                                'content' => $this->render('_student_profile'),              
                             ],
                             [
                                 'label' => 'Расписание',

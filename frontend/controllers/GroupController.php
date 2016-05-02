@@ -162,7 +162,7 @@ class GroupController extends Controller
     public function actionMy()
     {
         if(Yii::$app->user->identity->isStudent)
-        return $this->render('mygroup', [
+        return $this->render('view', [
             'model' => $this->findModel(Yii::$app->user->identity->student->group_id),
         ]);
         else {

@@ -8,6 +8,7 @@ use kartik\widgets\DepDrop;
 use yii\helpers\ArrayHelper;
 use common\models\Group;
 use common\models\ExerciseSubject;
+use kartik\date\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model common\models\Task */
 /* @var $form yii\widgets\ActiveForm */
@@ -20,11 +21,11 @@ $this->registerJs('
 ?>
 
 
-<div class="task-form">        
+<div class="task-form">
     
     <?php Pjax::begin(['enablePushState' => false, 'id' => 'form-give-task']); ?> 
     
-    <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true ]]); ?>
+    <?php $form = ActiveForm::begin(['enableAjaxValidation' => true, 'options' => ['data-pjax' => true ]]); ?>
 
     <?= Html::tag('br')?>
     
@@ -163,8 +164,10 @@ $this->registerJs('
              <div class='panel-body'  id="exersicespreview" ></div>
     </div>
     
-    <?//= $form->field($model, 'student_id')->listBox(TaskType::typeList(),['onchange' => '$.pjax.reload({container: "#form-give-task"});'])?>
-        
+    <?//= $form->field($model, 'given_date')->widget(DatePicker::className()) ?>
+    
+    <?//= $form->field($model, 'deadline_date')->widget(DatePicker::className()) ?>
+    
     <?//= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
     
     <?php $this->registerJs(" $('#task-text').markItUp(myTextileSettings);  ");  ?>

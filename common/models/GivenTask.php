@@ -36,8 +36,8 @@ class GivenTask extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student_id', 'teacher_id', 'task_id','discipline_id'], 'required'],            
-            [['student_id', 'teacher_id', 'task_id', 'discipline_id','status','complete_date','given_date','result'], 'integer'],
+            [['student_id', 'teacher_id', 'task_id','discipline_id','result','given_date','deadline_date'], 'required'],            
+            [['student_id', 'teacher_id', 'task_id', 'discipline_id','status','complete_date','result'], 'integer'],
             [['comment','group_key'], 'string'],
             [['status','result'], 'default', 'value' => 0],
             
@@ -53,7 +53,8 @@ class GivenTask extends \yii\db\ActiveRecord
             'id' => 'id',
             'given_date' => 'Дата выдачи',
             'complete_date' => 'Дата завершения',
-            'student_id' => 'id студента',            
+            'deadline_date' => 'Дата окончания срока',
+            'student_id' => 'id студента',      
             'teacher_id' => 'id преподавателя',
             'task_id' => 'id задания',
             'comment' => 'Комментарий',
@@ -66,9 +67,7 @@ class GivenTask extends \yii\db\ActiveRecord
             'group' => 'Группа'
         ];
     }
-    
-    
-    
+        
      /*
      * @ get status identity
      */
@@ -86,13 +85,7 @@ class GivenTask extends \yii\db\ActiveRecord
                 return ['ident' => 'success','rus' => 'Завершено'];
         }
     }
-    /**
-     * @get complete task
-    */
-    //public function getCompleteTask()
-    //{
-    //    return $this->hasOne(CompleteTask::className(),['given_task_id' => 'id']);
-    //}
+    
     /**
      * @get student
      */
@@ -169,7 +162,12 @@ class GivenTask extends \yii\db\ActiveRecord
         $discipline = $post['discipline'];
         $teacher = Yii::$app->user->identity->teacher->id;
         $task = $post['task'];
+        $deadline = 0;
+        if($post['deadline_date'])
+            $deadline = Yii::$app->formatter->asTimestamp($post['deadline_date']);
         $given_date = date('U');
+        if($post['given_date'])
+            $given_date = Yii::$app->formatter->asTimestamp($post['given_date']);
         $group_key = md5($given_date);
         $noerror = true;
         foreach($students as $student)
@@ -180,6 +178,7 @@ class GivenTask extends \yii\db\ActiveRecord
             $model->teacher_id = $teacher;
             $model->discipline_id = $discipline;
             $model->task_id = $task;
+            $model->deadline_date = $deadline;
             $model->group_key = $group_key;
             if($model->save()){ 
             foreach($exersices as $exersice)
@@ -238,7 +237,7 @@ class GivenTask extends \yii\db\ActiveRecord
     {
         return GivenTask::find()->where(['student_id' => Yii::$app->user->identity->student->id])->andWhere(['!=','status','3'])->count();    
     }
-    
+        
     public function beforeDelete()
     {
         if (parent::beforeDelete()) {

@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'given_date:dateTime',
                     [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group">{view}{update}{delete}{pdf}</div>',
+                        'template' => '{view} {update} {delete} {pdf}',
                         'buttons' => [
                             'view' => function ($url, $model){
                                 return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> Url::to(['given-task/check','id' => $model->id]),

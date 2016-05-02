@@ -17,7 +17,6 @@ use Yii;
  */
 class Student extends \yii\db\ActiveRecord
 {
-        
     /**
      * @inheritdoc
      */
@@ -118,7 +117,21 @@ class Student extends \yii\db\ActiveRecord
         return true;
     }
     
-
+    public function getRate()
+    {
+       return 0;
+    }
     
+    public function getTaskStat()
+    {
+        $deadline = 0;
+        $date = date('U');        
+        $array = array();        
+        foreach(GivenTask::$statusArray as $key => $value){ 
+            $count = GivenTask::find()->where(['status' => $key, 'student_id' => $this->id])->count();
+            $array[] = ['status' => $value, 'value' => $count];
+        }
+        return $array;
+    }
     
 }

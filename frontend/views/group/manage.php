@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'common\components\ActionColumn',
-                'template' => '<div class="btn-group">{preview} {update} {delete}</div>',
+                'template' => '{preview} {update} {delete}',
                 'buttons' => [
                     'preview' => function ($url, $model)
                     {

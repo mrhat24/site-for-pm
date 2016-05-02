@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     $lessons = Lesson::getLessonsList(['group' => $group]);   
     echo Tabs::widget([
+        'options' => ['class' => 'nav nav-pills nav-justified'],
         'items' => [
             [
             'label' => 'Неделя - 1',

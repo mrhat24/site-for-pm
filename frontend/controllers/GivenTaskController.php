@@ -85,7 +85,7 @@ class GivenTaskController extends Controller
     }
     
     public function actionControl()
-    {        
+    {
         $searchModel = new GivenTaskSearch();        
         $query = GivenTask::find()->where(['task.teacher_id' => Yii::$app->user->identity->teacher->id]);
         $dataProvider = $searchModel->search(Yii::$app->request->get(), $query);        
@@ -105,27 +105,23 @@ class GivenTaskController extends Controller
         $result = -1;
         if(Yii::$app->request->post()){
             $result = GivenTask::createGivenTask(Yii::$app->request->post());
-        }
-               
+        }               
         $model = new GivenTask();
         $model->status = 0;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            //return $this->redirect(['view', 'id' => $model->id]);
+          
         } else {
             if(isset(Yii::$app->request->post()['dropdown']))
                 $drop = Yii::$app->request->post()['dropdown'];
             else $drop = 0;
             if(isset(Yii::$app->request->post()['exersices']))
             {               
-               //$exersices = Yii::$app->request->post()['exersices'];
                return $this->renderAjax('give', [
                 'model' => $model,
-                //'exersices' => $exersices,
             ]);
             }
             return $this->renderAjax('give', [
                 'model' => $model,
-                //'exersices' => $exersices,
             ]);
         }
     }
