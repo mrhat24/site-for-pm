@@ -52,7 +52,7 @@ $this->endBlock('schedule');
                 $buttons = '';
                 $buttons = $buttons.Html::a('Страница группы <span class="glyphicon glyphicon-briefcase"></span>',
                         Url::to(['//group/view','id' => $model->group->id]),['class' => 'btn btn-primary']);
-                if(Yii::$app->user->can(teacher)){
+                if(Yii::$app->user->can('teacher')){
                     $buttons = $buttons.Html::button('Назначить курсовые <span class="glyphicon glyphicon glyphicon-file"></span>',
                         ['value' => Url::to(['//work/term-create-group','group' => $model->group->id,'discipline' => $model->id]),'class' => 'btn btn-primary modalButton']);
                 }
