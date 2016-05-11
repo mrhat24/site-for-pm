@@ -13,6 +13,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\NewsSearch;
+use kartik\markdown\Markdown;
+use yii\helpers\Json;
+use yii\helpers\HtmlPurifier;
 /**
  * Site controller
  */
@@ -74,6 +77,33 @@ class SiteController extends Controller
     {
         return $this->render('index');
     }
+    
+    
+    public function actionMarkdownPreview()
+    {
+        $module = Yii::$app->getModule('markdown');
+        /*if (\Yii::$app->user->can('smarty')) {
+            $module->smarty = true;
+            $module->smartyYiiApp = \Yii::$app->user->can('smartyYiiApp') ? true : false;
+            $module->smartyYiiParams = Yii::$app->user->can('smartyYiiParams') ? true : false;
+        }*/
+        if (isset($_POST['source'])) {
+            $output = (strlen($_POST['source']) > 0) ? Markdown::convert($_POST['source'], ['custom' => $module->customConversion]) : $_POST['nullMsg'];
+        }
+        echo Json::encode(HtmlPurifier::process($output));
+    }
+    
+    /*public function actionMarkdownDownload()
+    {
+        if (empty($_POST) || empty($_POST['export_filetype'])) {
+            return $this->renderPartial('download');
+        }
+        $type = empty($_POST['export_filetype']) ? 'htm' : $_POST['export_filetype'];
+        $name = empty($_POST['export_filename']) ? 'filename' : $_POST['export_filename'];
+        $content = empty($_POST['export_content']) ? 'No data found' : $_POST['export_content'];
+        $this->setHttpHeaders($type, $name);
+        return $content;
+    }*/
     
     /**
      * Logs in a user.

@@ -71,7 +71,12 @@ class Group extends \yii\db\ActiveRecord
      */
     public function getDisciplines()
     {
-        return $this->hasMany(GroupHasDiscipline::className(), ['group_id' => 'id']);
+        return $this->hasMany(GroupHasDiscipline::className(), ['group_id' => 'id'])->orderBy('semester_number DESC');
+    }
+    
+    public function getCurrentDisciplines()
+    {
+        return $this->hasMany(GroupHasDiscipline::className(), ['group_id' => 'id'])->where(['semester_number' => $this->currentSemester->semester_number]);
     }
     
     public function getDisciplineList()
@@ -117,7 +122,13 @@ class Group extends \yii\db\ActiveRecord
                 ->one(); 
     }
     
-    public function getSpecialityName()
+    public function getCurrentSemesterNumber(){
+        if(isset($this->currentSemester))
+            return $this->currentSemester->semester_number;
+        else return "-";
+    }
+
+        public function getSpecialityName()
     {
         return $this->speciality->name;
     }

@@ -8,8 +8,15 @@ use yii\helpers\Url;
 use common\models\Lesson;
 use common\widgets\Schedule;
 use yii\bootstrap\Modal;
+use yii\grid\GridView;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model common\models\Group */
+use frontend\models\GroupHasDisciplineSearch;
+
+$ghdSearchModel = new GroupHasDisciplineSearch();
+$query = $model->getDisciplines();
+$ghdDataProvider = $ghdSearchModel->search(Yii::$app->request->queryParams,$query);
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => ['//student/cabinet']];
@@ -26,10 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
     $listArray[] = ['name' => $model->getAttributeLabel('speciality_id'),
         'val' => $model->speciality->name];
     $listArray[] = ['name' => $model->getAttributeLabel('steward_student_id'),
-        'val' => Html::a($model->steward->user->fullname,
-            Url::to(['user/view','id' => $model->steward->user->id]))];
-    $listArray[] = ['name' => 'Студентов',
+        'val' => Html::button($model->steward->user->fullname,['value' => Url::to(['//student/view','id' => $model->steward->id]), 'class' => 'btn-link modalButton'] )];
+    $listArray[] = ['name' => 'Количество студентов',
         'val' => count($model->students)];
+    $listArray[] = ['name' => 'Текуший семестр',
+        'val' => $model->currentSemesterNumber];
     echo Html::tag('br');
     echo Html::beginTag('ul',['class' => 'list-group']);
     echo Html::beginTag('dl',['class' => 'dl-horizontal']);
@@ -51,8 +59,8 @@ $this->params['breadcrumbs'][] = $this->title;
     echo Html::tag('br');        
     echo Html::beginTag('ul',['class' => 'list-group']);
     foreach($model->studentsOrderedByLastName as $student){
-    echo Html::a($student->user->fullname,  Url::to(['user/view',
-        'id' => $student->user->id]),['class' => 'list-group-item']);        
+    echo Html::button($student->user->fullname, ['value' => Url::to(['student/view',
+        'id' => $student->id]),'class' => 'list-group-item btn-link modalButton']);        
     }        
     echo Html::endTag('ul');
     $this->endBlock('students');
@@ -60,22 +68,63 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php
     $this->beginBlock('disciplines');
-    echo Html::tag('br');
+    
+    
+    Pjax::begin(['enablePushState' => false,'id' => 'discipline']);
+    echo GridView::widget([
+        'dataProvider' => $ghdDataProvider,
+        'filterModel' => $ghdSearchModel,       
+        'columns' => [
+            [
+                'attribute' => 'disciplineName',
+                'value' => function($model) {
+                    return Html::a($model->disciplineName,Url::to(['//group-has-discipline','id' => $model->id]));
+                },
+                'format' => 'html',
+            ],
+            [
+                'attribute' => 'semester_number',
+                'value' => function($model){
+                    $isCyrrent = ($model->group->currentSemesterNumber == $model->semester_number) ? " - текущий": " ";
+                    return Html::encode($model->semester_number.$isCyrrent);
+                }
+            ],
+            [
+                'label' => 'Преподаватели',
+                'value' => function($model) {
+                    $result = "";
+                    foreach ($model->teacherHasDiscipline as $thd){
+                        $result = $result.Html::a($thd->teacher->user->fullname,Url::to(['//teacher/view','id' => $thd->teacher->user->id]));
+                    }
+                    return $result;
+                },
+                'format' => 'html',
+            ],
+            
+            
+        ]
+    ]);
+Pjax::end();
+
+    /*echo Html::tag('br');
     echo Html::beginTag('ul',['class' => 'list-group']);
-    foreach($model->disciplines as $ghd){
+    foreach($model->currentDisciplines as $ghd){
         $teachers = array();
         foreach ($ghd->teacherHasDiscipline as $thd){
             $teachers[] = $thd->teacher;
         }
-    echo Html::beginTag('li',['class' => 'list-group-item']);
-    echo Html::encode($ghd->discipline->name);
+    echo Html::beginTag('li',['class' => 'list-group-item']);    
+    echo Html::a($ghd->discipline->name,  Url::to(['//group-has-discipline','id' => $ghd->id]));
     foreach($teachers as $teacher){
-        echo Html::button($teacher->user->fullname, ['value' => Url::to(['user/view', 'id' => $teacher->user->id]),'class' => 'btn-link modalButton']);
+        echo Html::button($teacher->user->fullname, ['value' => Url::to(['//teacher/view', 'id' => $teacher->id]),'class' => 'btn-link modalButton']);
+    }
+    if(Yii::$app->user->identity->student->group_id == $model->id){
+        
     }
     echo Html::endTag('li');
     }
     //echo Html::tag('li',$model->speciality->name);
-    echo Html::endTag('ul');
+    echo Html::endTag('ul');*/
     $this->endBlock('disciplines');
 ?>
      <?php

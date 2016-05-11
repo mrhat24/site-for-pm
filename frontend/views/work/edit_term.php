@@ -40,7 +40,7 @@ $oldList = ArrayHelper::map($model->workHistory,'id','name');
         </div>
     </div>
     
-    <?php if($model->reserved_id != null) { ?>
+    <?php /* if($model->reserved_id != null) { ?>
     <div class="form-group">
         <?=Html::label('Создать новую тему'); ?>
         <div class="input-group ">
@@ -51,7 +51,7 @@ $oldList = ArrayHelper::map($model->workHistory,'id','name');
         </div>
     </div>
      <?php
-            }
+            }*/
     ?>
 
     <div class="form-group">

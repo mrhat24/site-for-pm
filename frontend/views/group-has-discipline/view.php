@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'discipline_id',
             'group_id',
-            'semestr_number',
+            'semester_number',
         ],
     ]) ?>
 

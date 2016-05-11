@@ -30,7 +30,8 @@
         "cebe/markdown-latex": "*",
         "kartik-v/yii2-widget-timepicker": "*",
         "michelf/php-smartypants": "dev-lib",
-        "unclead/yii2-multiple-input": "^1.2"
+        "unclead/yii2-multiple-input": "^1.2",
+        "kartik-v/yii2-markdown": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

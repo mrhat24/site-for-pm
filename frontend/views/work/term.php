@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'workTitle.name',
+            'discipline.name',
             [
                 'label' => 'Преподаватель',
                 'attribute' => 'teacher.user.fullname',

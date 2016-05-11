@@ -7,7 +7,8 @@ use yii\helpers\Html;
 /* @var $model common\models\Exercise */
 
 $this->title = 'Создать';
-$this->params['breadcrumbs'][] = ['label' => 'Exercises', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['//teacher/cabinet']];
+$this->params['breadcrumbs'][] = ['label' => 'Упражнения','url' => ['//exercise/control']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="exercise-create">

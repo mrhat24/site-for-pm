@@ -15,6 +15,7 @@ use common\models\Lesson;
 use common\widgets\Schedule;
 /* @var $this yii\web\View */
 $parser = new \Netcarver\Textile\Parser();
+$teacher = Yii::$app->user->identity->teacher;
 
 $this->title = 'Кабинет преподавателя';
 $this->params['breadcrumbs'][] = $this->title;
@@ -32,7 +33,9 @@ $this->params['breadcrumbs'][] = $this->title;
             ['label' => 'Распределение заданий '.Html::tag('span',Yii::$app->user->identity->teacher->newTasksCheckCount,['class' => 'badge'])
                 , 'url' => Url::to(['given-task/control'])],
             ['label' => 'Задания', 'url' => Url::to(['task/control'])],
-            ['label' => 'Упражнения', 'url' => Url::to(['exercise/control'])]            
+            ['label' => 'Упражнения', 'url' => Url::to(['exercise/control'])],
+            ['label' => 'Дипломы', 'url' => Url::to(['//work/teacher-graduate'])],
+            ['label' => 'Курсовые', 'url' => Url::to(['//work/teacher-term'])],            
         ];
         
         echo Nav::widget(['items' => $menuItems,
@@ -81,13 +84,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'content' => $groupT,
                             ],
                             [
+                                'label' => 'Дисциплины',
+                                'content' => $this->render('//teacher/cabinet/disciplines',['teacher' => $teacher]),
+                            ],
+                            /*[
                                 'label' => 'Дипломы',
                                 'content' => $this->render('//teacher/cabinet/graduate'), 
                             ],
                             [
                                 'label' => 'Курсовые',
                                 'content' => $this->render('//teacher/cabinet/term'), 
-                            ],
+                            ],*/
                             [
                                 'label' => 'Расписание',
                                 'content' => $schedule,              

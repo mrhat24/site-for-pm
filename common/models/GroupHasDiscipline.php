@@ -10,7 +10,7 @@ use Yii;
  * @property integer $id
  * @property integer $discipline_id
  * @property integer $group_id
- * @property integer $semestr_num
+ * @property integer $semester_num
  * @property string $start_date
  * @property string $end_date
  */
@@ -30,8 +30,10 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['discipline_id', 'group_id', 'semestr_number'], 'required'],
-            [['discipline_id', 'group_id', 'semestr_number'], 'integer'],
+            [['discipline_id', 'group_id', 'semester_number'], 'required'],
+            [['discipline_id', 'group_id', 'semester_number'], 'integer'],
+            [['discipline_id', 'group_id', 'semester_number'], 'unique', 
+                'targetAttribute' => ['discipline_id', 'group_id', 'semester_number']]
         ];
     }
 
@@ -44,10 +46,11 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
             'id' => 'ID',
             'discipline_id' => 'Дисциплина',
             'group_id' => 'Группа',
-            'semestr_number' => 'Семестр',
+            'semester_number' => 'Семестр',
             'semesterNumber' => 'Номер семестра',
             'groupName' => 'Группа',
             'disciplineName' => 'Дисциплина',
+            'teacherHasDiscipline' => 'Преподаватели'
         ];
     }
     
@@ -77,12 +80,12 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
     
     public function getSemester()
     {
-        return $this->hasOne(GroupSemesters::className(), ['id' => 'semestr_number']);
+        return $this->hasOne(GroupSemesters::className(), ['semester_number' => 'semester_number']);
     }
     
     public function getSemesterNumber()
     {
-        return $this->semester->semester_number;
+        return $this->semester_number;
     }
     
     public function getGroupName()
@@ -103,6 +106,10 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
     public function getGroupSemDisc()
     {
         return $this->group->name.". Семестр - ".$this->semesterNumber.":".$this->discipline->name;
-    }
+    }    
     
+    public function getDiscGroupSem()
+    {
+        return "Дисциплина: ".$this->discipline->name.". Группа: ".$this->group->name.". Семестр: ".$this->semester_number.".";
+    }
 }

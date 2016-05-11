@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'disciplineName',
             'groupName',
-            'semesterNumber',
+            'semester_number',
             [
                 'label' => 'Преподаватели',
                 'value' => function($model){

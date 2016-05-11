@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\NewsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -11,8 +12,10 @@ $this->title = 'Новости';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="news-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+    <div class="page-header">
+      <h1><?= Html::encode($this->title) ?></h1>
+    </div>
+    
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -26,3 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'layout' => "{summary}\n{items}\n{pager}",
     ]) ?>
 <?php Pjax::end(); ?></div>
+
+<?php
+Modal::begin([
+    'header' => '',
+    //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+    'id' => 'modal',
+    'size' => 'modal-lg',                      
+]);        
+echo "<div id='modalContent'></div>";
+Modal::end();
+?>

@@ -8,10 +8,11 @@ use yii\data\ActiveDataProvider;
 use frontend\models\GroupHasDisciplineSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-
-
+use yii\helpers\Json;
+use common\models\TeacherHasDiscipline;
 /**
  * GroupHasDisciplineController implements the CRUD actions for GroupHasDiscipline model.
  */
@@ -28,10 +29,15 @@ class GroupHasDisciplineController extends Controller
                 'only' => ['manage','index', 'view', 'create','update','delete'],
                 'rules' => [
                     [   
-                        'actions' =>  ['manage','index', 'view', 'create','update','delete'],
+                        'actions' =>  ['manage','view', 'create','update','delete'],
                         'allow' => true,
                         'roles' => ['chief'],
-                    ],                  
+                    ],    
+                    [   
+                        'actions' =>  ['index'],
+                        'allow' => true,
+                        'roles' => ['student'],
+                    ],  
                 ],
             ],
             'verbs' => [
@@ -47,14 +53,12 @@ class GroupHasDisciplineController extends Controller
      * Lists all GroupHasDiscipline models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $dataProvider = new ActiveDataProvider([
-            'query' => GroupHasDiscipline::find(),
-        ]);
+    public function actionIndex($id)
+    {        
+        $model = GroupHasDiscipline::findOne($id);        
 
         return $this->render('index', [
-            'dataProvider' => $dataProvider,
+            'model' => $model,
         ]);
     }
 
@@ -99,10 +103,15 @@ class GroupHasDisciplineController extends Controller
     public function actionCreate()
     {
         $model = new GroupHasDiscipline();
-        $tModel = new \common\models\TeacherHasDiscipline();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return '2';
+            //\common\models\TeacherHasDiscipline::find()->where('ghd_id' => '')
+            foreach(Yii::$app->request->post()['GroupHasDiscipline']['teacherHasDiscipline']['teacher_id'] as $teacher){
+                $modelTHD = new TeacherHasDiscipline();
+                $modelTHD->teacher_id = $teacher;
+                $modelTHD->ghd_id = $model->getPrimaryKey();
+                $modelTHD->save();
+            }   
             return $this->redirect(['manage']);
         } else {
             return $this->renderAjax('create', [
@@ -110,6 +119,31 @@ class GroupHasDisciplineController extends Controller
                 'tModel' => $tModel,
             ]);
         }
+    }
+    
+    public function actionSemesters(){
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $semesters = \common\models\GroupSemesters::find()->where(['group_id' => $cat_id])->all();
+                foreach ($semesters as $sem){
+                    $out[] = ['id' => $sem->semester_number, 'name' => 
+                        $sem->semester_number." - (".Yii::$app->formatter->asDate($sem->begin_date)
+                            .":".Yii::$app->formatter->asDate($sem->end_date).")"];
+                }                 
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+                echo Json::encode(['output'=>$out, 'selected'=>'']);
+                return;
+            }
+        }
+        echo Json::encode(['output'=>'', 'selected'=>'']);
     }
 
     /**
@@ -123,6 +157,21 @@ class GroupHasDisciplineController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            foreach(Yii::$app->request->post()['GroupHasDiscipline']['teacherHasDiscipline']['teacher_id'] as $teacher){
+                if(!TeacherHasDiscipline::find()->where(['ghd_id' => $model->id])->andWhere(['teacher_id' => $teacher])->count()){
+                    $modelTHD = new TeacherHasDiscipline();
+                    $modelTHD->teacher_id = $teacher;
+                    $modelTHD->ghd_id = $model->id;
+                    $modelTHD->save();
+                }                                
+            }   
+            $thd_old = TeacherHasDiscipline::find()
+                ->where(['ghd_id' => $model->id])
+                ->andWhere(['not in','teacher_id',Yii::$app->request->post()['GroupHasDiscipline']['teacherHasDiscipline']['teacher_id']])
+                ->all();
+            foreach($thd_old as $thd){
+                $thd->delete();
+            }
             return $this->redirect(['manage']);
         } else {
             return $this->renderAjax('update', [

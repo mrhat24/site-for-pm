@@ -12,6 +12,9 @@ use common\models\TeacherHasDiscipline;
  */
 class TeacherHasDisciplineSearch extends TeacherHasDiscipline
 {
+    public $disciplineName;
+    public $groupName;
+    public $semester;
     /**
      * @inheritdoc
      */
@@ -19,6 +22,7 @@ class TeacherHasDisciplineSearch extends TeacherHasDiscipline
     {
         return [
             [['id', 'teacher_id', 'ghd_id', 'begin_date', 'end_date'], 'integer'],
+            [['disciplineName','groupName','semester'],'safe'],
         ];
     }
 
@@ -38,14 +42,33 @@ class TeacherHasDisciplineSearch extends TeacherHasDiscipline
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$query2 = null)
     {
         $query = TeacherHasDiscipline::find();
 
         // add conditions that should always apply here
-
+        if($query2)
+            $query = $query2;
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+        ]);
+        
+        $dataProvider->setSort([
+            'attributes' => [
+                'id',
+                'groupName' => [
+                    'asc' => ['groupHasDiscipline.group.name' => SORT_ASC],
+                    'desc' => ['groupHasDiscipline.group.name' => SORT_DESC],                    
+                ],  
+                'disciplineName' => [
+                    'asc' => ['groupHasDiscipline.discipline.name' => SORT_ASC],
+                    'desc' => ['groupHasDiscipline.discipline.name' => SORT_DESC],
+                ],
+                'semester' => [
+                    'asc' => ['groupHasDiscipline.semester_number' => SORT_ASC],
+                    'desc' => ['groupHasDiscipline.semester_number' => SORT_DESC],
+                ],
+            ]
         ]);
 
         $this->load($params);
@@ -64,7 +87,19 @@ class TeacherHasDisciplineSearch extends TeacherHasDiscipline
             'begin_date' => $this->begin_date,
             'end_date' => $this->end_date,
         ]);
-
+        
+        $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.discipline' => function ($q) {
+                $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
+        }]);
+        
+        $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.group' => function ($q) {
+                $q->where('group.name LIKE "%' . $this->groupName . '%" ');
+        }]);
+        
+        $query->joinWith(['groupHasDiscipline' => function ($q) {
+                $q->where('group_has_discipline.semester_number LIKE "%' . $this->semester . '%" ');
+        }]);
+                
         return $dataProvider;
     }
 }

@@ -15,6 +15,8 @@ use Yii;
  */
 class Exercise extends \yii\db\ActiveRecord
 {
+    public static $types = [1 => 'Текст', 2 => 'Тест'];    
+
     /**
      * @inheritdoc
      */
@@ -31,6 +33,7 @@ class Exercise extends \yii\db\ActiveRecord
         return [
             [['text', 'subject_id', 'name'], 'required'],
             [['teacher_id', 'subject_id'], 'integer'],
+            [['test'],'boolean'],
             [['text'], 'string']
         ];
     }
@@ -47,6 +50,9 @@ class Exercise extends \yii\db\ActiveRecord
             'subject_id' => 'Категория',
             'name' => 'Название',
             'textMd' => 'Текст',
+            'type' => 'Тип',
+            'exerciseTests' => 'Варианты ответов',
+            'test' => 'Использовать варианты ответа',
         ];
     }
     
@@ -84,5 +90,30 @@ class Exercise extends \yii\db\ActiveRecord
         }
         return false;
     } 
+    
+    public function beforeDelete()
+    {
+        if (parent::beforeDelete()) {
+            ExerciseTest::deleteAll(['exercise_id' => $this->id]);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function getExerciseTests()
+    {
+        return $this->hasMany(ExerciseTest::className(), ['exercise_id' => 'id']);
+    }
+    
+    public function getExerciseTestsTrue()
+    {
+        $array = array();
+        foreach ($this->exerciseTests as $et){
+            if($et->istrue)
+                $array[] = $et->id;
+        }
+        return $array;
+    }
         
 }

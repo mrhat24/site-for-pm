@@ -8,6 +8,7 @@ use common\components\DateHelper;
 use yii\widgets\Pjax;
 use Netcarver\Textile;
 $parser = new \Netcarver\Textile\Parser();
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model common\models\CompleteTask */
 /* @var $form yii\widgets\ActiveForm */
@@ -52,8 +53,7 @@ $this->registerJs('$("#form-task").on("pjax:end", function(){
             $index = 0;
             foreach ($exercises as $key => $exers)
             {
-                $index++;
-                
+                $index++;                
                 echo Html::tag('h4','Задание#'.$index,['class' => 'panel-heading']);
                 
                 echo Html::beginTag('div',['class' => 'panel panel-info']);
@@ -63,8 +63,36 @@ $this->registerJs('$("#form-task").on("pjax:end", function(){
                 
                 echo Html::beginTag('div',['class' => 'panel panel-info']);
                 echo Html::tag('div','Решение',['class' => 'panel-heading']);
+                if($exers->exercise->exerciseTests){                    
+                    
+                    echo Html::beginTag('ul',['class' => 'list-group']);                    
+                    if($exers->answerIsTrue) echo '<li class="list-group-item list-group-item-success">Выбран правильный ответ</li>';
+                    else echo '<li class="list-group-item list-group-item-danger">Выбран не правильный ответ</li>';
+                    foreach($exers->exercise->exerciseTests as $test){
+                        $success = '';
+                        $badge = "";
+                        if($test->istrue){
+                            $badge = $badge."<span class='badge'>Правильный ответ</span>";
+                        }                            
+                        if(in_array($test->id, $exers->answers))
+                        {
+                            $badge = $badge."<span class='badge'>Выбранный ответ</span>";
+                            if(in_array($test->id, $exers->exercise->exerciseTestsTrue))
+                            {                           
+                                $success = 'list-group-item-success';
+                            }
+                            else{
+                                $success = 'list-group-item-warning';
+                            }
+                        }
+                        echo Html::tag('li',$test->value.$badge,['class' => "list-group-item {$success}"]);
+                    }
+                    echo Html::endTag('ul');
+                                    
+                }
+                else 
                 echo Html::tag('div',$parser->textileThis($exers->solution),['class' => 'panel-body']);
-                echo Html::endTag('div');
+                echo Html::endTag('div');               
                 
                 echo $form->field($exers,"[$exers->id]comment")->textarea(['rows' => 4]);
                 echo $form->field($exers,"[$exers->id]result")->dropDownList(['0' => '','2' => 'Неудовлетворительно','3' => 'Удовлетворительно',

@@ -8,6 +8,8 @@ use yii\helpers\ArrayHelper;
 use common\models\GroupSemesters;
 use common\components\DateHelper;
 use unclead\widgets\MultipleInput;
+use kartik\depdrop\DepDrop;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\GroupHasDiscipline */
 /* @var $form yii\widgets\ActiveForm */
@@ -16,8 +18,8 @@ $semesterList = $model->group_id ? ArrayHelper::map(GroupSemesters::find()->wher
 if($semesterList != []){
     foreach ($semesterList as $key => $ar){
                      $semesterList[$key] = $ar." - (".
-                             DateHelper::getDateByUserTimezone(GroupSemesters::findOne($key)->begin_date).':'.
-                             DateHelper::getDateByUserTimezone(GroupSemesters::findOne($key)->end_date).')';           
+                            Yii::$app->formatter->asDate(GroupSemesters::findOne($key)->begin_date).':'.
+                             Yii::$app->formatter->asDate(GroupSemesters::findOne($key)->end_date).')';           
     }
 }
 ?>
@@ -25,35 +27,42 @@ if($semesterList != []){
 <div class="group-has-discipline-form">
     
     <?php $form = ActiveForm::begin([
-    'id'=>'project-form',
-    'enableAjaxValidation'      => true,
-    'enableClientValidation'    => false,
-    'validateOnChange'          => false,
-    'validateOnSubmit'          => true,
-    'validateOnBlur'            => false,
+        'id'=>'project-form',
+        'enableAjaxValidation'      => true,
+        /*'enableClientValidation'    => false,
+        'validateOnChange'          => true,
+        'validateOnSubmit'          => true,
+        'validateOnBlur'            => false,*/
         ]); ?>
     
-    <?= $form->field($model, 'teacherHasDiscipline')->widget(MultipleInput::className(),  ['columns' => [
+    <?= $form->field($model, 'teacherHasDiscipline')->widget(MultipleInput::className(),  ['min' => 0,'columns' => [
         [
             'name'  => 'teacher_id',
             'type'  => 'dropDownList',
             //'title' => 'Преподаватель',
-            'defaultValue' => 1,
+            'defaultValue' => 1,            
             'items' => ArrayHelper::map(\common\models\Teacher::find()->all(),'id','user.fullname')
         ],
     ]])?>
 
     <?= $form->field($model, 'discipline_id')->dropDownList(ArrayHelper::map(Discipline::find()->all(),'id','name')) ?>
 
-    <?= $form->field($model, 'group_id')->dropDownList(ArrayHelper::map(Group::find()->all(),'id','name'),[
+    <?= $model->isNewRecord ? $form->field($model, 'group_id')->dropDownList(ArrayHelper::map(Group::find()->all(),'id','name'),[
         'prompt'=>'-Группа-',
             'onchange'=>'
                 $.post( "'.Yii::$app->urlManager->createUrl('group-has-discipline/semlist?id=').'"+$(this).val(), function( data ) {
-                  $( "select#grouphasdiscipline-semestr_id" ).html( data );
+                  $( "select#grouphasdiscipline-semester_id" ).html( data );
                 });
-            ','class' => 'form-control']) ?>
+            ','class' => 'form-control']) : "" ?>
 
-    <?= $form->field($model, 'semestr_number')->dropDownList( $semesterList) ?>
+    <?= $model->isNewRecord ? $form->field($model, 'semester_number')->widget(DepDrop::classname(), [
+        'options'=>['id'=>'semester_number'],
+        'pluginOptions'=>[
+            'depends'=>['grouphasdiscipline-group_id'],
+            'placeholder'=>'Выберите группу...',
+            'url'=>Url::to(['/group-has-discipline/semesters'])
+        ]
+    ]) : $form->field($model, 'semester_number')->dropDownList($semesterList) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

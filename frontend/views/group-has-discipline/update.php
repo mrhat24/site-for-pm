@@ -5,10 +5,10 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\GroupHasDiscipline */
 
-$this->title = 'Update Group Has Discipline: ' . $model->id;
+$this->title = 'Редактирование: ' . $model->discipline->name." - ".$model->group->name." - Семестр - ".$model->semester_number;
 $this->params['breadcrumbs'][] = ['label' => 'Group Has Disciplines', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = 'Редактирование';
 ?>
 <div class="group-has-discipline-update">
 

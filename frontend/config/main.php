@@ -34,19 +34,13 @@ return [
   
         'markdown' => [
             'class' => 'kartik\markdown\Module',
-            
-        // the controller action route used for markdown editor preview
-        'previewAction' => '/parse/preview',
-            
-        'downloadAction' => '/parse/download',
- 
-        // the list of custom conversion patterns for post processing
-        'customConversion' => [
-            '<table>' => '<table class="table table-bordered table-striped">'
-        ],
- 
-        // whether to use PHP SmartyPantsTypographer to process Markdown output
-        'smartyPants' => true
+            'previewAction' => '/site/markdown-preview',            
+                // Smarty class configuration
+             'smartyParams' => [],
+             // provide Yii::$app to the Smarty template as variable
+             'smartyYiiApp' => true,
+             // provide Yii::$app->params to the Smarty template as config variables
+             'smartyYiiParams' => true,
         ]
     ],
     'aliases' => [

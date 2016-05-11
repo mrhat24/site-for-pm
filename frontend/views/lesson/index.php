@@ -46,10 +46,13 @@ $this->beginBlock('students');
         <?php
         echo Html::tag('div','Группа ',['class' => 'input-group-addon']);
         echo Html::textInput('group_name',$groupRequest,['class' => 'form-control']);    
+        echo Html::beginTag('span',['class' => 'input-group-btn']);
+        echo Html::submitButton('Искать',['class' => 'btn btn-primary']);
+        echo Html::endTag('span');
         ?>
         </div>
     <?php 
-    echo Html::submitButton('Искать',['class' => 'btn btn-primary']);
+    
     ?>
     </div>
     <?php
@@ -78,14 +81,14 @@ $this->beginBlock('teachers');
     ?>
     <div class="form-group">
         <div class="input-group">
-        <?php
-        echo Html::tag('div','Фамилия ',['class' => 'input-group-addon']);
-        echo Html::textInput('teacher_fullname',$teacherRequest,['class' => 'form-control']);    
-        ?>
-        </div>
-    <?php
-    echo Html::submitButton('Искать',['class' => 'btn btn-primary']);
-    ?>
+            <?php
+            echo Html::tag('div','Фамилия ',['class' => 'input-group-addon']);
+            echo Html::textInput('teacher_fullname',$teacherRequest,['class' => 'form-control']);    
+            echo Html::beginTag('span',['class' => 'input-group-btn']);
+            echo Html::submitButton('Искать',['class' => 'btn btn-primary']);
+            echo Html::endTag('span');
+            ?>
+        </div>    
     </div>
     <?php
     

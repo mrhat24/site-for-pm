@@ -81,9 +81,19 @@ class ExerciseController extends Controller
        $model = new Exercise(); 
  
        if ($model->load(Yii::$app->request->post()) && $model->save()) { 
+            if(Yii::$app->request->post()['Exercise']['test']){
+                //echo json_encode(Yii::$app->request->post()['Exercise']);
+                foreach(Yii::$app->request->post()['Exercise']['exerciseTests'] as $exts){
+                     $modelET = new \common\models\ExerciseTest();
+                     $modelET->value = $exts['value'];
+                     $modelET->istrue = $exts['istrue'];
+                     $modelET->exercise_id = $model->getPrimaryKey();
+                     $modelET->save();
+                }   
+            }
            return $this->redirect(['control']); 
        } else { 
-           return $this->renderAjax('create', [ 
+           return $this->render('create', [ 
                'model' => $model, 
            ]); 
        } 
@@ -99,10 +109,38 @@ class ExerciseController extends Controller
    { 
        $model = $this->findModel($id); 
  
-       if ($model->load(Yii::$app->request->post()) && $model->save()) { 
+       if ($model->load(Yii::$app->request->post()) && $model->save()) {            
+            if(Yii::$app->request->post()['Exercise']['test']&&(isset(Yii::$app->request->post()['Exercise']['exerciseTests']))){          
+               // echo json_encode(Yii::$app->request->post()['Exercise']['exerciseTests']);
+                $new_id = \yii\helpers\ArrayHelper::getColumn(Yii::$app->request->post()['Exercise']['exerciseTests'], 'id');
+                $old_tests = \common\models\ExerciseTest::find()->where(['exercise_id' => $model->id])->andWhere(['not in','id',$new_id])->all();
+                foreach ($old_tests as $ot){
+                    $ot->delete();
+                } 
+                foreach(Yii::$app->request->post()['Exercise']['exerciseTests'] as $exts){
+                    if(\common\models\ExerciseTest::findOne($exts['id'])){
+                        $modelET = \common\models\ExerciseTest::findOne($exts['id']);
+                        $modelET->value = $exts['value'];
+                        $modelET->istrue = $exts['istrue'];                     
+                        $modelET->save();
+                    }
+                    else{
+                        $modelET = new \common\models\ExerciseTest();
+                        $modelET->value = $exts['value'];
+                        $modelET->istrue = $exts['istrue'];
+                        $modelET->exercise_id = $model->id;
+                        $modelET->save();
+                    }
+                }
+                                            
+            }
+            elseif(!isset(Yii::$app->request->post()['Exercise']['exerciseTests'])){
+                \common\models\ExerciseTest::deleteAll(['exercise_id' => $model->id]);
+            }
+            
            return $this->redirect(['control']); 
        } else { 
-           return $this->renderAjax('update', [ 
+           return $this->render('update', [ 
                'model' => $model, 
            ]); 
        } 

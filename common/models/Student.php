@@ -34,7 +34,7 @@ class Student extends \yii\db\ActiveRecord
             [['user_id', 'group_id'], 'required'],
             [['user_id', 'group_id'], 'integer'],
             [['education_start_date', 'education_end_date'], 'safe'],
-            [['user_id'], 'unique']
+            [['user_id','srb'], 'unique']
         ];
     }
 
@@ -51,6 +51,7 @@ class Student extends \yii\db\ActiveRecord
             'education_end_date' => 'Дата окончания',
             'fullname' => 'Ф.И.О.',
             'groupName' => 'Группа',
+            'srb' => 'Номер зачетной книжки'
         ];
     }
 
@@ -132,6 +133,26 @@ class Student extends \yii\db\ActiveRecord
             $array[] = ['status' => $value, 'value' => $count];
         }
         return $array;
+    }
+    
+    public function getGpa()
+    {
+        if($this->givenTasks){
+            $gpa = 0;
+            $i = 0;
+            foreach($this->givenTasks as $gt){
+                $gpa = $gpa + $gt->result;
+                $i++;
+            }
+            return round($gpa/$i,1);
+        }
+        return 0;
+    }
+
+
+    public function getTasksCount()
+    {
+        return GivenTask::find()->where(['student_id' => $this->id])->count();
     }
     
 }

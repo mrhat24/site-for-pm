@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -37,16 +38,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [               
-                'attribute' => 'steward.user.fullname',
+                //'attribute' => 'steward.user.fullname',
                 'label' => 'Староста',
                 'value' => function($model){
                     if(isset($model->steward))
-                        return Html::a($model->steward->user->fullname,Url::to(['user/view','id' => $model->steward->user->id]));
+                        return Html::button($model->steward->user->fullname,
+                                ['value' => Url::to(['student/view','id' => $model->steward->id]), 'class' => 'btn-link modalButton']);
                 },
-                'format' => 'html'
+                'format' => 'raw',
             ],
         ]
         
     ]) ?>
 
 </div>
+<?php
+    Modal::begin([
+            'header' => '',
+            //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+            'id' => 'modal',
+            'size' => 'modal-lg',                      
+        ]);        
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+?>

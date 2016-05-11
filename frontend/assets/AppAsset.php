@@ -22,13 +22,19 @@ class AppAsset extends AssetBundle
         //'css/layout.css',
         'markitup/skins/markitup/style.css',
         'markitup/sets/default/style.css',
+        'js/mathquill-0.10.1/mathquill.css'
+        //'css/equation-embed.css',
         
     ];
     public $js = [
         'markitup/jquery.markitup.js',
         'markitup/sets/default/set.js',
         'js/scripts.js',
-        'js/mathjax/mathjax/MathJax.js?config=TeX-MML-AM_CHTML',
+        'js/mathjax/mathjax/MathJax.js?config=TeX-MML-AM_CHTML-full',
+        'js/mathquill-0.10.1/mathquill.js',
+        /*'js/eq_config.js',
+        'js/eq_editor-lite-18.js',
+        'js/editor.js',*/
     ];
     public $depends = [
         'yii\web\YiiAsset',

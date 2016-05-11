@@ -21,67 +21,49 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="site-index">
-	<?php
-            echo Html::tag('h1',$this->title);              
-        ?>
-        <div class="row">
-        <div class="col-md-3"><?php
+    <?php
+        echo Html::tag('h1',$this->title);
+    ?>
+    <div class="row">
+    <div class="col-md-3"><?php
+    $group = Yii::$app->user->identity->student->group->name;
+    $menuItems = [
+        ['label' => "Группа {$group}",['class' => 'badge'] , 'url' => Url::to(['//group/my'])],
+        ['label' => 'Задания '.Html::tag('span',Yii::$app->user->identity->student->newTasksCount,['class' => 'badge'])
+            , 'url' => Url::to(['//given-task/taken'])],
+        ['label' => 'Диплом',['class' => 'badge'] , 'url' => Url::to(['//work/graduate'])],
+        ['label' => 'Курсовые',['class' => 'badge'], 'url' => Url::to(['//work/term'])],
+    ];
 
-        $menuItems = [
-            ['label' => 'Задания '.Html::tag('span',Yii::$app->user->identity->student->newTasksCount,['class' => 'badge'])
-                , 'url' => Url::to(['//given-task/control'])],            
-            ['label' => 'Диплом',['class' => 'badge'] , 'url' => Url::to(['//work/graduate'])],            
-            ['label' => 'Курсовые',['class' => 'badge'], 'url' => Url::to(['//work/term'])],            
-        ];
-        
-        echo Nav::widget(['items' => $menuItems,
-            'options' => ['class' => 'nav nav-pills nav-stacked'],
-            'encodeLabels' => false,            
-            ]);
-        ?></div>
-            <div class="col-md-9">
-                <?php
-                
-                $lessons = Lesson::getLessonsList(['teacher' => Yii::$app->user->identity->student->id]);
-                $schedule = Tabs::widget([
+    echo Nav::widget(['items' => $menuItems,
+        'options' => ['class' => 'nav nav-pills nav-stacked'],
+        'encodeLabels' => false,
+        ]);
+    ?></div>
+        <div class="col-md-9">
+            <?php                
+            
+            echo Tabs::widget([
                     'options' => ['class' => 'nav nav-pills nav-justified'],
+                    'itemOptions' => ['class' => 'well well-sm', 'tag' => 'div'],
                     'items' => [
                         [
-                        'label' => 'Неделя - 1',                        
-                        'content' => Schedule::widget([
-                            'scenario' => 'group',
-                            'lessons' => $lessons,
-                            'week' => 1]),
+                            'label' => 'Профиль студента',
+                            'content' => $this->render('cabinet/_student_profile'),
                         ],
                         [
-                        'label' => 'Неделя - 2',
-                        'content' => Schedule::widget([
-                            'scenario' => 'group',
-                            'lessons' => $lessons,
-                            'week' => 2]),            
-                        ]
-                    ]
-                ]);
-                echo Tabs::widget([
-                        'options' => ['class' => 'nav nav-pills nav-justified'],
-                       // 'itemOptions' => ['class' => 'well'],                            
-                        'items' => [
-                            [
-                                'label' => 'Профиль студента',
-                                'content' => $this->render('_student_profile'),              
-                            ],
-                            [
-                                'label' => 'Расписание',
-                                'content' => $schedule,              
-                            ],
+                            'label' => 'Информация',
+                            'content' => $this->render('cabinet/_info'),
                         ],
-                    ]);
-                ?>
-            </div>
-
-        
+                        [
+                            'label' => 'Уведомления',
+                            'content' => '',
+                        ],
+                    ],
+                ]);
+            ?>
         </div>
-	
+    </div>	
 </div>
 <?php
 Modal::begin([

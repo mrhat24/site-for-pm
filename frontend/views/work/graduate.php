@@ -65,7 +65,7 @@ echo Html::beginTag('ul',['class' => 'list-group']);
             $class = ($history->id==$model->name) ? "list-group-item-success" :  " list-group-item-warning";
             echo Html::beginTag('li',['class' => 'list-group-item '.$class]); 
             echo $history->name;
-            echo Html::tag('span',DateHelper::getDateByUserTimezone($history->creation_date),['class' => 'badge']);
+            echo Html::tag('span',Yii::$app->formatter->asDatetime($history->creation_date),['class' => 'badge']);
             echo Html::endTag('li');
         }        
         echo Html::endTag('ul'); 

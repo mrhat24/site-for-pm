@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fd48fe6eb8e1b4c03a635ae67b033110",
-    "content-hash": "3477098c55d74ac47dfcb7de5fbe3146",
+    "hash": "08cf9e020ba115552269c6f95cc2dd44",
+    "content-hash": "2aa459859d8cbbc13e850b69da17f135",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -58,16 +58,16 @@
         },
         {
             "name": "bower-asset/jquery",
-            "version": "2.2.3",
+            "version": "2.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jquery/jquery-dist.git",
-                "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198"
+                "reference": "086d381cd2f3b4b8b0af85ecb2c9593a61e5b4bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/af22a351b2ea5801ffb1695abb3bb34d5bed9198",
-                "reference": "af22a351b2ea5801ffb1695abb3bb34d5bed9198",
+                "url": "https://api.github.com/repos/jquery/jquery-dist/zipball/086d381cd2f3b4b8b0af85ecb2c9593a61e5b4bd",
+                "reference": "086d381cd2f3b4b8b0af85ecb2c9593a61e5b4bd",
                 "shasum": ""
             },
             "type": "bower-asset-library",
@@ -478,12 +478,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-grid.git",
-                "reference": "28a762ba2fb2dec1c36c1a29fe3d0cd71e71a37c"
+                "reference": "70bfc9f6f31dac4e4b5d0fa8fbbc1de733d34361"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/28a762ba2fb2dec1c36c1a29fe3d0cd71e71a37c",
-                "reference": "28a762ba2fb2dec1c36c1a29fe3d0cd71e71a37c",
+                "url": "https://api.github.com/repos/kartik-v/yii2-grid/zipball/70bfc9f6f31dac4e4b5d0fa8fbbc1de733d34361",
+                "reference": "70bfc9f6f31dac4e4b5d0fa8fbbc1de733d34361",
                 "shasum": ""
             },
             "require": {
@@ -519,20 +519,20 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-04-28 12:27:02"
+            "time": "2016-05-08 08:40:47"
         },
         {
             "name": "kartik-v/yii2-krajee-base",
-            "version": "v1.8.4",
+            "version": "1.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-                "reference": "3115b09aeb15a5e06f38dc16860baf153d9bf70e"
+                "reference": "7f7a45ffe193fe673f72b9effc01b08499f2a454"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/3115b09aeb15a5e06f38dc16860baf153d9bf70e",
-                "reference": "3115b09aeb15a5e06f38dc16860baf153d9bf70e",
+                "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/7f7a45ffe193fe673f72b9effc01b08499f2a454",
+                "reference": "7f7a45ffe193fe673f72b9effc01b08499f2a454",
                 "shasum": ""
             },
             "require": {
@@ -570,7 +570,59 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2016-04-11 09:07:40"
+            "time": "2016-05-07 19:45:52"
+        },
+        {
+            "name": "kartik-v/yii2-markdown",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kartik-v/yii2-markdown.git",
+                "reference": "f6c78178c8385a4898fc6b0d8160253d401e1675"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/kartik-v/yii2-markdown/zipball/f6c78178c8385a4898fc6b0d8160253d401e1675",
+                "reference": "f6c78178c8385a4898fc6b0d8160253d401e1675",
+                "shasum": ""
+            },
+            "require": {
+                "kartik-v/yii2-krajee-base": "*",
+                "michelf/php-markdown": "*",
+                "michelf/php-smartypants": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kartik\\markdown\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD 3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Kartik Visweswaran",
+                    "email": "kartikv2@gmail.com",
+                    "homepage": "http://www.krajee.com/"
+                }
+            ],
+            "description": "Advanced Markdown editing and conversion utilities for Yii Framework 2.0",
+            "homepage": "https://github.com/kartik-v/yii2-markdown",
+            "keywords": [
+                "bootstrap",
+                "converter",
+                "editor",
+                "extension",
+                "form",
+                "input",
+                "jquery",
+                "markdown",
+                "yii",
+                "yii2"
+            ],
+            "time": "2015-09-01 17:20:30"
         },
         {
             "name": "kartik-v/yii2-mpdf",
@@ -878,6 +930,57 @@
             "time": "2016-04-03 01:27:47"
         },
         {
+            "name": "michelf/php-markdown",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "156e56ee036505ec637d761ee62dc425d807183c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/156e56ee036505ec637d761ee62dc425d807183c",
+                "reference": "156e56ee036505ec637d761ee62dc425d807183c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-lib": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Michelf": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Fortin",
+                    "email": "michel.fortin@michelf.ca",
+                    "homepage": "https://michelf.ca/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "John Gruber",
+                    "homepage": "https://daringfireball.net/"
+                }
+            ],
+            "description": "PHP Markdown",
+            "homepage": "https://michelf.ca/projects/php-markdown/",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2015-12-24 01:37:31"
+        },
+        {
             "name": "michelf/php-smartypants",
             "version": "dev-lib",
             "source": {
@@ -1125,66 +1228,17 @@
             "time": "2015-11-30 10:53:14"
         },
         {
-            "name": "setasign/fpdi",
-            "version": "1.6.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Setasign/FPDI.git",
-                "reference": "5b899b2b41463bf261aa69840fd30b50950a500c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Setasign/FPDI/zipball/5b899b2b41463bf261aa69840fd30b50950a500c",
-                "reference": "5b899b2b41463bf261aa69840fd30b50950a500c",
-                "shasum": ""
-            },
-            "suggest": {
-                "setasign/fpdf": "FPDI will extend this class but as it is also possible to use \"tecnickcom/tcpdf\" as an alternative there's no fixed dependency configured.",
-                "setasign/fpdi-fpdf": "Use this package to automatically evaluate dependencies to FPDF.",
-                "setasign/fpdi-tcpdf": "Use this package to automatically evaluate dependencies to TCPDF."
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "filters/",
-                    "fpdi.php",
-                    "fpdf_tpl.php",
-                    "fpdi_pdf_parser.php",
-                    "pdf_context.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jan Slabon",
-                    "email": "jan.slabon@setasign.com",
-                    "homepage": "https://www.setasign.com"
-                }
-            ],
-            "description": "FPDI is a collection of PHP classes facilitating developers to read pages from existing PDF documents and use them as templates in FPDF. Because it is also possible to use FPDI with TCPDF, there are no fixed dependencies defined. Please see suggestions for packages which evaluates the dependencies automatically.",
-            "homepage": "https://www.setasign.com/fpdi",
-            "keywords": [
-                "fpdf",
-                "fpdi",
-                "pdf"
-            ],
-            "time": "2015-11-30 10:53:14"
-        },
-        {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.1",
+            "version": "v5.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421"
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/0697e6aa65c83edf97bb0f23d8763f94e3f11421",
-                "reference": "0697e6aa65c83edf97bb0f23d8763f94e3f11421",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/d8db871a54619458a805229a057ea2af33c753e8",
+                "reference": "d8db871a54619458a805229a057ea2af33c753e8",
                 "shasum": ""
             },
             "require": {
@@ -1224,20 +1278,20 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2015-06-06 14:19:39"
+            "time": "2016-05-01 08:45:47"
         },
         {
             "name": "unclead/yii2-multiple-input",
-            "version": "1.2.14",
+            "version": "1.2.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/unclead/yii2-multiple-input.git",
-                "reference": "9f2d4ea5f22c92a0b6023ce0201d901bcf76a7bb"
+                "reference": "56d92b27cb60f76a42bf994230a0f66e3f918339"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/9f2d4ea5f22c92a0b6023ce0201d901bcf76a7bb",
-                "reference": "9f2d4ea5f22c92a0b6023ce0201d901bcf76a7bb",
+                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/56d92b27cb60f76a42bf994230a0f66e3f918339",
+                "reference": "56d92b27cb60f76a42bf994230a0f66e3f918339",
                 "shasum": ""
             },
             "require": {
@@ -1269,7 +1323,7 @@
                 "yii2 multiple input",
                 "yii2 tabular input"
             ],
-            "time": "2016-04-18 04:31:29"
+            "time": "2016-05-03 09:45:21"
         },
         {
             "name": "webcreate/jquery-ias",
@@ -1633,33 +1687,29 @@
         },
         {
             "name": "fzaninotto/faker",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/fzaninotto/Faker.git",
-                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d"
+                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d0190b156bcca848d401fb80f31f504f37141c8d",
-                "reference": "d0190b156bcca848d401fb80f31f504f37141c8d",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/44f9a286a04b80c76a4e5fb7aad8bb539b920123",
+                "reference": "44f9a286a04b80c76a4e5fb7aad8bb539b920123",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^5.3.3|^7.0"
             },
             "require-dev": {
+                "ext-intl": "*",
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "~1.5"
             },
-            "suggest": {
-                "ext-intl": "*"
-            },
             "type": "library",
             "extra": {
-                "branch-alias": {
-                    "dev-master": "1.5.x-dev"
-                }
+                "branch-alias": []
             },
             "autoload": {
                 "psr-4": {
@@ -1681,7 +1731,7 @@
                 "faker",
                 "fixtures"
             ],
-            "time": "2015-05-29 06:29:14"
+            "time": "2016-04-29 12:21:54"
         },
         {
             "name": "phpspec/php-diff",
@@ -1923,7 +1973,8 @@
         "kartik-v/yii2-widget-datepicker": 20,
         "kartik-v/yii2-grid": 20,
         "kartik-v/yii2-mpdf": 20,
-        "michelf/php-smartypants": 20
+        "michelf/php-smartypants": 20,
+        "kartik-v/yii2-markdown": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

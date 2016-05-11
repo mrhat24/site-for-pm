@@ -29,8 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <p>
         <div class="btn-group">
-         <?= Html::button('Создать',['value'=> Url::to(['task/create']),
-        'class' => 'btn btn-primary modalButton']);?>     
+         <?= Html::a('Создать',Url::to(['task/create']),[
+        'class' => 'btn btn-primary']);?>     
         <?= Html::button('Управление типами',['value'=> Url::to(['task-type/index']),
         'class' => 'btn btn-primary modalButton']);?>    
         </div>
@@ -64,8 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'update' => function ($url, $model)
                             {
-                                return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
-        'class' => 'btn btn-default modalButton']);
+                                return Html::a('<span class="glyphicon glyphicon glyphicon-pencil"></span>',$url,[
+        'class' => 'btn btn-default']);
                             },
                             'delete' => function ($url, $model)
                             {

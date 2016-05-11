@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use common\models\GivenExerciseTestAnswers;
 /**
  * GivenExerciseController implements the CRUD actions for GivenExercise model.
  */
@@ -54,9 +55,11 @@ class GivenExerciseController extends Controller
     
     public function actionEdit($id = null, $gid = null)
     {
-        
         $model = $this->findModel($id);
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if(isset(Yii::$app->request->post()['answers']))
+            $model->checkAndSetAnswers(Yii::$app->request->post()['answers']);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {            
+            
             return $this->redirect(['given-task/taken-view', 'id' => $gid] );
         }
         return $this->renderAjax('edit',

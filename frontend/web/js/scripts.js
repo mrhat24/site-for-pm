@@ -1,4 +1,4 @@
-$(document).ready(function()	{
+$(document).ready(function()	{            
     
     $('#print_pdf').on('click',function(){   
         $(this).hide();

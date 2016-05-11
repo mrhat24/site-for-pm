@@ -4,6 +4,7 @@ namespace common\widgets;
 use common\models\Lesson;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 class Schedule extends \yii\bootstrap\Widget
 {
     const SCENARIO_GROUP = 'group';
@@ -24,6 +25,7 @@ class Schedule extends \yii\bootstrap\Widget
     
     public $teacher = 'teacherFullname';
     public $group = 'groupName';
+    public $discipline = 'disciplineName';
 
     public function init()
     {
@@ -35,8 +37,9 @@ class Schedule extends \yii\bootstrap\Widget
         if($this->days === null){
             $this->days = 6;
         }        
-        if($this->lessons == false)
+        if($this->lessons == false){
             $this->scenario = null;
+        }            
         if($this->scenario === Schedule::SCENARIO_GROUP){
             array_push($this->attributes, $this->teacher);
         }
@@ -51,12 +54,27 @@ class Schedule extends \yii\bootstrap\Widget
             if(($element->week != $week)||($element->day != $day))
                 unset($lessons_array[$key]);
         }
-        $lessons = ArrayHelper::toArray($lessons_array,[Lesson::className() => $this->attributes]);
+        $lessons = $lessons_array;        
         $items = array();
         $result = array();
-        foreach ($lessons as $lesson){
-            foreach($lesson as $les){
-                $items[] = Html::tag('td',$les);
+        foreach ($lessons as $lesson){ 
+            foreach($this->attributes as $attr){                 
+                if($attr == $this->group){
+                    $items[] = Html::tag('td',Html::a($lesson->$attr,  Url::to(['//group/view','id' => $lesson->groupHasDiscipline->group->id])));    
+                }
+                elseif($attr == $this->teacher){
+                    $items[] = Html::tag('td',Html::button($lesson->$attr,
+                        ['value' => Url::to(['//teacher/view','id' => $lesson->teacherHasDiscipline->teacher->id]),
+                            'class' => 'btn-link modalButton']));    
+                }
+                elseif($attr == $this->discipline){                    
+                  // if(Yii::$app->user->identity->teacher->teacherHasDiscipline->groupHasDiscipline->id == $lesson->groupHasDiscipline->id) {
+                        $items[] = Html::tag('td',$lesson->$attr);
+                   // }
+                }
+                else{
+                    $items[] = Html::tag('td',$lesson->$attr);
+                }
             }          
             $result[] = Html::tag('tr', implode("\n", $items));
             $items = null;

@@ -29,7 +29,7 @@ class TeacherHasDiscipline extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['teacher_id', 'ghd_id', 'begin_date', 'end_date'], 'required'],
+            [['teacher_id', 'ghd_id'], 'required'],
             [['teacher_id', 'ghd_id', 'begin_date', 'end_date'], 'integer'],
         ];
     }
@@ -45,6 +45,9 @@ class TeacherHasDiscipline extends \yii\db\ActiveRecord
             'ghd_id' => 'Предмет',
             'begin_date' => 'Begin Date',
             'end_date' => 'End Date',
+            'disciplineName' => 'Дисциплина',
+            'groupName' => 'Группа',
+            'semester' => 'Семестр',
         ];
     }
     
@@ -68,4 +71,20 @@ class TeacherHasDiscipline extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Lesson::className(),['thd_id' => 'id']);
     }
+    
+    public function getDisciplineName()
+    {
+        return $this->groupHasDiscipline->discipline->name;
+    }
+    
+    public function getGroupName()
+    {
+        return $this->groupHasDiscipline->group->name;
+    }
+    
+    public function getSemester()
+    {
+        return $this->groupHasDiscipline->semester_number;
+    }    
+      
 }

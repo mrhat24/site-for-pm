@@ -17,6 +17,8 @@ use Yii;
  */
 class GivenExercise extends \yii\db\ActiveRecord
 {
+    
+    ///public $answers;
     /**
      * @inheritdoc
      */
@@ -51,7 +53,7 @@ class GivenExercise extends \yii\db\ActiveRecord
             'comment' => 'Коментарий',
             'remake' => 'Переделать',
         ];
-    }
+    }        
     /*
      * @get exercise
      */
@@ -59,6 +61,40 @@ class GivenExercise extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Exercise::className(),['id' => 'exercise_id']);
     }
+    
+    public function getGivenExerciseTestAnswers()
+    {
+        return $this->hasMany(GivenExerciseTestAnswers::className(), ['given_exercise_id' => 'id']);
+    }
+    
+    public function checkAndSetAnswers($arr)
+    {
+        $old_answers = $this->answers;
+        $del_answers = array_diff($old_answers, $arr);
+        $add_answers = array_diff($arr, $old_answers);
+        foreach($del_answers as $answer) {
+            $model = GivenExerciseTestAnswers::find()->where(['given_exercise_id' => $this->id])->andWhere(['exercise_test_id' => $answer])->one();
+            $model->delete();
+        }
+        foreach($add_answers as $answer){
+                $model2 = new GivenExerciseTestAnswers();
+                $model2->given_exercise_id = $this->id;
+                $model2->exercise_test_id = $answer;
+                $model2->save();
+        }
+    }
+    
+    public function getAnswerIsTrue()
+    {
+        return !array_diff($this->answers,$this->exercise->exerciseTestsTrue);            
+    }
+
+    public function getAnswers()
+    {
+        return \yii\helpers\ArrayHelper::getColumn($this->givenExerciseTestAnswers, 'exercise_test_id');
+    }
+
+
     /*
      * @ get givenTask
      */

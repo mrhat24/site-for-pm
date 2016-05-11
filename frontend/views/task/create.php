@@ -7,8 +7,8 @@ use yii\helpers\Url;
 /* @var $model common\models\Task */
 
 $this->title = 'Создать задание';
-$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['site/teacher']];
-$this->params['breadcrumbs'][] = ['label' => 'Управление заданиями', 'url' => Url::to(['task/control'])];
+$this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['//teacher/cabinet']];
+$this->params['breadcrumbs'][] = ['label' => 'Управление заданиями', 'url' => ['//task/control']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="task-create">

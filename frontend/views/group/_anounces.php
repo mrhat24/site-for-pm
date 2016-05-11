@@ -6,14 +6,6 @@ use yii\widgets\Pjax;
 use yii\bootstrap\Modal;
 use yii\helpers\Url;
 
-$this->registerJs(
-    '$("document").ready(function(){
-        $("#new_note").on("pjax:end", function() {
-            $.pjax.reload({container:"#notes"});  //Reload GridView
-        });
-    });'
-);
-
 
 $dataProvider = new ActiveDataProvider([
     'query' => $model->getAnounces(),
@@ -22,10 +14,13 @@ $dataProvider = new ActiveDataProvider([
     ],
 ]);
 
-echo Html::button('Добавить объявление',['value'=> Url::to(['//group/create-anounce', 'id' => $model->id]),
-    'class' => 'btn btn-sm btn-primary modalButton btn-block']); 
-echo '<hr/>';
-Pjax::begin(['enablePushState' => false,]);
+
+$add_button = Html::button('Добавить объявление',['value'=> Url::to(['//group/create-anounce', 'id' => $model->id]),
+    'class' => 'btn btn-sm btn-primary modalButton pull-right']); 
+if(Yii::$app->user->can('teacher')||Yii::$app->user->identity->student->isSteward)
+echo Html::tag('div',"<div class='col-md-6'></div><div class='col-md-6'>".$add_button."</div>",['class' => 'row']);
+echo "<hr/>";
+Pjax::begin(['enablePushState' => false,'id' => 'anounces_list']);
 echo ListView::widget([
     'dataProvider' => $dataProvider,
     'itemView' => '_anounces_view',

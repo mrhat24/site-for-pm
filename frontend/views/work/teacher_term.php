@@ -26,13 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [            
             //[ 'class' => 'yii\grid\CheckboxColumn',],
             //'id',
-            'studentFullname',
+            'disciplineName',
             'groupName',
+            'studentFullname',            
             'workTitle.name',
-            'status',
+            'status',            
             [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group">{view} {update}</div>',
+                        'template' => '{view} {update} {delete}',
                         'buttons' => [
                             'view' => function ($url, $model)
                             {
@@ -44,11 +45,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
         'class' => 'btn btn-default modalButton']);
                             },
-                            /*'delete' => function ($url, $model)
+                            'delete' => function ($url, $model)
                             {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
-        'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?']);
-                            },*/
+        'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?', 'data-pjax' => true]);
+                            },
                         ]
                      ],
         ]

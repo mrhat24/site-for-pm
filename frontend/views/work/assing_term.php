@@ -4,7 +4,6 @@ use yii\bootstrap\Html;
 use yii\widgets\Pjax;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
-use common\models\Student;
 use kartik\depdrop\DepDrop;
 use yii\helpers\Url;
 ?>
@@ -14,25 +13,27 @@ use yii\helpers\Url;
 <?php 
 Pjax::begin(['enablePushState' => false, 'id' => 'form-give-term']);
     $form = ActiveForm::begin([
-        'id' => 'assing_term_form',        
+        'id' => 'assing_term_form',
     ]);
-    echo $form->field($model2,'discipline')->dropDownList(ArrayHelper::map(Yii::$app->user->identity->teacher->disciplineList,'id','name')
-            ,['prompt'=>'-Выберите дисциплину-','id' => 'discipline-id'])->label('Дисциплина');
-    echo $form->field($model2,'group')->widget(DepDrop::classname(), [
+    echo $form->field($model,'ghd_id')->dropDownList(ArrayHelper::map(Yii::$app->user->identity->teacher->teacherHasDiscipline,'groupHasDiscipline.id','groupHasDiscipline.discGroupSem'),[
+        'prompt'=>'-Выберите дисциплину -',
+        'id' => 'ghdcat-id'])->label('Дисциплина');
+    
+   /* echo $form->field($model2,'group')->widget(DepDrop::classname(), [
     'options'=>['id'=>'subcat-id'],
     'pluginOptions'=>[
-        'depends'=>['discipline-id'],
-        'placeholder'=>'Select...',
-        'url'=>Url::to(['/work/groupfromdiscipline'])
-    ]
-])->label('Группа');
+            'depends'=>['ghdcat-id'],
+            'placeholder'=>'Select...',
+            'url'=>Url::to(['/work/groupfromdiscipline'])
+        ]
+    ])->label('Группа'); */
     
-    echo $form->field($model2,'student_id')->widget(DepDrop::classname(), [
-    'options'=>['id'=>'subcat2-id'],
+    echo $form->field($model,'student_id')->widget(DepDrop::classname(), [
+    //'options'=>['id'=>'subcat2-id'],
     'pluginOptions'=>[
-        'depends'=>['subcat-id'],
+        'depends'=>['ghdcat-id'],
         'placeholder'=>'Select...',
-        'url'=>Url::to(['/work/studentfromgroup'])
+        'url'=>Url::to(['/work/studentfromghd'])
     ]
 ])->label('Студент');
     

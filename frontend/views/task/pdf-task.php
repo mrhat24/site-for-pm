@@ -34,6 +34,10 @@ use yii\helpers\Markdown;
         echo '</div>';
         echo '<div class="panel-body">';
         echo Markdown::process($exercise->exercise->text);
+        if($exercise->exercise->exerciseTests){
+            $checkboxes = Html::checkboxList('answers',[],\yii\helpers\ArrayHelper::map($exercise->exercise->exerciseTests, 'id','value'),['separator' => '<br>','itemOptions' => ['disabled' => true]]);           
+            echo Html::tag('div',$checkboxes,['class' => 'well well-sm']);
+        }
         echo '</div>';
         $counter++;
         ?>

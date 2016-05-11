@@ -176,7 +176,7 @@ class Lesson extends \yii\db\ActiveRecord
             $lessons = Lesson::find()
                     ->joinWith('groupHasDiscipline',true,"INNER JOIN")
                     ->where(['group_has_discipline.group_id' => $group])
-                    ->andWhere(['group_has_discipline.semestr_number' =>
+                    ->andWhere(['group_has_discipline.semester_number' =>
                         $semester->semester_number
                             ])
                     ->orderBy('week ASC, day ASC, time ASC')->all();
@@ -189,7 +189,7 @@ class Lesson extends \yii\db\ActiveRecord
                     ->innerJoin("teacher_has_discipline thd")
                     ->innerJoin("group_has_discipline ghd", '`ghd`.`id` = `lesson`.`ghd_id`')
                     ->innerJoin("group g", '`g`.`id` = `ghd`.`group_id`')
-                    ->innerJoin("group_semesters gs", '`gs`.`group_id` = `g`.`id` AND `ghd`.`semestr_number`  = `gs`.`semester_number`')
+                    ->innerJoin("group_semesters gs", '`gs`.`group_id` = `g`.`id` AND `ghd`.`semester_number`  = `gs`.`semester_number`')
                     ->where(['<=','gs.begin_date',date('U')])
                     ->andWhere(['>=','gs.end_date',date('U')])                    
                     ->andWhere(['thd.teacher_id' => $teacher])    

@@ -22,7 +22,7 @@ class GroupHasDisciplineSearch extends GroupHasDiscipline
     public function rules()
     {
         return [
-            [['id', 'discipline_id', 'group_id', 'semestr_number'], 'integer'],
+            [['id', 'discipline_id', 'group_id', 'semester_number'], 'integer'],
             [['semesterNumber','groupName','disciplineName'],'safe'],
         ];
     }
@@ -43,10 +43,14 @@ class GroupHasDisciplineSearch extends GroupHasDiscipline
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $newquery = null)
     {
         $query = GroupHasDiscipline::find();
-
+        
+        if($newquery){
+            $query = $newquery;
+        }
+        
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -56,18 +60,19 @@ class GroupHasDisciplineSearch extends GroupHasDiscipline
         $dataProvider->setSort([
             'attributes' => [
                 'id',
+                'semester_number',
                 'semesterNumber' => [
                     'asc' => ['group_semesters.semester_number' => SORT_ASC],
                     'desc' => ['group_semesters.semester_number' => SORT_DESC],                    
                 ],  
                 'groupName' => [
                     'asc' => ['group.name' => SORT_ASC],
-                    'desc' => ['group.namer' => SORT_DESC],                    
+                    'desc' => ['group.name' => SORT_DESC],                    
                 ], 
                 'disciplineName' => [
                     'asc' => ['discipline.name' => SORT_ASC],
                     'desc' => ['discipline.name' => SORT_DESC],
-                ]
+                ],
             ]
         ]);
         
@@ -85,7 +90,7 @@ class GroupHasDisciplineSearch extends GroupHasDiscipline
             'id' => $this->id,
             'discipline_id' => $this->discipline_id,
             'group_id' => $this->group_id,
-            'semestr_semester' => $this->semestr_number,
+            'group_has_discipline.semester_number' => $this->semester_number,
         ]);
         
         $query->joinWith(['semester' => function ($q) {

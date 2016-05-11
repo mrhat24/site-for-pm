@@ -9,6 +9,8 @@ use yii\widgets\ActiveForm;
 use yii\bootstrap\Modal;
 use yii\helpers\Markdown;
 
+$formatter = Yii::$app->formatter;
+
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\TaskSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -18,14 +20,16 @@ $this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 
 $this->params['breadcrumbs'][] = ['label' => 'Задания', 'url' => Url::to(['given-task/taken'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 <div class="task-index"> 
 
     <h1><?= Html::encode($this->title) ?></h1>
     <hr/>
     <?php
    echo Markdown::process($takenTask->task->text);
-   echo Html::tag("span",'Дата выдачи задания: '.DateHelper::getDateByUserTimezone($takenTask->given_date),['class' => 'date']);
+   echo Html::tag("h6",'Дата выдачи задания: '.$formatter->asDate($takenTask->given_date),['class' => 'date']);
+   echo Html::tag("h6",'Дисциплина: '.$takenTask->discipline->name,['class' => 'date']);
+   $teacher = Html::a($takenTask->teacher->user->fullname,Url::to(['//teacher/view','id' => $takenTask->teacher->id]));
+   echo Html::tag("h6",'Преподаватель: '.$teacher,['class' => 'date']);
          
     ?>
      <hr/>
@@ -67,31 +71,27 @@ $this->params['breadcrumbs'][] = $this->title;
         $remake = 'panel-primary';
         if($exercise->remake != 0) { $remake = 'panel-danger'; }
         echo Html::beginTag('div',['class' => 'panel '.$remake]);                
-        echo Html::tag('div','Задание#'.$index,['class' => 'panel-heading']);
+        echo Html::tag('div','Задание#'.$index." ".$exercise->exercise->name,['class' => 'panel-heading']);
         echo Html::beginTag('div',['class' => 'panel panel-info']);
         echo Html::tag('div','Описание',['class' => 'panel-heading']);
         echo Html::tag('div',Markdown::process($exercise->exercise->text),['class' => 'panel-body']);
         echo Html::endTag('div');        
-    
-       // if($complete){        
-       // Pjax::begin(['enablePushState' => false, 'id' => 'form-exersice']);
-        //echo Html::beginTag('blockquote');
         echo Html::beginTag('div',['class' => 'panel panel-info']);
         echo Html::tag('div','Ваше решение',['class' => 'panel-heading']);
+        if($exercise->exercise->exerciseTests){
+            $checkboxes = Html::checkboxList('answers',$exercise->answers,\yii\helpers\ArrayHelper::map($exercise->exercise->exerciseTests, 'id','value'),['separator' => '<br>','itemOptions' => ['disabled' => true]]);           
+            echo Html::tag('div',$checkboxes,['class' => 'well well-sm']);
+        }
+        else
         echo Html::tag('div',Markdown::process($exercise->solution),['class' => 'panel-body']);
         echo Html::endTag('div');      
-        //echo Html::endTag('blockquote');
         if($exercise->comment != null){
             echo Html::beginTag('div',['class' => 'panel panel-info']);
             echo Html::tag('div','Коментарий преподавателя',['class' => 'panel-heading']);
             echo Html::tag('div',Markdown::process($exercise->comment),['class' => 'panel-body']);
             echo Html::endTag('div');
         }       
-        //echo Html::tag('div','Дата последнего редактирования: '.DateHelper::getDateByUserTimezone($exercise->date),['class' => 'panel-footer']);
-        
-        
-       // Pjax::end();       
-        //}    
+
         if((($takenTask->status == 2)&&($exercise->remake == 1))||($takenTask->status == 0))
         echo Html::button('Решать',['value'=> Url::to(['given-exercise/edit', 
             'id' => $exercise->id, 'gid' => $takenTask->id]),'class' => 'btn btn-block btn-primary modalButton']);

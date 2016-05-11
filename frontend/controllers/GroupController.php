@@ -101,7 +101,7 @@ class GroupController extends Controller
         if($id != null) $model->group_id = $id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return "Добавлено";//$this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         } else {
             return $this->renderAjax('create-anounce',[
                 'model' => $model,
@@ -113,22 +113,14 @@ class GroupController extends Controller
         }
     }
     
-    public function actionDeleteAnounce($id)
-    {
-        $model = \common\models\GroupAnounces::findOne($id);
-        if($model->user_id == Yii::$app->user->id)
-            {   $model->delete(); }
-       return $this->redirect(Url::to(['//teacher/cabinet']));
-    }
-
-        public function actionUpdateAnounce($id)
+    public function actionUpdateAnounce($id)
     {
         if(Yii::$app->request->isAjax) {
         $model = \common\models\GroupAnounces::findOne($id);
         if($model->user_id !== Yii::$app->user->id)
             throw new NotFoundHttpException('Страница не существует.');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return "Сохранено";//$this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(Yii::$app->request->referrer);
         } else {
             return $this->renderAjax('create-anounce',[
                 'model' => $model,
@@ -239,6 +231,15 @@ class GroupController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['manage']);
+    }
+    
+    public function actionDeleteAnounce($id)
+    {        
+        $model = GroupAnounces::findOne($id);
+        if(Yii::$app->user->id === $model->user_id){
+            $model->delete();           
+        }
+       $this->redirect(Yii::$app->request->referrer);
     }
 
     /*

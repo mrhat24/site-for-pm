@@ -18,13 +18,14 @@ class WorkSearch extends Work
      */
     public $studentFullname;
     public $groupName;    
+    public $disciplineName;
 
 
     public function rules()
     {
         return [
             [['id', 'work_type_id', 'name', 'student_id', 'teacher_id', 'date', 'approve_status'], 'integer'],
-            [['studentFullname','groupName'],'safe']
+            [['studentFullname','groupName','disciplineName'],'safe']
         ];
     }
 
@@ -65,6 +66,10 @@ class WorkSearch extends Work
                     'desc' => ['student.group.name' => SORT_DESC],
                     'label' => 'groupName'
                 ],
+                'disciplineName' => [
+                    'asc' => ['groupHasDiscipline.discipline.name' => SORT_ASC],
+                    'desc' => ['groupHasDiscipline.discipline.name' => SORT_DESC],
+                ]
             ]
         ]);
         
@@ -97,6 +102,10 @@ class WorkSearch extends Work
                 $q->where('group.name LIKE "%' . $this->groupName . '%" ');
        }]);
         
+       $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.discipline' => function ($q) {
+                $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
+       }]);
+       
         return $dataProvider;
     }
 }

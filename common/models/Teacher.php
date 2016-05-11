@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-
+use common\models\TeacherHasDiscipline;
 /**
  * This is the model class for table "teacher".
  *
@@ -119,11 +119,11 @@ class Teacher extends \yii\db\ActiveRecord
     {
         $discipline = Discipline::find()->select('discipline.*')
                 ->leftJoin('group_has_discipline','group_has_discipline.discipline_id = discipline.id')
-                ->leftJoin('lesson','`lesson`.`ghd_id` = `group_has_discipline`.`id`')
-                ->where(['lesson.teacher_id' => Yii::$app->user->identity->teacher->id])
+                ->leftJoin('teacher_has_discipline','`teacher_has_discipline`.`ghd_id` = `group_has_discipline`.`id`')
+                ->where(['teacher_has_discipline.teacher_id' => Yii::$app->user->identity->teacher->id])
                 ->all();
         return $discipline;
-    }    
+    }        
     
     public function getTeacherHasDiscipline()
     {
@@ -151,5 +151,14 @@ class Teacher extends \yii\db\ActiveRecord
     public function getAnounces()
     {
         return GroupAnounces::find()->where(['user_id' => $this->user->id])->orderBy('id DESC')->all();
+    }
+    
+    public function isTeacherHasDiscipline($id)
+    {
+        $isTeacherHasDiscipline = GroupHasDiscipline::find()->joinWith('teacherHasDiscipline')
+                    ->where(['group_has_discipline.id' => $id])
+                    ->andWhere(['teacher_has_discipline.teacher_id' => $this->id])
+                    ->count();
+        return $isTeacherHasDiscipline;
     }
 }

@@ -20,8 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <div class="btn-group">
-        <?= Html::button('Создать',['value'=> Url::to(['exercise/create']),
-        'class' => 'btn btn-primary modalButton']);?>     
+        <?= Html::a('Создать',Url::to(['exercise/create']),[
+        'class' => 'btn btn-primary']);?>     
         <?= Html::button('Управление категориями',['value'=> Url::to(['exercise-subject/index']),
         'class' => 'btn btn-primary modalButton']);?>     
         </div>
@@ -60,8 +60,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
                     'update' => function ($url, $model)
                     {
-                        return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
-                        'class' => 'btn btn-default modalButton']);
+                        return Html::a('<span class="glyphicon glyphicon glyphicon-pencil"></span>',$url,[
+                        'class' => 'btn btn-default', 'data-pjax' => 0 ]);
                     },
                     'delete' => function ($url, $model)
                     {
@@ -80,9 +80,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'header' => '<h2>Управление заданиями</h2>',
                 //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
                 'id' => 'modal',
-                'size' => 'modal-lg',                      
+                'size' => 'modal-lg',      
+                'clientOptions' => [
+                    'modal' => true,
+                    'autoOpen' => false,
+                ],
             ]);        
-        echo "<div id='modalContent'></div>";
+        echo "<div id='modalContent' style='overflow:hidden;'></div>";
         Modal::end();
     ?>
 </div>

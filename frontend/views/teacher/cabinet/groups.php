@@ -15,17 +15,30 @@ $this->registerJs("
 ");
 echo Html::beginTag('div',['class' => 'well well-sm']);
 ?>
-                <div class="btn-group">
-                    <?=Html::a('<i class="glyphicon glyphicon-briefcase"></i> Страница группы',Url::to(['//group/view',
-                        'id' => $group->id]),['class' => 'btn btn-primary']); ?>
-                </div>
+        <div class="row">
+            <div class="col-md-6">
+                    <h4>Информация о группе</h4>
+            </div>
+            <div class="col-md-6">
+                    <div class="btn-group pull-right">                                     
+                        <?=Html::a('<i class="glyphicon glyphicon-briefcase"></i> Страница группы',Url::to(['//group/view',
+                            'id' => $group->id]),['class' => 'btn btn-primary']); ?>
+                    </div>
+            </div>    
+        </div>
 <div class="list-group">
-    <div class="list-group-item">            
-                <h4>Ваши объявления</h4>
-                <div class="btn-group">
-                    <?=Html::button('<i class="glyphicon glyphicon-envelope"></i> Добавить объявление',['value'=> Url::to(['//group/create-anounce',
-                    'id' => $group->id]), 'class' => 'btn btn-primary modalButton']); ?>
-                </div>
+    <div class="list-group-item">   
+        <div class="row">
+            <div class="col-md-6">
+                    <h4>Ваши объявления</h4>
+            </div>
+            <div class="col-md-6">
+                    <div class="btn-group pull-right">                    
+                        <?=Html::button('<i class="glyphicon glyphicon-envelope"></i> Добавить объявление',['value'=> Url::to(['//group/create-anounce',
+                        'id' => $group->id]), 'class' => 'btn btn-primary modalButton']); ?>
+                    </div>
+            </div>    
+        </div>
         <?php //Список объявлений
             $anounces = Yii::$app->user->identity->teacher->anounces;
             foreach ($anounces as $anounce){
@@ -98,3 +111,4 @@ echo Html::beginTag('div',['class' => 'well well-sm']);
 //Конец список студентов    
 
 echo Html::endTag('div');    
+?>

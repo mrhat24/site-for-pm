@@ -18,7 +18,7 @@ use Yii;
 class Work extends \yii\db\ActiveRecord
 {
     const SCENARIO_GRADUATE = 'graduate';
-     const SCENARIO_TERM = 'term';
+    const SCENARIO_TERM = 'term';
     const TYPE_GRADUATE = 1;
     const TYPE_TERM = 2;
     
@@ -29,32 +29,27 @@ class Work extends \yii\db\ActiveRecord
     
 
     public $group;
-    
+        
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'work';
-    }
-
-    
-    public function scenarios() {
-        $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_GRADUATE] = ['student_id', 'unique'];
-        //$scenarios[self::SCENARIO_TERM] = ['discipline_id', 'required'];
-        return $scenarios;
-    }
+    }      
 
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        return [            
-            ['student_id', 'unique', 'on' => self::SCENARIO_GRADUATE],            
-            [['work_type_id', 'student_id', 'teacher_id', 'date'], 'required'],
+        return [                              
+            [['work_type_id', 'student_id', 'teacher_id'], 'required'],
             [['work_type_id', 'name', 'student_id', 'teacher_id', 'date', 'approve_status','reserved_id'], 'integer'],
+            [['student_id','work_type_id'], 'unique', 'targetAttribute' => ['student_id','work_type_id'],'on' => self::SCENARIO_GRADUATE],    
+            [['ghd_id'], 'required', 'on' => self::SCENARIO_TERM],      
+            [['student_id','work_type_id','teacher_id','ghd_id'], 'unique', 'targetAttribute' => ['student_id','work_type_id','teacher_id','ghd_id'],'on' => self::SCENARIO_TERM],    
         ];
     }
 
@@ -74,10 +69,12 @@ class Work extends \yii\db\ActiveRecord
             'studentFullname' => 'Ф.И.О. студента',
             'groupName' => 'Группа',
             'status' => 'Статус',
-            'discipline_id' => 'Дисциплина',
+            'ghd_id' => 'Дисциплина',
             'student.user.fullname' => 'Ф.И.О. студента',
             'teacher.user.fullname' => 'Ф.И.О. преподавателя',
-            'workType.name' => 'Тип'
+            'workType.name' => 'Тип',
+            'discipline.name' => 'Дисциплина',
+            'disciplineName' => 'Дисциплина'
         ];
     }
     
@@ -131,6 +128,28 @@ class Work extends \yii\db\ActiveRecord
         return $this->hasOne(WorkHistory::className(),['id' => 'name']);
     }
     
+    public function getGroupHasDiscipline()
+    {
+        return $this->hasOne(GroupHasDiscipline::className(),['id' => 'ghd_id']);
+    }
+
+    public function getDisciplineName()
+    {
+        return $this->groupHasDiscipline->discipline->name;
+    }
+    
+    public static function getStatusList()
+    {
+        $arr = array();
+        $work = new Work();
+        for($i = 0; $i<4;$i++)
+        {
+            $work->approve_status = $i;
+            $arr[] = ['id' => $i, 'name' => $work->getStatus()];
+        }
+        return $arr;
+    }
+
     public function getStatus()
     {
         switch($this->approve_status){
@@ -293,7 +312,7 @@ class Work extends \yii\db\ActiveRecord
     
     public function getStudentFullname()
     {
-        return $this->teacher->user->fullname;
+        return $this->student->user->fullname;
     }
     
     public function getGroupName()

@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'label' => 'Фото',
                 'value' => $model->image,
-                'format' => ['image',['max-width: 200px', 'max-heigth' => '200px']],
+                'format' => ['image',['max-width: 200px', 'max-heigth' => '200px','class' => 'img-thumbnail']],
             ],
             'email:email',
            // 'auth_key',

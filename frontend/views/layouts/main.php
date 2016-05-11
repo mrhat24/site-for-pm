@@ -80,7 +80,13 @@ AppAsset::register($this);
         
         if((Yii::$app->user->can('chief'))){   
             $menuSubItems[] = ['label' => 'Кабинет заведующего','url' => Url::to(['/chief/cabinet'])];
-            $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];
+            $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];            
+            $menuItems[] = ['label' => 'Заведующему',
+                'items' => $menuSubItems];
+            $menuSubItems = null;
+        }
+        
+        if((Yii::$app->user->can('chief'))){
             $menuSubItems[] = ['label' => 'Группы', 'url' => Url::to(['/group/manage'])];
             $menuSubItems[] = ['label' => 'Дисциплины', 'url' => Url::to(['/discipline/manage'])];
             $menuSubItems[] = ['label' => 'Предметы', 'url' => Url::to(['/group-has-discipline/manage'])];
@@ -89,17 +95,11 @@ AppAsset::register($this);
             $menuSubItems[] = ['label' => 'Стандарты', 'url' => Url::to(['/standart/manage'])];
             $menuSubItems[] = ['label' => 'Студенты', 'url' => Url::to(['/student/manage'])];
             $menuSubItems[] = ['label' => 'Преподаватели', 'url' => Url::to(['/teacher/manage'])];
-            $menuItems[] = ['label' => 'Заведующему',
-                'items' => $menuSubItems];
-            $menuSubItems = null;
-        }
-        
-        if((Yii::$app->user->can('chief'))){   
             $menuSubItems[] = ['label' => 'Новости', 'url' => Url::to(['/news/manage'])];
             $menuItems[] = ['label' => 'Управление',
                 'url' => Url::to(['/group/my']), 'items' => $menuSubItems];
             $menuSubItems = null;
-        }
+        }       
         
         //information
         $menuItems[] = ['label' => 'Информация', 'items' => [
