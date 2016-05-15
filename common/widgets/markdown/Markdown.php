@@ -10,8 +10,8 @@
 namespace common\widgets\markdown;
 
 use kartik\base\Config;
-use \Michelf\MarkdownExtra;
-use \Michelf\SmartyPantsTypographer;
+use Michelf\MarkdownExtra;
+use Michelf\SmartyPantsTypographer;
 use yii\base\InvalidConfigException;
 
 /**
