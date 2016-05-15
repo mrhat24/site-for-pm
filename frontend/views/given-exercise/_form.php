@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use yii\widgets\Pjax;
+use yii\widgets\Pjax; 
 use common\widgets\markdown\MarkdownEditor;
 /* @var $this yii\web\View */
 /* @var $model common\models\CompleteExercise */
@@ -19,6 +19,7 @@ $this->registerJs("var mathFieldSpan = document.getElementById('math-field');
       }
     });");
 ?>
+
 
 <div class="complete-exercise-form">
 
