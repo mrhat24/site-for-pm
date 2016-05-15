@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use common\components\MdEditorHelp;
-use common\markdown\MarkdownEditor;
+use common\components\markdown\MarkdownEditor;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model common\models\GroupHasDiscipline */
