@@ -19,6 +19,7 @@ $this->registerJs("var mathFieldSpan = document.getElementById('math-field');
       }
     });");
 ?>
+ 
 
 
 <div class="complete-exercise-form">
