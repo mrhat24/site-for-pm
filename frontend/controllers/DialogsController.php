@@ -19,7 +19,8 @@ class DialogsController extends Controller
     public function behaviors()
     {
         
-        return [
+        return [ 
+            
             'access' => [
                 'class' => AccessControl::className(),
                 'only' => ['index'],
