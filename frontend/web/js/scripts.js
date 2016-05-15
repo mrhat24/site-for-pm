@@ -22,11 +22,14 @@ $(document).ready(function()	{
             $('#modal').removeAttr('tabindex');
         });        
     });
-    /*$('body').delegate('.postButton','click',function(){
-       $.post( $(this).attr('value'), function( data ) {
-            $.pjax.reload({container:'#comments-pjax'}); 
-        });   
-    });*/
+    $('body').delegate('.postPjaxButton','click',function(){
+        var btn = $(this);
+       if(confirm('Вы уверены?')) {
+           $.post( btn.attr('value'), function( data ) {
+            $.pjax.reload({container:btn.attr('container')}); 
+        }); 
+       }
+    });
     
     (function () {
             var QUEUE = MathJax.Hub.queue;

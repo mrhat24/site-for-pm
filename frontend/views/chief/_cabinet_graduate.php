@@ -14,7 +14,7 @@ $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 ?>
 <div class="work-chief-graduate">    
 <?php
-    Pjax::begin(['enablePushState' => false]);
+    Pjax::begin(['enablePushState' => false,'id' => 'chief-gradiate-container']);
     echo GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -37,14 +37,17 @@ $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                             },
                             'approve' => function ($url, $model)
                             {
-                                return Html::button('<span class="glyphicon glyphicon-ok"></span> Утвердить',['value'=> Url::to(['//chief/approve-graduate',
-                                    'id' => $model->id,'status' => Work::STATUS_APPROVED]),
-        'class' => 'btn btn-default modalButton']);
+                                return Html::button('<span class="glyphicon glyphicon-ok"></span> Утвердить',
+                                        ['value' => Url::to(['//chief/approve-graduate', 
+                                    'id' => $model->id,'status' => Work::STATUS_APPROVED]),'class' => 'btn btn-default postPjaxButton',
+                                            'container' => '#chief-gradiate-container','data-pjax' => 1]);
                             },
                             'nopprove' => function ($url, $model)
                             {
-                                return Html::button('<span class="glyphicon glyphicon-remove"></span> Отклонить',['value'=> Url::to(['//chief/approve-graduate',
-                                    'id' => $model->id,'status' => Work::STATUS_NOT_APPROVED]), 'class' => 'btn btn-default modalButton']);
+                                return Html::button('<span class="glyphicon glyphicon-remove"></span> Отклонить',
+                                        ['value' => Url::to(['//chief/approve-graduate','id' => $model->id,'status' => Work::STATUS_NOT_APPROVED]),
+                                            'container' => '#chief-gradiate-container','data-pjax' => 1,
+                                            'class' => 'btn btn-default postPjaxButton']);
                             },
                             /*'delete' => function ($url, $model)
                             {
