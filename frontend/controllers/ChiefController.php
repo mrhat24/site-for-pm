@@ -38,6 +38,6 @@ class ChiefController extends Controller
         if(Yii::$app->user->can('chief')&&($model->approve_status == 1)){
             $model->approve_status = $status;
             $model->save();
-        }
+        }        
     }
 }

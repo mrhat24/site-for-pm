@@ -54,7 +54,7 @@ echo Tabs::widget([
     'items' => [
         [
         'label' => 'Дисциплины',
-        'content' => $this->blocks['disciplines'],
+        'content' => $this->render('/group/_disciplines',['model' => $model]),
         ], 
         [
         'label' => 'Расписание',
