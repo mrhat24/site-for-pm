@@ -33,7 +33,7 @@ return [
     'modules' => [
   
         'markdown' => [
-            'class' => 'kartik\markdown\Module',
+            'class' => 'common\components\markdown\Module',
             'previewAction' => '/site/markdown-preview',            
                 // Smarty class configuration
              'smartyParams' => [],

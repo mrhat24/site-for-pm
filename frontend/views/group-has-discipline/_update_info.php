@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\markdown\MarkdownEditor;
 use common\components\MdEditorHelp;
+use common\components\markdown\MarkdownEditor;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model common\models\GroupHasDiscipline */
