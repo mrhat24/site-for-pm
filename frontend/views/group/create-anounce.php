@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use kartik\markdown\MarkdownEditor;
+use common\widgets\markdown\MarkdownEditor;
 use yii\widgets\Pjax;
 use common\components\MdEditorHelp;
 

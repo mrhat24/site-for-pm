@@ -5,7 +5,7 @@ use yii\widgets\ActiveForm;
 use common\models\ExerciseSubject;
 use yii\helpers\ArrayHelper;
 use unclead\widgets\MultipleInput;
-use kartik\markdown\MarkdownEditor;
+use common\widgets\markdown\MarkdownEditor;
 use common\components\MdEditorHelp;
 $this->registerJs(MdEditorHelp::getJsMath());
 

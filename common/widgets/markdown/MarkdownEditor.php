@@ -7,7 +7,7 @@
  * @version   1.3.1
  */
 
-namespace common\components\markdown;
+namespace common\widgets\markdown;
 
 use Yii;
 use yii\helpers\Html;

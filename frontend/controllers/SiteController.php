@@ -13,7 +13,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use frontend\models\NewsSearch;
-use kartik\markdown\Markdown;
+use common\widgets\markdown\Markdown;
 use yii\helpers\Json;
 use yii\helpers\HtmlPurifier;
 /**

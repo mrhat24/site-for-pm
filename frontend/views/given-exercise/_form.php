@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\widgets\Pjax;
-use kartik\markdown\MarkdownEditor;
+use common\widgets\markdown\MarkdownEditor;
 /* @var $this yii\web\View */
 /* @var $model common\models\CompleteExercise */
 /* @var $form yii\widgets\ActiveForm */

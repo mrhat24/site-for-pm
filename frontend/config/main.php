@@ -33,7 +33,7 @@ return [
     'modules' => [
   
         'markdown' => [
-            'class' => 'common\components\markdown\Module',
+            'class' => 'common\widgets\markdown\Module',
             'previewAction' => '/site/markdown-preview',            
                 // Smarty class configuration
              'smartyParams' => [],
