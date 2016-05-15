@@ -8,6 +8,8 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use common\widgets\Schedule;
 use common\models\Lesson;
+use common\widgets\CommentsWidget;
+use yii\helpers\Markdown;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -41,6 +43,14 @@ echo Tabs::widget([
 
 $this->endBlock('schedule');
 
+$this->beginBlock('desk');
+
+echo CommentsWidget::widget(['class_name' => $model::className(),'item_id' => $model->id]);
+
+$this->endBlock('desk');
+
+
+
 ?>
 <div class="group-has-discipline-index">
 
@@ -56,23 +66,7 @@ $this->endBlock('schedule');
                     $buttons = $buttons.Html::button('Назначить курсовые <span class="glyphicon glyphicon glyphicon-file"></span>',
                         ['value' => Url::to(['//work/term-create-group','group' => $model->group->id,'discipline' => $model->id]),'class' => 'btn btn-primary modalButton']);
                 }
-                
-                        /*'label' => 'Страница группы <span class="glyphicon glyphicon-briefcase"></span>',
-                            'url' => Url::to(['//group/view','id' => $model->group->id]),    
-                            'options' => ['class' => 'active']*/
                 $btngr = Html::tag('div',$buttons,['class' => 'btn-group']);
-                
-                /*echo Nav::widget([
-                    'items' => [
-                        [
-                            'label' => 'Страница группы <span class="glyphicon glyphicon-briefcase"></span>',
-                            'url' => Url::to(['//group/view','id' => $model->group->id]),    
-                            'options' => ['class' => 'active']
-                        ],
-                    ],
-                    'options' => ['class' => 'nav nav-pills nav-stacked list-group'],
-                    'encodeLabels' => false
-                ]);*/
                 
             echo Html::beginTag('ul',['class' => 'list-group']);
             echo Html::tag('li','Список преподавателей',['class' => 'list-group-item active']); 
@@ -97,7 +91,7 @@ $this->endBlock('schedule');
             
         ?>Добавить статьи и файлы</div>
         <div class="col-md-9">
-                <?php echo Html::tag('div', $btngr ,['class' => 'pull-right']);?>
+                <?php echo Html::tag('div', $btngr ,['class' => '']);?>
             </div>
         <div class="col-md-9">
             
@@ -106,16 +100,16 @@ $this->endBlock('schedule');
                             'items' => [
                                 [
                                     'label' => 'Информация',
-                                    'content' => 'Новости от студетов/препода???'
+                                    'content' => $this->render('_information',['model' => $model]),
                                 ],
                                 [
                                     'label' => 'Расписание занятий',
                                     'content' => $this->blocks['schedule'],
                                 ],
                                 [
-                                    'label' => 'Консультации',
-                                    'content' => 'Придумать расписание консультации'
-                                ],                            
+                                    'label' => 'Стена',
+                                    'content' => $this->blocks['desk'],
+                                ],
                             ],
                             'itemOptions' => ['tag' => 'div', 'class' => 'well well-sm'],
                             'options' => ['class' => 'nav nav-pills nav-justified']

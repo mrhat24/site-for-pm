@@ -31,4 +31,13 @@ class ChiefController extends Controller
         
         return $this->render('cabinet');
     }
+    
+    public function actionApproveGraduate($id, $status)
+    {
+        $model = \common\models\Work::findOne($id);
+        if(Yii::$app->user->can('chief')&&($model->approve_status == 1)){
+            $model->approve_status = $status;
+            $model->save();
+        }
+    }
 }

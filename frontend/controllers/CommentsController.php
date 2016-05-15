@@ -17,7 +17,7 @@ class CommentsController extends Controller
     /**
      * @inheritdoc
      */
-    public function behaviors()
+   /* public function behaviors()
     {
         return [
             'verbs' => [
@@ -27,7 +27,7 @@ class CommentsController extends Controller
                 ],
             ],
         ];
-    }
+    }*/
 
     /**
      * Lists all Comments models.
@@ -83,11 +83,13 @@ class CommentsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if($model->user_id !== Yii::$app->user->id)
+            return 'У вас недостаточно прав чтобы выполнять это действие!';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+           return true; // return $this->redirect(Yii::$app->request->referrer);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('update', [
                 'model' => $model,
             ]);
         }
@@ -101,9 +103,10 @@ class CommentsController extends Controller
      */
     public function actionDelete($id)
     {
+        $model = $this->findModel($id);
+        if($model->user_id !== Yii::$app->user->id)
+            return 'У вас недостаточно прав чтобы выполнять это действие!';
         $this->findModel($id)->delete();
-
-        return $this->redirect(['index']);
     }
 
     /**

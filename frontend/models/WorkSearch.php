@@ -73,7 +73,7 @@ class WorkSearch extends Work
             ]
         ]);
         
-        $this->load($params);
+        $this->load($params);        
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
@@ -91,20 +91,22 @@ class WorkSearch extends Work
             'approve_status' => $this->approve_status,
         ]);
         
-        $query->joinWith('teacher')->joinWith(['teacher.user' => function ($q) {
+        $query->joinWith('student')->joinWith(['student.user' => function ($q) {
                 $q->where('user.first_name LIKE "%' . $this->studentFullname . '%" ' .
             'OR user.last_name LIKE "%' . $this->studentFullname . '%"'.
             'OR user.middle_name LIKE "%' . $this->studentFullname . '%"'
-            );
+            ); 
        }]);
         
         $query->joinWith('student')->joinWith(['student.group' => function ($q) {
                 $q->where('group.name LIKE "%' . $this->groupName . '%" ');
        }]);
         
-       $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.discipline' => function ($q) {
-                $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
-       }]);
+       if($this->work_type_id == Work::TYPE_TERM){
+            $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.discipline' => function ($q) {
+                     $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
+            }]);
+       }
        
         return $dataProvider;
     }

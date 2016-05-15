@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ?>
             </div>
             <div class="col-md-10">
-                <?php if(Yii::$app->user->can('student')) echo $this->render('_cabinet_student.php'); ?>
+                <?php // if(Yii::$app->user->can('student')) echo $this->render('_cabinet_student.php'); ?>
             </div>
         </div>
     </div>

@@ -179,6 +179,21 @@ class GroupHasDisciplineController extends Controller
             ]);
         }
     }
+    
+     public function actionUpdateInfo($id)
+    {
+        $model = $this->findModel($id);
+        if(!Yii::$app->user->can('teacher')){
+            return 'У вас недостаточно прав!';
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return 'Обновлено';
+        } else {
+            return $this->renderAjax('_update_info', [
+                'model' => $model,
+            ]);
+        }
+    }
 
     /**
      * Deletes an existing GroupHasDiscipline model.

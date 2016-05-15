@@ -32,6 +32,7 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
         return [
             [['discipline_id', 'group_id', 'semester_number'], 'required'],
             [['discipline_id', 'group_id', 'semester_number'], 'integer'],
+            [['information'],'string'],
             [['discipline_id', 'group_id', 'semester_number'], 'unique', 
                 'targetAttribute' => ['discipline_id', 'group_id', 'semester_number']]
         ];

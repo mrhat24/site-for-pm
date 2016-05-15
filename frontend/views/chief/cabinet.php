@@ -32,12 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'content' => $this->render('_cabinet_information'),
                     ],
                     [
-                        'label' => 'Дипломы',
+                        'label' => 'Дипломы на утверждение',
                         'content' => $this->render('_cabinet_graduate'),
                     ],
                     [
                         'label' => 'Управление',
-                        'content' => $this->render('_cabinet_graduate'),
+                        'content' => '',
                     ],
                 ],
             ]);

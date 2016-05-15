@@ -2,32 +2,31 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $model common\models\Comments */
 /* @var $form yii\widgets\ActiveForm */
+$this->registerJs(
+        '$("document").ready(function(){
+            $("#comment-update").on("pjax:end", function() {
+            $.pjax.reload({container:"#comments-pjax"});  //Reload GridView
+            $("#modal").modal("hide");
+        });
+    });'
+);
 ?>
 
 <div class="comments-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php Pjax::begin(['id' => 'comment-update','enablePushState' => false]); ?>
+    <?php $form = ActiveForm::begin(['options' => ['data-pjax' => true]]); ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
-    <?= $form->field($model, 'class_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'parent_id')->textInput() ?>
-
-    <?= $form->field($model, 'datetime')->textInput() ?>
-
-    <?= $form->field($model, 'item_id')->textInput() ?>
+    <?= $form->field($model, 'text')->textarea(['rows' => 6])->label('') ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
-
+    <?php Pjax::end() ?>
 </div>

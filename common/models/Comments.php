@@ -31,7 +31,7 @@ class Comments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text', 'user_id', 'class_name', 'parent_id', 'datetime', 'item_id'], 'required'],
+            [['text', 'class_name', 'item_id'], 'required'],
             [['text'], 'string'],
             [['user_id', 'parent_id', 'datetime', 'item_id'], 'integer'],
             [['class_name'], 'string', 'max' => 255],
@@ -53,4 +53,21 @@ class Comments extends \yii\db\ActiveRecord
             'item_id' => 'Item ID',
         ];
     }
+    
+    public function getUser()
+    {
+        return $this->hasOne(User::className(),['id' => 'user_id']);
+    }
+
+        public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+
+            $this->user_id = Yii::$app->user->id;
+            $this->datetime = date('U');
+            
+            return true;
+        }
+        return false;
+    } 
 }

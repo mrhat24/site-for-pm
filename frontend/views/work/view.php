@@ -33,8 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'student.user.fullname',
             'teacher.user.fullname',
             'date:dateTime',
-            'status',
-            'discipline.name',
+            'status',          
         ],
     ]) ?>
 

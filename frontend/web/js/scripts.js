@@ -17,13 +17,17 @@ $(document).ready(function()	{
         reloadMath(document.getElementsByTagName("body"));
     }); 
 
-        $('body').delegate('.modalButton','click',function(){
-            
+    $('body').delegate('.modalButton','click',function(){
         $('#modal').modal('show').find('#modalContent').html("").load($(this).attr('value'), function(){
             $('#modal').removeAttr('tabindex');
-        });
-        
+        });        
     });
+    /*$('body').delegate('.postButton','click',function(){
+       $.post( $(this).attr('value'), function( data ) {
+            $.pjax.reload({container:'#comments-pjax'}); 
+        });   
+    });*/
+    
     (function () {
             var QUEUE = MathJax.Hub.queue;
             var math = null; 
