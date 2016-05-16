@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="news-index">
     <div class="page-header">
       <h1><?= Html::encode($this->title) ?>
-      <?= (Yii::$app->user->can(teacher)) ? Html::button('Добавить новость', ['value' => Url::to(['//news/create']),'class' => 'btn btn-primary modalButton pull-right']) : "" ?>
+      <?= (Yii::$app->user->can('teacher')) ? Html::button('Добавить новость', ['value' => Url::to(['//news/create']),'class' => 'btn btn-primary modalButton pull-right']) : "" ?>
       </h1>
        
     </div>    
