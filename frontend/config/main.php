@@ -28,7 +28,25 @@ return [
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
-        ],        
+        ], 
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'showScriptName' => false,
+            /*
+            'suffix' => '.html', 
+            'rules' => [
+                'users' => 'user/index',
+                'schedule' => 'lesson/index',
+                'schedule/<teacher:\d+>' => 'lesson/index',
+                'groups' => 'group/index',
+                'groups/<id:\d>' => 'group/view',
+                'cabinet' => 'site/cabinet',                        
+                'cabinet/profile/<id:\d+>' => 'user/view',
+                'cabinet/profile' => 'user/view',
+                'student/group' => 'group/my',
+                'student/task' => 'task/taken',
+            ] */
+        ],
     ],
     'modules' => [
   
