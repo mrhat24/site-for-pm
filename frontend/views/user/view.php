@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
@@ -14,30 +14,34 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="user-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <?php
+        if($model->isStudent){
+            echo Html::button('Профиль студента',['value' => Url::to(['//student/view','id' => $model->student->id]), 'class' => 'btn btn-sm btn-primary modalButton']);
+        }
+    ?>
+    <?php
+        if($model->isTeacher){
+            echo Html::button('Профиль преподавателя',['value' => Url::to(['//teacher/view','id' => $model->teacher->id]), 'class' => 'btn btn-sm btn-primary modalButton']);
+        }
+    ?>
     <?= DetailView::widget([
         'model' => $model,
-        'attributes' => [
-           // 'id',
-           // 'username',
-           // 'password_hash',
-           // 'password_reset_token',
+        'attributes' => [           
             [
                 'label' => 'Фото',
                 'value' => $model->image,
                 'format' => ['image',['max-width: 200px', 'max-heigth' => '200px','class' => 'img-thumbnail']],
             ],
             'email:email',
-           // 'auth_key',
-          //  'status',
-          //  'created_at',
-          //  'updated_at',
-         //   'password',
             'first_name',
             'middle_name',
             'last_name',
-            //'roleDescription',
+            [
+                'label' => 'Статус',
+                'value' => $model->role->description,
+            ],
         ],
     ]) ?>
+    
 
 </div>

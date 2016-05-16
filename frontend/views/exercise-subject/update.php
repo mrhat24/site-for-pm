@@ -15,10 +15,11 @@ $this->params['breadcrumbs'][] = 'Update';
     <h1><?= Html::encode($this->title) ?></h1>
     <p>
         
-    <?php echo Html::beginTag('button',['value'=> Url::to(['exercise-subject/index']),
+    <?php 
+    echo Html::beginTag('button',['value'=> Url::to(['exercise-subject/index']),
         'class' => 'btn btn-primary modalButton']);
-        echo Html::tag('span','',['class' => 'glyphicon glyphicon-menu-left']);
-         echo Html::endTag('button'); ?>    
+    echo Html::tag('span','',['class' => 'glyphicon glyphicon-menu-left']);
+    echo Html::endTag('button'); ?>    
         
     </p>
     

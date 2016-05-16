@@ -55,10 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'label' => 'Информация',
                             'content' => $this->render('cabinet/_info'),
                         ],
-                        [
-                            'label' => 'Уведомления',
-                            'content' => '',
-                        ],
                     ],
                 ]);
             ?>

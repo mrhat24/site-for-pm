@@ -14,7 +14,10 @@ use yii\widgets\Pjax;
 /* @var $model common\models\Group */
 
 $this->title = $model->name;
+if(isset(Yii::$app->user->identity->student)&&(Yii::$app->user->identity->student->group->id === $model->id))
 $this->params['breadcrumbs'][] = ['label' => 'Кабинет студента', 'url' => ['//student/cabinet']];
+else
+$this->params['breadcrumbs'][] = ['label' => 'Группы', 'url' => ['//group']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>

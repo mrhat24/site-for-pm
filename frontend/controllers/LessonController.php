@@ -93,7 +93,7 @@ class LessonController extends Controller
         'groupRequest' => $groupRequest,
     ]);
     }
-    
+
     public function actionArchive($group = null, $semester = null)
     {
         if(($group==null)||($semester==null))

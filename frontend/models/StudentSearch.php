@@ -22,7 +22,7 @@ class StudentSearch extends Student
     public function rules()
     {
         return [
-            [['id', 'user_id', 'group_id'], 'integer'],
+            [['id', 'user_id', 'group_id','srb'], 'integer'],
             [['education_start_date', 'education_end_date','fullname','groupName'], 'safe'],
         ];
     }
@@ -62,7 +62,8 @@ class StudentSearch extends Student
                 'groupName' => [
                     'asc' => ['group.name' => SORT_ASC],
                     'desc' => ['group.name' => SORT_DESC],                   
-                ]
+                ],
+                'srb'
                 
             ]
         ]);
@@ -82,6 +83,7 @@ class StudentSearch extends Student
             'group_id' => $this->group_id,
             'education_start_date' => $this->education_start_date,
             'education_end_date' => $this->education_end_date,
+            'srb' => $this->srb,
         ]);
         
         $query->joinWith(['user' => function($q){

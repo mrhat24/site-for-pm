@@ -52,24 +52,19 @@ $this->registerJs("
     </p>
 
     <?php Pjax::begin(['id' => 'messages', 'enablePushState' => false, ]); ?>
-    <?php         
-   /* $models = $dataProvider->getModels();
-    foreach($models as $model)
-    {
-        echo $model->text.'<br>';
-    }*/    
-    ?>
+    
     <?php  echo ListView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => ''],
         'itemView' => '_message',
         'layout' => '{summary}{items}{pager}',       
         'options' => ['class' => 'panel panel-default'],
         //'pager' => ['class' => \kop\y2sp\ScrollPager::className()]
     ])  ?>
+    
     <?php Pjax::end(); ?>
+    
     <?= $this->render('_form', [
-        'model' => $model,
+        'model_new' => $model_new,
     ])  ?>
     
 

@@ -28,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'options' => ['class' => 'table-responsive'],
         //'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => 'yii\grid\SerialColumn'],            
             'workTitle.name',
             'disciplineName',
+            'status',
             [
                 'label' => 'Преподаватель',
                 'attribute' => 'teacher.user.fullname',

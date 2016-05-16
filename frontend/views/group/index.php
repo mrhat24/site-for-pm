@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -14,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="group-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    
+    <?php Pjax::begin(['enablePushState' => false]);?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,        
         'filterModel' => $searchModel,
@@ -50,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ]
         
     ]) ?>
-
+    <?php Pjax::end() ?>
 </div>
 <?php
     Modal::begin([

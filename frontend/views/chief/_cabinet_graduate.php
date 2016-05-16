@@ -49,11 +49,6 @@ $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                                             'container' => '#chief-gradiate-container','data-pjax' => 1,
                                             'class' => 'btn btn-default postPjaxButton']);
                             },
-                            /*'delete' => function ($url, $model)
-                            {
-                                return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
-        'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?']);
-                            },*/
                         ]
             ],
         ]
@@ -62,13 +57,3 @@ $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
     Pjax::end();
 ?>
 </div>
-<?php
-Modal::begin([
-            //'header' => '<h2>Управление заданиями</h2>',
-            //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
-            'id' => 'modal',
-            'size' => 'modal-lg',                      
-        ]);        
-    echo "<div id='modalContent'></div>";
-    Modal::end();
-?>
