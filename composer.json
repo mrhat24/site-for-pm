@@ -32,7 +32,8 @@
         "michelf/php-smartypants": "dev-lib",
         "unclead/yii2-multiple-input": "^1.2",
         "kartik-v/yii2-krajee-base": "*",
-        "michelf/php-markdown": "*"         
+        "michelf/php-markdown": "*",
+        "yiisoft/yii2-imagine": "^2.0"         
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

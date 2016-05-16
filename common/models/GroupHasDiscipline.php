@@ -51,7 +51,8 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
             'semesterNumber' => 'Номер семестра',
             'groupName' => 'Группа',
             'disciplineName' => 'Дисциплина',
-            'teacherHasDiscipline' => 'Преподаватели'
+            'teacherHasDiscipline' => 'Преподаватели',
+            'information' => 'Информация'
         ];
     }
     
@@ -112,5 +113,22 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
     public function getDiscGroupSem()
     {
         return "Дисциплина: ".$this->discipline->name.". Группа: ".$this->group->name.". Семестр: ".$this->semester_number.".";
+    }
+    
+    public function checkTeacher($id)
+    {
+        return GroupHasDiscipline::find()->joinWith('teacherHasDiscipline')
+                ->joinWith('teacherHasDiscipline.teacher')->where(['teacher.id' => $id])
+                ->andWhere(['group_has_discipline.id' => $this->id])->count();
+    }
+    
+    public function checkStudent($id)
+    {
+        return GroupHasDiscipline::find()
+                ->joinWith('group')
+                ->joinWith('group.students')                
+                ->andWhere(['student.id' => $id])
+                ->andWhere(['group_has_discipline.id' => $this->id])
+                ->count();
     }
 }

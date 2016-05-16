@@ -96,6 +96,7 @@ AppAsset::register($this);
             $menuSubItems[] = ['label' => 'Студенты', 'url' => Url::to(['/student/manage'])];
             $menuSubItems[] = ['label' => 'Преподаватели', 'url' => Url::to(['/teacher/manage'])];
             $menuSubItems[] = ['label' => 'Новости', 'url' => Url::to(['/news/manage'])];
+            $menuSubItems[] = ['label' => 'Пользователи', 'url' => Url::to(['/user/manage'])];
             $menuItems[] = ['label' => 'Управление',
                 'url' => Url::to(['/group/my']), 'items' => $menuSubItems];
             $menuSubItems = null;

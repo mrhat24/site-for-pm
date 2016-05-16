@@ -18,10 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="lesson-index">
    <h1><?= Html::encode($this->title) ?></h1>
    <?php // echo $this->render('_search', ['model' => $searchModel]); ?> 
-   <p>
-       <?= Html::button('Добавить занятие',['value'=> Url::to(['create']),
+   <div class="btn-group">
+    <?= Html::button('Добавить занятие',['value'=> Url::to(['//lesson/create']),
         'class' => 'btn btn-success modalButton']);?>     
-   </p>
+    <?= Html::button('Управление типами',['value'=> Url::to(['//lesson-type/index']),
+        'class' => 'btn btn-primary modalButton']);?>         
+   </div>
    <?php   Pjax::begin(['enablePushState' => false]) ?>
    <?= GridView::widget([
        'dataProvider' => $dataProvider,

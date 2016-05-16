@@ -50,28 +50,28 @@ class MessageController extends Controller
             return $this->render('index');
         }
         
-        $model = new Message();
-        $model->recipient_id = Yii::$app->request->get()['usr'];
-        $model->sender_id = Yii::$app->user->id;
+        $model_new = new Message();
+        $model_new->recipient_id = Yii::$app->request->get()['usr'];
+        $model_new->sender_id = Yii::$app->user->id;
         
         $userto = Yii::$app->request->get()['usr'];
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model_new->load(Yii::$app->request->post()) && $model->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
-            $model->text = "";
+            $model_new->text = "";
         }
         unset(Yii::$app->request->post()['text']);
         $dataProvider = new ActiveDataProvider([
             'query' => Message::find()->where(['and','sender_id='.Yii::$app->user->id, 'recipient_id='.Yii::$app->request->get()['usr']])
                 ->orWhere(['and','recipient_id='.Yii::$app->user->id, 'sender_id='.Yii::$app->request->get()['usr']])->orderBy('id DESC'),
             'pagination' => [
-                'pageSize' => 10, 
+                'pageSize' => 5, 
             ],
         ]); 
         
 
         return $this->render('view', [
             'dataProvider' => $dataProvider,
-            'model' => $model,
+            'model_new' => $model_new,
             'userto' => $userto,
         ]);
         

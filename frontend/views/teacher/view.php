@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\Teacher */
 
@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ])*/ ?>
     </p>
-
+    <?= Html::button('Профиль пользователя',['value' => Url::to(['//user/view','id' => $model->user->id]), 'class' => 'btn btn-sm btn-primary modalButton']);?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

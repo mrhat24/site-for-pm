@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use yii\widgets\Pjax;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
@@ -17,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::button('Новый тип', ['value' => Url::to(['task-type/create']),
             'class' => 'btn btn-primary modalButton']) ?>
     </p>
-
+    <?php Pjax::begin(['id' => 'task-type-pjax' ,'enablePushState' => false]); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'columns' => [
@@ -49,5 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                      ],
         ],
     ]); ?>
+    
+   <?php Pjax::end() ?>
 
 </div>

@@ -1,6 +1,7 @@
 <?php
 
 namespace common\widgets;
+use Yii;
 use common\models\Lesson;
 use yii\bootstrap\Html;
 use yii\helpers\ArrayHelper;
@@ -67,10 +68,10 @@ class Schedule extends \yii\bootstrap\Widget
                         ['value' => Url::to(['//teacher/view','id' => $lesson->teacherHasDiscipline->teacher->id]),
                             'class' => 'btn-link modalButton']));    
                 }
-                elseif($attr == $this->discipline){                    
-                  // if(Yii::$app->user->identity->teacher->teacherHasDiscipline->groupHasDiscipline->id == $lesson->groupHasDiscipline->id) {
-                        $items[] = Html::tag('td',$lesson->$attr);
-                   // }
+                elseif(($attr == $this->discipline)&&(($lesson->groupHasDiscipline->checkStudent(Yii::$app->user->identity->student->id))
+                        ||($lesson->groupHasDiscipline->checkTeacher(Yii::$app->user->identity->teacher->id)))){                          
+                       $items[] = Html::tag('td',Html::a($lesson->groupHasDiscipline->discipline->name,Url::to(['//group-has-discipline','id' => $lesson->groupHasDiscipline->id]),
+                        ['class' => 'btn-link']));
                 }
                 else{
                     $items[] = Html::tag('td',$lesson->$attr);

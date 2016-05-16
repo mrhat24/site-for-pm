@@ -32,18 +32,18 @@ $this->params['breadcrumbs'][] = $this->title;
             'status',
             [
                         'class' => 'yii\grid\ActionColumn',
-                        'template' => '<div class="btn-group">{view} {update}</div>',
+                        'template' => '{view}',
                         'buttons' => [
                             'view' => function ($url, $model)
                             {
                                 return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> $url,
-        'class' => 'btn btn-default modalButton']);
+        'class' => 'btn btn-sm btn-default modalButton']);
                             },
-                            'update' => function ($url, $model)
+                            /*'update' => function ($url, $model)
                             {
                                 return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
         'class' => 'btn btn-default modalButton']);
-                            },
+                            },*/
                             /*'delete' => function ($url, $model)
                             {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[

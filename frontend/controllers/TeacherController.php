@@ -24,12 +24,12 @@ class TeacherController extends Controller
                 'only' => ['manage','list' ,'view', 'create','update','delete'],
                 'rules' => [
                     [
-                        'actions' =>  ['manage', 'view', 'create','update','delete'],
+                        'actions' =>  ['manage', 'create','update','delete'],
                         'allow' => true,
                         'roles' => ['chief'],
                     ],
                     [
-                        'actions' =>  ['list'],
+                        'actions' =>  ['list', 'view'],
                         'allow' => true,
                         'roles' => ['user'],
                     ],

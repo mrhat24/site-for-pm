@@ -29,7 +29,7 @@ class StudentController extends Controller
                         'roles' => ['chief'],
                     ],
                     [
-                        'actions' =>  ['index','view','cabinet'],
+                        'actions' =>  ['index','cabinet'],
                         'allow' => true,
                         'roles' => ['student'],
                     ],
@@ -37,6 +37,11 @@ class StudentController extends Controller
                         'actions' =>  ['lists'],
                         'allow' => true,
                         'roles' => ['teacher'],
+                    ],
+                    [
+                        'actions' =>  ['view'],
+                        'allow' => true,
+                        'roles' => ['user'],
                     ],
                 ],
             ],

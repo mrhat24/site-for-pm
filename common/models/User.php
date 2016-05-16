@@ -33,6 +33,8 @@ class User extends ActiveRecord implements IdentityInterface
     const ROLE_MANAGER = 16;
     const ROLE_ADMIN = 99;
     
+    public $imageFile;   
+    
     /**
      * @inheritdoc
      */
@@ -57,14 +59,25 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['first_name','middle_name','last_name','timezone'],'string', 'max' => 255],
+            [['first_name','middle_name','last_name','timezone','image'],'string', 'max' => 255],
             ['email' , 'email'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['timezone', 'default', 'value' => 'Asia/Krasnoyarsk'],
             //['role', 'default', 'value' => '1'],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             ['image', 'default', 'value' => '@web/images/demo/avatar.png'],
+            [['imageFile'], 'image', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
+    }
+    
+    public function upload()
+    {
+        if ($this->validate()) {
+            $this->imageFile->saveAs('/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -235,6 +248,7 @@ class User extends ActiveRecord implements IdentityInterface
             $roles = Yii::$app->authManager->getRolesByUser($this->id);
                 foreach($roles as $role)
                 return $role;
+                
         }
         
     } 

@@ -154,5 +154,4 @@ class Student extends \yii\db\ActiveRecord
     {
         return GivenTask::find()->where(['student_id' => $this->id])->count();
     }
-    
 }

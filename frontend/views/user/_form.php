@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'email')->textInput() ?>
     
@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'middle_name')->textInput() ?>
     
     <?= $form->field($model, 'last_name')->textInput() ?>
+    
+    <?= $form->field($model, 'imageFile')->fileInput() ?>
     
     <?php $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL); 
     $list = array();

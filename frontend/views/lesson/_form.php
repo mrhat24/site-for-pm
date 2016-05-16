@@ -21,16 +21,16 @@ use yii\helpers\Url;
     <?php $form = ActiveForm::begin(); ?>
  
     
-    <?= $form->field($model, 'ghd_id')->dropDownList(ArrayHelper::map(GroupHasDiscipline::find()->all(),'id','groupSemDisc')); ?>    
+    <?= $model->isNewRecord ? $form->field($model, 'ghd_id')->dropDownList(ArrayHelper::map(GroupHasDiscipline::find()->all(),'id','groupSemDisc'),['prompt' => '--Выберите дисциплину--']): "" ; ?>    
 
-    <?= $form->field($model, 'thd_id')->widget(DepDrop::classname(), [
+    <?= $model->isNewRecord ? $form->field($model, 'thd_id')->widget(DepDrop::classname(), [
     'options'=>['id'=>'thd_id-id'],    
     'pluginOptions'=>[
         'depends'=>['lesson-ghd_id'],
         'placeholder'=>'...',
         'url'=>Url::to(['/lesson/thd'])
     ]
-]); ?>
+]) : $form->field($model, 'thd_id')->dropDownList(ArrayHelper::map($model->groupHasDiscipline->teacherHasDiscipline,'teacher.id','teacher.user.fullname'));?>
     
     <?= $form->field($model, 'lesson_type_id')->dropDownList(ArrayHelper::map(LessonType::find()->all(),'id','name')) ?>
 

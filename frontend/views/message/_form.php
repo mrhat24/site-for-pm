@@ -28,7 +28,7 @@ $this->registerJs(
 
     <?//= $form->field($model, 'to_id')->textInput() ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6])->label(""); ?>
+    <?= $form->field($model_new, 'text',['validateOnBlur' => false, 'validateOnChange' => false])->textarea(['rows' => 6])->label(""); ?>
 
     <?//= $form->field($model, 'active')->textInput() ?>
 

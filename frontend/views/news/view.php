@@ -6,6 +6,7 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
 use common\widgets\CommentsWidget;
+use yii\helpers\Markdown;
 /* @var $this yii\web\View */
 /* @var $model common\models\News */
 
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="panel panel-default">
         <div class="panel-body">
-          <?=Html::encode($model->text)?>
+          <?= Markdown::process($model->text) ?>
         </div>    
         <ul class="list-group">
             <li class="list-group-item">

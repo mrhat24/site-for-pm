@@ -2,6 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use yii\helpers\Url;
+use yii\helpers\Markdown;
 /* 
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -13,7 +14,7 @@ use yii\helpers\Url;
     echo Html::tag('h4',Html::encode($model->title));
 ?></div>
     <div class="panel-body">
-      <?=  StringHelper::truncate($model->text,400,'...');?>
+      <?= Markdown::process(StringHelper::truncate($model->text,400,'...'));?>
     </div>    
     <ul class="list-group">
         <li class="list-group-item">
