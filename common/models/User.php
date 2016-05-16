@@ -239,6 +239,7 @@ class User extends ActiveRecord implements IdentityInterface
             'role' => 'Роль',
             'timezone' => 'Часовой пояс',            
             'usernameFullname' => 'Пользователь',
+            'authAssignments' => 'Роль'
         ];
     }
     
@@ -247,11 +248,15 @@ class User extends ActiveRecord implements IdentityInterface
         if(!Yii::$app->user->isGuest){
             $roles = Yii::$app->authManager->getRolesByUser($this->id);
                 foreach($roles as $role)
-                return $role;
-                
-        }
-        
+            return $role;                
+        }        
     } 
+    
+    public function getAuthAssignments()
+    {
+        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+    }
+
     public function getIsTeacher()
     {
         if(Teacher::findOne(['user_id' => $this->id])) return true;

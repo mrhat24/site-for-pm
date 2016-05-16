@@ -35,7 +35,18 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'common\components\ActionColumn',
             'header'=>'Действия', 
             //'headerOptions' => ['width' => '200'],
-            'template' => '{view} {update} {delete}',                              
+            'template' => '{view} {update}',       
+            'buttons' => [
+                'update' => function ($url, $model, $key) {
+                    $options = array_merge([
+                        'title' => Yii::t('yii', 'Update'),
+                        'aria-label' => Yii::t('yii', 'Update'),
+                        'value'=> Url::to(['//user/update-user','id' => $model->id]),
+                        'class' => 'btn btn-default modalButton',
+                    ]);
+                    return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',$options);
+                }
+            ]
             ],
         ],
     ]); ?>
