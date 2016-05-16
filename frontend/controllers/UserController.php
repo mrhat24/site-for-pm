@@ -12,6 +12,7 @@ use yii\filters\AccessControl;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 use Imagine\Image\Box;
+use common\models\AuthAssignment;
 /**
  * UserController implements the CRUD actions for User model.
  */
@@ -118,6 +119,26 @@ class UserController extends Controller
      * @param integer $id
      * @return mixed
      */
+    public function actionUpdateUser($id)
+    {
+        $model = $this->findModel($id);
+        if($model->load(Yii::$app->request->post())){
+            $model->save();  
+            //return $model->id;
+            //return json_encode(Yii::$app->request->post()['User']['authAssignments']['item_name']['0']);
+            if(Yii::$app->request->post()['User']['authAssignments']['item_name'][0]){                               
+                    $modelTHD = AuthAssignment::find()->where(['user_id' => $model->id])->one();                    
+                    $modelTHD->item_name = Yii::$app->request->post()['User']['authAssignments']['item_name'][0];
+                    $modelTHD->save();
+            }               
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+         return $this->renderAjax('update_user', [
+                'model' => $model,
+            ]);
+    }
+
+
     public function actionUpdate()
     {
         $model = $this->findModel(Yii::$app->user->id);
