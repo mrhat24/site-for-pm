@@ -81,8 +81,8 @@ class GivenTaskSearch extends GivenTask
                     'desc' => ['student.group.name' => SORT_DESC],                   
                 ],
                 'disciplineName' => [
-                    'asc' => ['discipline.name' => SORT_ASC],
-                    'desc' => ['discipline.name' => SORT_DESC],     
+                    'asc' => ['groupHasDiscipline.discipline.name' => SORT_ASC],
+                    'desc' => ['groupHasDiscipline.name' => SORT_DESC],     
                 ],
                 'id',
                 'status'
