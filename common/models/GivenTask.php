@@ -128,6 +128,11 @@ class GivenTask extends \yii\db\ActiveRecord
     public function getDiscipline()
     {
         return $this->groupHasDiscipline->discipline;
+    }    
+
+    public function getDisciplineName()
+    {
+        return $this->discipline->name;
     }        
 
         /**

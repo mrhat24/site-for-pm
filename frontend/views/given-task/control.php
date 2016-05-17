@@ -40,8 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     ['class' => 'yii\grid\SerialColumn'],
                     'taskName',
                     [
-                        'attribute' => 'discipline_id',
-                        'value' => '',
+                        'attribute' => 'disciplineName',
+                        'value' => 'disciplineName',
                         'label' => 'Дисциплина',   
                     ],
                     'studentFullname',

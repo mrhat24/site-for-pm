@@ -19,6 +19,7 @@ class GivenTaskSearch extends GivenTask
     public $studentFullname;
     public $taskName;
     public $group;
+    public $disciplineName;
 
 
     /**
@@ -28,7 +29,7 @@ class GivenTaskSearch extends GivenTask
     {
         return [
             [['id', 'given_date', 'teacher_id', 'status', 'result', 'complete_date'], 'integer'],
-            [['task_id', 'ghd_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName','group'], 'safe'],
+            [['task_id', 'ghd_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName','group','disciplineName'], 'safe'],
         ];
     }
 
@@ -79,6 +80,10 @@ class GivenTaskSearch extends GivenTask
                     'asc' => ['student.group.name' => SORT_ASC],
                     'desc' => ['student.group.name' => SORT_DESC],                   
                 ],
+                'disciplineName' => [
+                    'asc' => ['discipline.name' => SORT_ASC],
+                    'desc' => ['discipline.name' => SORT_DESC],     
+                ],
                 'id',
                 'status'
                 
@@ -106,7 +111,7 @@ class GivenTaskSearch extends GivenTask
 
         $query->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'group_key', $this->group_key])
-            ->andFilterWhere(['like','groupHasDiscipline.discipline.name', $this->groupHasDiscipline->discipline->name])
+            //->andFilterWhere(['like','groupHasDiscipline.discipline.name', $this->groupHasDiscipline->discipline->name])
             ->andFilterWhere(['like','task.name',$this->task_id]);
             //->andFilterWhere(['like','user.last_name',$this->student_id]);
         
@@ -120,6 +125,11 @@ class GivenTaskSearch extends GivenTask
             'OR suser.middle_name LIKE "%' . $this->studentFullname . '%"'
             );
         }]);
+        
+        $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.discipline' => function($q){
+            $q->where('discipline.name LIKE "%' . $this->discipline->name . '%" ');
+        }]);
+        
         
         $query->joinWith('teacher')->joinWith(['teacher.user as tuser' => function($q){
             $q->where('tuser.first_name LIKE "%' . $this->teacherFullname . '%" ' .
