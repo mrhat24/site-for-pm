@@ -18,6 +18,7 @@ use yii\helpers\Markdown;
 <?php
     echo "<br>";
     echo Html::tag("h6",'Дата выдачи задания: '.Yii::$app->formatter->asDatetime($model->given_date),['class' => 'date', 'style'=> "text-align: right;"]);
+    echo Html::tag("h6",'Дисциплина: '.$model->disciplineName,['class' => 'date', 'style'=> "text-align: right;"]);
     echo Html::tag("h6",'Преподаватель: '.$model->teacher->user->fullname,['class' => 'date', 'style'=> "text-align: right;"]);
     echo Html::tag("h6",'Студент: '.$model->student->user->fullname,['class' => 'date', 'style'=> "text-align: right;"]);
     echo Html::tag("h6",'Группа: '.$model->student->group->name,['class' => 'date', 'style'=> "text-align: right;"]);        

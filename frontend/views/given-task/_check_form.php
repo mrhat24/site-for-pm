@@ -26,7 +26,7 @@ $this->registerJs('$("#form-task").on("pjax:end", function(){
     <?php
             echo Html::tag('h5','Студент: '.$model->student->user->fullname);
             echo Html::tag('h5','Группа: '.$model->student->group->name);
-            echo Html::tag('h5','Дисциплина: '.$model->discipline->name);
+            echo Html::tag('h5','Дисциплина: '.$model->disciplineName);
     ?>
     </div>
     <?php
