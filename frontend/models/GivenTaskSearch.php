@@ -106,7 +106,7 @@ class GivenTaskSearch extends GivenTask
 
         $query->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'group_key', $this->group_key])
-            //->andFilterWhere(['like','discipline.name', $this->groupHasDiscipline->discipline->name])
+            ->andFilterWhere(['like','groupHasDiscipline.discipline.name', $this->groupHasDiscipline->discipline->name])
             ->andFilterWhere(['like','task.name',$this->task_id]);
             //->andFilterWhere(['like','user.last_name',$this->student_id]);
         
