@@ -169,7 +169,7 @@ class GivenTask extends \yii\db\ActiveRecord
         $teacher = Yii::$app->user->identity->teacher->id;
         $task = $post['task'];
         $deadline = 0;
-        if($post['deadline_date'])
+        if(isset($post['deadline_date']))
             $deadline = Yii::$app->formatter->asTimestamp($post['deadline_date']);
         $given_date = date('U');
         if($post['given_date'])
