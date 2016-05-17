@@ -172,7 +172,7 @@ class GivenTask extends \yii\db\ActiveRecord
         if(isset($post['deadline_date']))
             $deadline = Yii::$app->formatter->asTimestamp($post['deadline_date']);
         $given_date = date('U');
-        if($post['given_date'])
+        if(isset($post['given_date']))
             $given_date = Yii::$app->formatter->asTimestamp($post['given_date']);
         $group_key = md5($given_date);
         $noerror = true;
