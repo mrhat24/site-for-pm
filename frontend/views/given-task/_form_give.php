@@ -124,7 +124,7 @@ $this->registerJs('
                 $("#exersice_type :selected").each(function(i, selected){ 
                   arr[i] = $(selected).val(); 
                 });
-                $.post( "'.Yii::$app->urlManager->createUrl('exercise/exersicelistbytype?id=').'"+arr, function( data ) {
+                $.post( "'.Url::to(['//exercise/exersicelistbytype','id' => '']).'"+arr, function( data ) {
                   $( "#exersices" ).html( data );
                 });
             ',
@@ -151,7 +151,7 @@ $this->registerJs('
                 $("#exersices :selected").each(function(i, selected){ 
                   arr[i] = $(selected).val(); 
                 });               
-                $.post( "'.Yii::$app->urlManager->createUrl('task/exersicespreview?list=').'"+arr, function( data ) {
+                $.post( "'.Url::to(['//task/exersicespreview','id' => '']).'"+arr, function( data ) {
                   $( "#exersicespreview" ).html( data );
                 });
             ',
