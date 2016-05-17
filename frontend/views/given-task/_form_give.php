@@ -151,7 +151,7 @@ $this->registerJs('
                 $("#exersices :selected").each(function(i, selected){ 
                   arr[i] = $(selected).val(); 
                 });               
-                $.post( "'.Url::to(['//task/exersicespreview','id' => '']).'"+arr, function( data ) {
+                $.post( "'.Url::to(['//task/exersicespreview','list' => '']).'"+arr, function( data ) {
                   $( "#exersicespreview" ).html( data );
                 });
             ',
