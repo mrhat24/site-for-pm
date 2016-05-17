@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'taskName',
                     [
                         'attribute' => 'discipline_id',
-                        'value' => 'discipline.name',
+                        'value' => '',
                         'label' => 'Дисциплина',   
                     ],
                     'studentFullname',
