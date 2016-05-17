@@ -124,15 +124,11 @@ class GivenTask extends \yii\db\ActiveRecord
     {
         return $this->hasOne(GroupHasDiscipline::className(),['id' => 'ghd_id']);
     }
-    
-    public function getDiscipline()
-    {
-        return $this->groupHasDiscipline->discipline;
-    }    
+      
 
     public function getDisciplineName()
     {
-        return $this->discipline->name;
+        return $this->groupHasDiscipline->discipline->name;
     }        
 
         /**
