@@ -28,7 +28,7 @@ class GivenTaskSearch extends GivenTask
     {
         return [
             [['id', 'given_date', 'teacher_id', 'status', 'result', 'complete_date'], 'integer'],
-            [['task_id', 'discipline_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName','group'], 'safe'],
+            [['task_id', 'ghd_id', 'student_id', 'comment', 'group_key','teacherFullname','studentFullname','taskName','group'], 'safe'],
         ];
     }
 
@@ -56,7 +56,7 @@ class GivenTaskSearch extends GivenTask
             $query = $way;
         
         $query->joinWith('user');
-        $query->joinWith('discipline');        
+        $query->joinWith('groupHasDiscipline');        
         $query->joinWith('task');
         $query->joinWith('student')->joinWith('student.group');
 
@@ -106,7 +106,7 @@ class GivenTaskSearch extends GivenTask
 
         $query->andFilterWhere(['like', 'comment', $this->comment])
             ->andFilterWhere(['like', 'group_key', $this->group_key])
-            ->andFilterWhere(['like','discipline.name', $this->discipline_id])
+            ->andFilterWhere(['like','discipline.name', $this->groupHasDiscipline->discipline->id])
             ->andFilterWhere(['like','task.name',$this->task_id]);
             //->andFilterWhere(['like','user.last_name',$this->student_id]);
         

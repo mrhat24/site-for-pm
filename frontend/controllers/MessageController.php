@@ -55,7 +55,7 @@ class MessageController extends Controller
         $model_new->sender_id = Yii::$app->user->id;
         
         $userto = Yii::$app->request->get()['usr'];
-        if ($model_new->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model_new->load(Yii::$app->request->post()) && $model_new->save()) {
             //return $this->redirect(['view', 'id' => $model->id]);
             $model_new->text = "";
         }
@@ -98,6 +98,7 @@ class MessageController extends Controller
     {
         $model = new Message();
         $model->recipient_id = $id;
+        $model->sender_id = Yii::$app->user->id;
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             

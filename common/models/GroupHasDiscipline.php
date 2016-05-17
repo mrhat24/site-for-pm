@@ -115,6 +115,11 @@ class GroupHasDiscipline extends \yii\db\ActiveRecord
         return "Дисциплина: ".$this->discipline->name.". Группа: ".$this->group->name.". Семестр: ".$this->semester_number.".";
     }
     
+    public function getDiscSem()
+    {
+        return "Дисциплина: ".$this->discipline->name.". Семестр: ".$this->semester_number.".";
+    }
+    
     public function checkTeacher($id)
     {
         return GroupHasDiscipline::find()->joinWith('teacherHasDiscipline')

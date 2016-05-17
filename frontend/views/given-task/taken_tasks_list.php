@@ -44,7 +44,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'label' => 'Дисциплина',
                         //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
                     ],
-                    'teacherFullname',
+                    [
+                        'attribute' => 'teacherFullname',
+                        'value' => function($model){
+                            return Html::button($model->teacherFullname,['class' => 'btn-link modalButton','value' => Url::to(['//teacher/view','id' => $model->teacher->id])]);
+                        },
+                        'format' => 'raw',
+                    ],
                     [
                         'attribute' => 'status',
                         'value' => function ($model, $key, $index, $grid)

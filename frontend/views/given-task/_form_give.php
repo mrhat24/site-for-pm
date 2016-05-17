@@ -9,6 +9,7 @@ use yii\helpers\ArrayHelper;
 use common\models\Group;
 use common\models\ExerciseSubject;
 use kartik\date\DatePicker;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\Task */
 /* @var $form yii\widgets\ActiveForm */
@@ -31,11 +32,11 @@ $this->registerJs('
     
     <?= Html::label('Дисциплина')?>
     
-    <?= Html::dropDownList('discipline','',ArrayHelper::map(Yii::$app->user->identity->teacher->teacherHasDiscipline,'groupHasDiscipline.discipline.id','groupHasDiscipline.discipline.name'), 
+    <?= Html::dropDownList('discipline','',ArrayHelper::map(Yii::$app->user->identity->teacher->teacherHasDiscipline,'groupHasDiscipline.id','groupHasDiscipline.discSem'), 
              [
                 'prompt'=>'-Выберите преподаваемую дисциплину-',
                 'onchange'=>'
-                    $.post( "'.Yii::$app->urlManager->createUrl('group/lists?id=').'"+$(this).val(), function( data ) {
+                    $.post( "'.Url::to(['//group/lists','id' => '']).'"+$(this).val(), function( data ) {
                       $( "select#group_list" ).html( data );
                     });
                 ',
@@ -50,7 +51,7 @@ $this->registerJs('
     <?= Html::dropDownList('group','',[], 
              ['prompt'=>'-Выберите группу-',
               'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('student/lists?id=').'"+$(this).val(), function( data ) {
+                $.post( "'.Url::to(['//student/lists','id' => '']).'"+$(this).val(), function( data ) {
                   $( "select#student_list" ).html( data );
                 });
             ','class' => 'form-control',
@@ -79,7 +80,7 @@ $this->registerJs('
     <?= Html::dropDownList('task_type','',ArrayHelper::map(TaskType::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id','name'), 
              ['prompt'=>'-Выберите тип заданий-',
               'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('task/listbytype?id=').'"+$(this).val(), function( data ) {
+                $.post( "'.Url::to(['//task/listbytype','id' => '']).'"+$(this).val(), function( data ) {
                   $( "select#task" ).html( data );
                 });
             ',
@@ -94,7 +95,7 @@ $this->registerJs('
     <?= Html::dropDownList('task','',[], 
              ['prompt'=>'-Выберите задание-',
               'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('task/givepreview?id=').'"+$(this).val(), function( data ) {
+                $.post( "'.Url::to(['//task/givepreview','id' => '']).'"+$(this).val(), function( data ) {
                   $( "#givepreview" ).html( data );
                 });
             ',

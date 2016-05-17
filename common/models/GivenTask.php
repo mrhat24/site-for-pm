@@ -36,11 +36,11 @@ class GivenTask extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['student_id', 'teacher_id', 'task_id','discipline_id','result','given_date','deadline_date'], 'required'],            
-            [['student_id', 'teacher_id', 'task_id', 'discipline_id','status','complete_date','result'], 'integer'],
+            [['student_id', 'teacher_id', 'task_id','ghd_id','given_date','deadline_date'], 'required'],            
+            [['student_id', 'teacher_id', 'task_id', 'ghd_id','status','complete_date','result'], 'integer'],
             [['comment','group_key'], 'string'],
             [['status','result'], 'default', 'value' => 0],
-            
+ 
         ];
     }
 
@@ -58,7 +58,7 @@ class GivenTask extends \yii\db\ActiveRecord
             'teacher_id' => 'id преподавателя',
             'task_id' => 'id задания',
             'comment' => 'Комментарий',
-            'discipline_id' => 'id дисциплины',
+            'ghd_id' => 'id дисциплины',
             'status' => 'Статус',
             'result' => 'Результат',   
             'teacherFullname' => 'Преподаватель',
@@ -120,12 +120,17 @@ class GivenTask extends \yii\db\ActiveRecord
     /**
      * @get discipline
      */
-    public function getDiscipline()
+    public function getGroupHasDiscipline()
     {
-        return $this->hasOne(Discipline::className(),['id' => 'discipline_id']);
+        return $this->hasOne(GroupHasDiscipline::className(),['id' => 'ghd_id']);
     }
     
-    /**
+    public function getDiscipline()
+    {
+        return $this->groupHasDiscipline->discipline;
+    }        
+
+        /**
      * @get exercises
      */
     public function getExercises()
@@ -176,7 +181,7 @@ class GivenTask extends \yii\db\ActiveRecord
             $model->given_date = $given_date;
             $model->student_id = $student;
             $model->teacher_id = $teacher;
-            $model->discipline_id = $discipline;
+            $model->ghd_id = $discipline;
             $model->task_id = $task;
             $model->deadline_date = $deadline;
             $model->group_key = $group_key;

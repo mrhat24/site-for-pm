@@ -166,12 +166,8 @@ class GroupController extends Controller
     {
          $groups = Group::find()->select('group.*')
                  ->leftJoin('group_has_discipline','group_has_discipline.group_id = group.id')
-                 ->where(['group_has_discipline.discipline_id' => $id])
-                 ->all();
-         $groupsCount = Group::find()->select('group.*')
-                 //->leftJoin('group_has_discipline','group_has_discipline.group_id = group.id')
-                // ->where(['group_has_discipline.discipline_id' => $id])
-                 ->count();
+                 ->where(['group_has_discipline.id' => $id])
+                 ->all();         
          return $this->renderAjax('lists',['groups' => $groups]);                  
     }
     /**
