@@ -82,7 +82,7 @@ class GivenTaskSearch extends GivenTask
                 ],
                 'disciplineName' => [
                     'asc' => ['groupHasDiscipline.discipline.name' => SORT_ASC],
-                    'desc' => ['groupHasDiscipline.name' => SORT_DESC],     
+                    'desc' => ['groupHasDiscipline.discipline.name' => SORT_DESC],     
                 ],
                 'id',
                 'status'
@@ -127,7 +127,7 @@ class GivenTaskSearch extends GivenTask
         }]);
         
         $query->joinWith('groupHasDiscipline')->joinWith(['groupHasDiscipline.discipline' => function($q){
-            $q->where('discipline.name LIKE "%' . $this->discipline->name . '%" ');
+            $q->where('discipline.name LIKE "%' . $this->disciplineName . '%" ');
         }]);
         
         
