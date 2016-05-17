@@ -104,7 +104,11 @@ class GivenTaskController extends Controller
     {
         $result = -1;
         if(Yii::$app->request->post()){
-            $result = GivenTask::createGivenTask(Yii::$app->request->post());            
+            $result = GivenTask::createGivenTask(Yii::$app->request->post());  
+            if($result)
+            {
+                return $this->redirect(Yii::$app->request->referrer);
+            }
         }               
         $model = new GivenTask();
         $model->status = 0;
