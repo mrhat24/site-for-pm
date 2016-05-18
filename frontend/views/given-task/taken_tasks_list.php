@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ],                     
                     [
                         'attribute' => 'discipline_id',
-                        'value' => 'discipline.name',
+                        'value' => 'disciplineName',
                         'label' => 'Дисциплина',
                         //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
                     ],
