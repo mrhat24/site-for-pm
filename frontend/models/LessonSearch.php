@@ -93,8 +93,7 @@ class LessonSearch extends Lesson
        $query->andFilterWhere([ 
            'id' => $this->id, 
            'ghd_id' => $this->ghd_id, 
-           'lesson_type_id' => $this->lesson_type_id, 
-           'teacher_id' => $this->teacher->id, 
+           'lesson_type_id' => $this->lesson_type_id,            
            'week' => $this->week, 
            'day' => $this->day, 
            'time' => $this->time, 
