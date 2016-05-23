@@ -45,7 +45,11 @@ foreach($dialog_list as $dialog)
         ->orWhere(['recipient_id' => $dialog])
         ->orderBy('id DESC')
         ->one();            
-    echo Html::a($user->fullname.Yii::$app->formatter->asDatetime($message->datetime),Url::to(['message/','usr' => $user->id]),
+    $messagetext = substr($message->text, 0, 40);
+    $ss = (strlen($message->text) > strlen($messagetext));
+    $messagetext = ($ss) ? ($messagetext."...") : $messagetext;
+    echo Html::a("Диалог с ".$user->fullname."<br> ".$message->sender->fullname." пишет: ".$messagetext.
+            Html::tag('span',Yii::$app->formatter->asDatetime($message->datetime),['class' => 'badge']),Url::to(['message/','usr' => $user->id]),
             ['class' => $message->active ? 'list-group-item active' : 'list-group-item']);
     
 }
