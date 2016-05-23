@@ -31,6 +31,7 @@ class Message extends \yii\db\ActiveRecord
         return [
             [['text'], 'required'],
             [['sender_id','recipient_id', 'active','datetime'], 'integer'],
+            [['sender_id'], 'compare', 'compareAttribute' => 'recipient_id','operator' => '!='],            
             [['text'], 'string'],
             ['active','default','value' => 1],
             ['datetime','default','value' => date('U')]
