@@ -55,6 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'items' => 
                                 $groupTabs,
                         ]);
+                echo Yii::$app->user->identity->teacher->id;
                 $lessons = Lesson::getLessonsList(['teacher' => Yii::$app->user->identity->teacher->id]);
                 $schedule = Tabs::widget([
                     'options' => ['class' => 'nav nav-pills nav-justified'],
