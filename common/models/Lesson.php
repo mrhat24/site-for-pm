@@ -186,13 +186,13 @@ class Lesson extends \yii\db\ActiveRecord
 
                     $lessons = Lesson::find()
                     ->select('lesson.*')                    
-                    ->innerJoin("teacher_has_discipline thd")
+                    ->innerJoin("teacher_has_discipline thd","`thd`.`id` = `lesson`.`thd_id`")
                     ->innerJoin("group_has_discipline ghd", '`ghd`.`id` = `lesson`.`ghd_id`')
                     ->innerJoin("group g", '`g`.`id` = `ghd`.`group_id`')
                     ->innerJoin("group_semesters gs", '`gs`.`group_id` = `g`.`id` AND `ghd`.`semester_number`  = `gs`.`semester_number`')
-                    ->where(['thd.teacher_id' => $teacher])    
-                    ->andWhere(['<=','gs.begin_date',date('U')])
-                    ->andWhere(['>=','gs.end_date',date('U')])                                        
+                    ->where(['<=','gs.begin_date',date('U')])
+                    ->andWhere(['>=','gs.end_date',date('U')])                    
+                    ->andWhere(['thd.teacher_id' => $teacher])    
                     ->orderBy('week ASC, day ASC, time ASC, id ASC')->all();  
             return $lessons;
         }
