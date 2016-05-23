@@ -115,8 +115,7 @@ class GroupHasDisciplineController extends Controller
             return $this->redirect(['manage']);
         } else {
             return $this->renderAjax('create', [
-                'model' => $model,
-                'tModel' => $tModel,
+                'model' => $model,                
             ]);
         }
     }
