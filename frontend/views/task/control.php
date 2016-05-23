@@ -81,14 +81,18 @@ $this->params['breadcrumbs'][] = $this->title;
             Pjax::end();
         ?>
   
-<?php
-Modal::begin([
-            'header' => '<h2>Управление заданиями</h2>',
-            //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
-            'id' => 'modal',
-            'size' => 'modal-lg',                      
-        ]);        
-    echo "<div id='modalContent'></div>";
-    Modal::end();
-?>
+ <?php
+        Modal::begin([
+
+                //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+                'id' => 'modal',
+                'size' => 'modal-lg',      
+                'clientOptions' => [
+                    'modal' => true,
+                    'autoOpen' => false,
+                ],
+            ]);        
+        echo "<div id='modalContent' style='overflow:hidden;'></div>";
+        Modal::end();
+    ?>
 </div>
