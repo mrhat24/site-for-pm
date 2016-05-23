@@ -16,15 +16,8 @@ use yii\widgets\Pjax;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <?= Html::button($model->isNewRecord ? 'Создать' : 'Сохранить', 
-                [
-                    'value' => $model->isNewRecord ? 
-                        Url::to(['task-type/create']) : Url::to(['task-type/update']),
-                    'class' => $model->isNewRecord ? 
-                        'btn btn-success modalButton' : 'btn btn-primary  modalButton',
-                    'type' => 'submit'
-                ]) ?>
+   <div class="form-group">
+        <?= Html::button($model->isNewRecord ? 'Создать' : 'Изменить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'type' => 'submit']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
