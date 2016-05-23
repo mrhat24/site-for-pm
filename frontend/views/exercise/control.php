@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = $this->title;
     
     <?php
         Modal::begin([
-                'header' => '<h2>Управление заданиями</h2>',
+
                 //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
                 'id' => 'modal',
                 'size' => 'modal-lg',      
