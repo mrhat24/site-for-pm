@@ -35,7 +35,7 @@ Pjax::begin(['enablePushState' => false,'id' => 'discipline']);
                 'value' => function($model) {
                     $result = "";
                     foreach ($model->teacherHasDiscipline as $thd){
-                        $result = $result.Html::button($thd->teacher->user->fullname,['value' => Url::to(['//teacher/view','id' => $thd->teacher->user->id]), 'class' => 'btn-link modalButton']);
+                        $result = $result.Html::button($thd->teacher->user->fullname,['value' => Url::to(['//teacher/view','id' => $thd->teacher->id]), 'class' => 'btn-link modalButton']);
                     }
                     return $result;
                 },
