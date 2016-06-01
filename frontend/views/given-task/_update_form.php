@@ -5,15 +5,13 @@ use yii\widgets\ActiveForm;
 use common\models\TaskType;
 use yii\widgets\Pjax;
 use kartik\widgets\DepDrop;
+use yii\helpers\Markdown;
 use yii\helpers\ArrayHelper;
-use common\models\Group;
 use common\models\ExerciseSubject;
 use common\models\Task;
-use Netcarver\Textile;
 use common\models\Exercise;
-use common\models\GivenTask;
-$parser = new \Netcarver\Textile\Parser();
-
+use kartik\select2\Select2;
+use yii\helpers\Url;
 /* @var $this yii\web\View */
 /* @var $model common\models\Task */
 /* @var $form yii\widgets\ActiveForm */
@@ -36,89 +34,96 @@ $this->registerJs('
     
     <?= Html::label('Тип задания')?>
     
-    <?= Html::dropDownList('task_type',$model->task->taskType->id,ArrayHelper::map(TaskType::find()->all(),'id','name'), 
-             ['prompt'=>'-Выберите тип заданий-',
-              'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('task/listbytype?id=').'"+$(this).val(), function( data ) {
-                  $( "select#task" ).html( data );                 
-                });
-            ',
-            'class' => 'form-control',
-            'id' => 'task_type',     
-                 ]); ?>
+    <?php 
+        echo Select2::widget([
+        'name' => 'task_type',
+        'id' => 'task_type',   
+        'value' => $model->task->taskType->id,
+        'data' => ArrayHelper::map(TaskType::find()->all(),'id','name'),
+        'options' => ['placeholder' => 'Выберите тип заданий ...',
+              'onchange'=>'                  
+                $.post( "'.Url::to(['//task/listbytype','id' => '']).'"+$(this).val(), function( data ) {
+                  $( "select#task" ).html( data );
+                }); ',],
+        'pluginOptions' => [
+            'tags' => true,            
+        ],
+    ]);
+    ?>
     
     <?= Html::tag('br')?>
     
     <?= Html::label('Задание')?>
     
-    <?= Html::dropDownList('task',$model->task->id,ArrayHelper::map(Task::find()->where(['type_id' => $model->task->taskType->id])->all(),'id','name'), 
-             ['prompt'=>'-Выберите задание-',
+    <?php 
+        echo Select2::widget([
+        'name' => 'task',
+        'id' => 'task',     
+        'value' => $model->task->id,
+        'data' => ArrayHelper::map(Task::find()->where(['type_id' => $model->task->taskType->id])->all(),'id','name'),
+        'options' => ['placeholder' => 'Выберите задание ...',
               'onchange'=>'
-                $.post( "'.Yii::$app->urlManager->createUrl('task/givepreview?id=').'"+$(this).val(), function( data ) {
+                $.post( "'.Url::to(['//task/givepreview','id' => '']).'"+$(this).val(), function( data ) {
                   $( "#givepreview" ).html( data );
-                });
-            ',
-            'class' => 'form-control',
-            'id' => 'task',     
-                 ]); ?>
+                }); ',],
+        'pluginOptions' => [
+            'tags' => true,            
+        ],
+    ]);
+    ?>
     
     <?= Html::tag('br')?>
     
     <div class="panel panel-default">
         <div class='panel-heading'>Текст задания</div>
-        <div class='panel-body'  id="givepreview" ><?=$parser->textileThis($model->task->text)?></div>
+        <div class='panel-body'  id="givepreview" ><?=  Markdown::process($model->task->text)?></div>
     </div>
     
     <?= Html::label('Тип упражнений')?>
-    
-    <?= Html::button('Выделить все',['onclick' => 
-        '$("#exersice_type option").prop("selected",true); $("#exersice_type option").trigger("change");',
-        'class' => 'btn btn-primary btn-xs'
-        ])?>
-    
-    <?= Html::listBox('exersice_type',ArrayHelper::getColumn(ExerciseSubject::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id')
-            ,ArrayHelper::map(ExerciseSubject::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id','name'), 
-             [
-              'onchange'=>'
+    <?= Select2::widget([
+        'name' => 'exersice_type',
+        'id' => 'exersice_type',  
+        'value' => ArrayHelper::getColumn(ExerciseSubject::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id'),
+        'data' => ArrayHelper::map(ExerciseSubject::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id','name'),
+        'options' => ['placeholder' => 'Выберите типы упражений ...',  'multiple' => true, 'onchange'=>'
                 var arr = []; 
                 $("#exersice_type :selected").each(function(i, selected){ 
                   arr[i] = $(selected).val(); 
                 });
-                $.post( "'.Yii::$app->urlManager->createUrl('exercise/exersicelistbytype?id=').'"+arr, function( data ) {
+                $.post( "'.Url::to(['//exercise/exersicelistbytype','id' => '']).'"+arr, function( data ) {
                   $( "#exersices" ).html( data );
                 });
-            ',
-            'class' => 'form-control',
-            'id' => 'exersice_type',
-                 'multiple' => 'true'
-                 ]); ?>
+            '],
+        'pluginOptions' => [
+            'tags' => true,
+            'maximumInputLength' => 10
+        ],
+    ]); ?>
     
     <?= Html::tag('br')?>
     
     <?= Html::label('Упражнения')?>
     
-    <?= Html::button('Выделить все',['onclick' => 
-        '$("#exersices option").prop("selected",true); $("#exersices option").trigger("change");',
-        'class' => 'btn btn-primary btn-xs'
-        ])?>
-                 
-              
-     <?= Html::listBox('exersices',ArrayHelper::getColumn($model->exercises,'exercise.id'),ArrayHelper::map(Exercise::find()->where(['subject_id' => 
-         ArrayHelper::getColumn(ExerciseSubject::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id')])->all(),
-             'id','name'), 
-             ['class' => 'form-control',
-             'id' => 'exersices',
-                 'onchange'=>'
+    <?= Select2::widget([
+        'name' => 'exersices',
+        'id' => 'exersices', 
+        'value' => ArrayHelper::getColumn($model->exercises,'exercise.id'),
+        'data' => ArrayHelper::map(Exercise::find()->where(['subject_id' => 
+         ArrayHelper::getColumn(ExerciseSubject::find()->where(['teacher_id' => Yii::$app->user->identity->teacher->id])->all(),'id')])->all(),'id','name'),
+        'options' => ['placeholder' => 'Select a color ...', 'multiple' => true, 'onchange'=>'
                 var arr = []; 
                 $("#exersices :selected").each(function(i, selected){ 
                   arr[i] = $(selected).val(); 
                 });               
-                $.post( "'.Yii::$app->urlManager->createUrl('task/exersicespreview?list=').'"+arr, function( data ) {
+                $.post( "'.Url::to(['//task/exersicespreview','list' => '']).'"+arr, function( data ) {
                   $( "#exersicespreview" ).html( data );
                 });
-            ',
-             'multiple' => 'true'    
-                 ]); ?>
+            '],
+        'pluginOptions' => [
+            'tags' => true,
+            'maximumInputLength' => 10
+        ],
+    ]);?>    
     
     <?= Html::tag('br')?>
     
@@ -134,9 +139,7 @@ $this->registerJs('
     
     <?//= $form->field($model, 'student_id')->listBox(TaskType::typeList(),['onchange' => '$.pjax.reload({container: "#form-give-task"});'])?>
         
-    <?//= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
-    
-    <?php $this->registerJs(" $('#task-text').markItUp(myTextileSettings);  ");  ?>
+    <?//= $form->field($model, 'text')->textarea(['rows' => 6]) ?>        
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Создать' : 'Обновить', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
