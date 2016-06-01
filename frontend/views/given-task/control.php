@@ -19,14 +19,14 @@ $this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' 
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-<div class="site-cabinet">
+<div class="give-controle">
     <h1><?= Html::encode($this->title) ?></h1>    
         <p>
         <?= Html::button('Выдать задание',['value'=> Url::to(['given-task/give']),
         'class' => 'btn btn-primary modalButton']);?>  
         </p>
         <?php
-            Pjax::begin(['enablePushState' => false]);
+             Pjax::begin(['enablePushState' => false, 'id' => 'give-controle-task']);
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
@@ -93,7 +93,10 @@ Modal::begin([
             'header' => '',
             //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
             'id' => 'modal',
-            'size' => 'modal-lg',                      
+            'size' => 'modal-lg',
+            'options' => [
+                'tabindex' => false
+            ]
 ]);        
 echo "<div id='modalContent'></div>";
 Modal::end();

@@ -13,6 +13,7 @@ use frontend\models\GroupSearch;
 use common\models\GroupSemesters;
 use yii\helpers\Url;
 use common\models\GroupAnounces;
+use yii\helpers\Json;
 /**
  * GroupController implements the CRUD actions for Group model.
  */
@@ -162,13 +163,30 @@ class GroupController extends Controller
         }
     }
 
-    public function actionLists($id)
+    public function actionLists()
     {
-         $groups = Group::find()->select('group.*')
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $id = end($_POST['depdrop_parents']);
+            $list = Group::find()->select('group.*')
                  ->leftJoin('group_has_discipline','group_has_discipline.group_id = group.id')
                  ->where(['group_has_discipline.id' => $id])
-                 ->all();         
-         return $this->renderAjax('lists',['groups' => $groups]);                  
+                 ->all();
+            $selected  = null;
+            if ($id != null && count($list) > 0) {
+                $selected = '';
+                foreach ($list as $i => $group) {
+                    $out[] = ['id' => $group['id'], 'name' => $group['name']];
+                    if ($i == 0) {
+                        $selected = $group['id'];
+                    }
+                }
+                // Shows how you can preselect a value
+                echo Json::encode(['output' => $out, 'selected'=>$selected]);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected'=>'']);          
     }
     /**
      * Creates a new Group model.

@@ -10,6 +10,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\helpers\Json;
 
 /**
  * StudentController implements the CRUD actions for Student model.
@@ -141,12 +142,29 @@ class StudentController extends Controller
         }
     }
     
-    public function actionLists($id)
+    public function actionLists()
     {
-        $students = Student::find()
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $id = end($_POST['depdrop_parents']);
+            $list = Student::find()
                  ->where(['group_id' => $id])
                  ->all();
-         return $this->renderAjax('lists',['students' => $students]);  
+            $selected  = null;
+            if ($id != null && count($list) > 0) {
+                $selected = '';
+                foreach ($list as $i => $student) {
+                    $out[] = ['id' => $student->id, 'name' => $student->user->fullname];
+                    if ($i == 0) {
+                        $selected = $student->id;
+                    }
+                }
+                // Shows how you can preselect a value
+                echo Json::encode(['output' => $out, 'selected'=>$selected]);
+                return;
+            }
+        }
+        echo Json::encode(['output' => '', 'selected'=>'']);                          
     }
 
     /**
