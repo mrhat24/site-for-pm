@@ -4,19 +4,20 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
+use common\models\Work;
 $this->title = 'Дипломы';
 $this->params['breadcrumbs'][] = ['label' => 'Преподаватель','url' => Url::to(['site/teacher'])];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="work-teacher-graduate">
     <h2><?=$this->title?></h2>
-    <!--<p>
+    <p>
         <div class="btn-group">
-         <?/*= Html::button('Создать',['value'=> Url::to(['work/create-graduate']),
-        'class' => 'btn btn-primary modalButton']); */?>             
+         <?= Html::button('Список тем',['value'=> Url::to(['work-list/index','type' => Work::TYPE_GRADUATE]),
+        'class' => 'btn btn-success modalButton']); ?>             
         </div>
         
-    </p>  -->  
+    </p>  
 <?php
     Pjax::begin(['enablePushState' => false]);
     echo GridView::widget([

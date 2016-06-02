@@ -41,9 +41,9 @@ class WorkList extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'work_type_id' => 'Work Type',
-            'teacher_id' => 'Teacher',
+            'name' => 'Название',
+            'work_type_id' => 'id типа заданий',
+            'teacher_id' => 'id преподавателя',
             
         ];
     }
@@ -79,5 +79,5 @@ class WorkList extends \yii\db\ActiveRecord
      
      public function getReserved(){
          return $this->hasOne(Work::className(),['reserved_id' => 'id']);
-     }
+     }          
 }

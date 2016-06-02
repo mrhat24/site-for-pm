@@ -17,10 +17,20 @@ $(document).ready(function()	{
         reloadMath(document.getElementsByTagName("body"));
     }); 
 
-    $('body').delegate('.modalButton','click',function(){
-        $('#modal').modal('show').find('#modalContent').html("").load($(this).attr('value'), function(){
-            $('#modal').removeAttr('tabindex');
-        });        
+    $('body').delegate('.modalButton','click',function(){ 
+        $.ajax({            
+            url: $(this).attr('value'),
+            beforeSend: function() {
+                $('#modal').find('#modalContent').html('');
+                $('#modal').modal('show').find('#modalContent').append('<div class="progress">\n\
+<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>\n\
+</div>');
+            }
+          })
+            .done(function(data) {              
+                $('#modal').find('#modalContent').html(data);
+                $('#modal').removeAttr('tabindex');
+            });
     });
     $('body').delegate('.postPjaxButton','click',function(){
         var btn = $(this);

@@ -53,8 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::end() ?>
 </div>
 <?php
-Modal::begin([
-            'header' => '<h2>Управление заданиями</h2>',
+Modal::begin([            
             //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
             'id' => 'modal',
             'size' => 'modal-lg', 

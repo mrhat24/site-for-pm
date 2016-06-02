@@ -23,4 +23,4 @@ use yii\widgets\Pjax;
     <?php ActiveForm::end(); ?>
 
 </div>
-   <?php Pjax::end(); ?>
+<?php Pjax::end(); ?>

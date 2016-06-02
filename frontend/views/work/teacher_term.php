@@ -4,6 +4,7 @@ use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\bootstrap\Modal;
 use yii\widgets\Pjax;
+use common\models\Work;
 $this->title = 'Курсовые работы';
 $this->params['breadcrumbs'][] = ['label' => 'Преподаватель','url' => Url::to(['site/teacher'])];
 $this->params['breadcrumbs'][] = $this->title;
@@ -13,7 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <div class="btn-group">
          <?= Html::button('Назначить курсовые',['value'=> Url::to(['work/assing-term']),
-        'class' => 'btn btn-primary modalButton']); ?>             
+        'class' => 'btn btn-primary modalButton']); ?>        
+            <?= Html::button('Список тем',['value'=> Url::to(['work-list/index','type' => Work::TYPE_TERM]),
+        'class' => 'btn btn-success modalButton']); ?>        
         </div>
         
     </p> 
