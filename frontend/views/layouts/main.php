@@ -36,7 +36,7 @@ AppAsset::register($this);
         'brandLabel' => 'ПМ',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse',
         ],
     ]);
     $menuItems = [
