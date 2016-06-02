@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php
    echo Markdown::process($takenTask->task->text);
    echo Html::tag("h6",'Дата выдачи задания: '.$formatter->asDate($takenTask->given_date),['class' => 'date']);
-   echo Html::tag("h6",'Дисциплина: '.$takenTask->group_has_discipline->discipline->name,['class' => 'date']);
+   echo Html::tag("h6",'Дисциплина: '.$takenTask->groupHasDiscipline->discipline->name,['class' => 'date']);
    $teacher = Html::a($takenTask->teacher->user->fullname,Url::to(['//teacher/view','id' => $takenTask->teacher->id]));
    echo Html::tag("h6",'Преподаватель: '.$teacher,['class' => 'date']);
          
