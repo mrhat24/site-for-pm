@@ -39,9 +39,12 @@ class WorkListSearch extends WorkList
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $additionaly = null)
     {
-        $query = WorkList::find();
+        
+        if($additionaly === null) $query = WorkList::find();
+        else $query = $additionaly;
+        
 
         // add conditions that should always apply here
 
