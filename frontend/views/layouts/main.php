@@ -38,11 +38,8 @@ AppAsset::register($this);
         'options' => [
             'class' => 'navbar-inverse',
         ],
-    ]);
-    $menuItems = [
-        ['label' => 'Главная', 'url' => ['/site/index']],        
-      //  ['label' => 'Контакты', 'url' => ['/site/contact']],
-    ]; 
+    ]);       
+    $menuItems[] = ['label' => 'Главная', 'url' => ['/site/index']];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
@@ -110,8 +107,8 @@ AppAsset::register($this);
             //['label' => 'Преподаватели','url' => Url::to(['teacher/list'])],
             ]];
         
-        
-        $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['/site/cabinet']];
+        $newMessages = Yii::$app->user->identity->newMessagesCount ? '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>' : "";
+        $menuItems[] = ['label' => "Личный кабинет {$newMessages}", 'url' => ['/site/cabinet']];
         $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',
             'url' => ['/site/logout'],
