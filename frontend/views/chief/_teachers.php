@@ -18,7 +18,7 @@ echo GridView::widget([
             'attribute' => 'fullname',
             'value' => function ($model)
                 {
-                     return Html::button($model->fullname,['value' => Url::to(['//teacher/view','id' => $model->id]), 'class' => 'btn btn-link modalButton']);
+                     return Html::button($model->fullname,['value' => Url::to(['//teacher/view','id' => $model->id]), 'class' => 'btn-link modalButton']);
                 },   
             'format' => 'raw'
          ],
@@ -30,7 +30,7 @@ echo GridView::widget([
                 foreach($model->teacherHasDiscipline as $thd){
                     $buttons = $buttons.Html::a($thd->groupHasDiscipline->discipline->name." - ".
                             $thd->groupHasDiscipline->group->name,
-                            Url::to(['//group-has-discipline','id' => $thd->groupHasDiscipline->id]),['class' => 'btn btn-link','data-pjax' => 0]);
+                            Url::to(['//group-has-discipline','id' => $thd->groupHasDiscipline->id]),['class' => 'btn-link','data-pjax' => 0]);
                 }
                 return $buttons;
             },

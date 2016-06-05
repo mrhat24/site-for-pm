@@ -18,14 +18,14 @@ echo GridView::widget([
         [
             'attribute' => 'fullname',
             'value' => function($model){
-                return Html::button($model->fullname,['value' => Url::to(['//student/view','id' => $model->id]),'class' => 'text-left btm btn-link modalButton']);
+                return Html::button($model->fullname,['value' => Url::to(['//student/view','id' => $model->id]),'class' => 'text-left btn-link modalButton']);
             },
             'format' => 'raw'
         ],
         [
             'attribute' => 'groupName',
             'value' => function($model){
-                return Html::a($model->groupName,Url::to(['//group/view','id' => $model->group->id]),['class' => 'btm btn-link', 'data-pjax' => 0]);
+                return Html::a($model->groupName,Url::to(['//group/view','id' => $model->group->id]),['class' => 'btn-link', 'data-pjax' => 0]);
             },
             'format' => 'raw'
         ],
