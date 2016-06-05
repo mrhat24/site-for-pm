@@ -51,7 +51,9 @@ echo Html::beginTag('ul',['class' => 'list-group']);
 
     echo Html::beginTag('dl',['class' => 'dl-horizontal list-group-item']);  
         echo Html::tag('dt',"Руководитель");
-        echo Html::tag('dd',$model->teacher->user->fullname);                    
+        echo Html::tag('dd',  Html::button($model->teacher->user->fullname,
+                ['value' => Url::to(['//teacher/view','id' => $model->teacher->id]),
+                    'class' => 'btn btn-xs btn-link modalButton']));                    
     echo Html::endTag('dl');
     echo Html::beginTag('dl',['class' => 'dl-horizontal list-group-item']);  
         echo Html::tag('dt',"Статус");

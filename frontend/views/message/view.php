@@ -12,7 +12,7 @@ use common\models\User;
 $user = User::find()->where(['id' => $userto])->one();
 
 $this->title = 'Переписка с '.$user->fullname.("#").$user->id;
-//$this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => Url::to(['site/cabinet'])];
+$this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => Url::to(['site/cabinet'])];
 $this->params['breadcrumbs'][] = ['label' => 'Диалоги', 'url' => Url::to(['message/'])];
 $this->params['breadcrumbs'][] = $this->title;
   

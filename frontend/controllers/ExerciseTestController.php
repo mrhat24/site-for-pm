@@ -8,6 +8,7 @@ use frontend\models\ExerciseTestSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ExerciseTestController implements the CRUD actions for ExerciseTest model.
@@ -20,6 +21,17 @@ class ExerciseTestController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['view', 'create','update','delete'],
+                'rules' => [
+                    [
+                        'actions' =>  ['view', 'create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['teacher'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

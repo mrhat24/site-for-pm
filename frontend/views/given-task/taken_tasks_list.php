@@ -39,10 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
                     ],                     
                     [
-                        'attribute' => 'discipline_id',
-                        'value' => 'disciplineName',
-                        'label' => 'Дисциплина',
-                        //'filter' => \yii\helpers\ArrayHelper::map(\common\models\TaskType::find()->all(),'name','name'),
+                        'attribute' => 'disciplineName',
+                        'value' => function($model){
+                            return Html::a($model->disciplineName,Url::to(['//group-has-discipline/',
+                                    'id' => $model->groupHasDiscipline->id]),
+                                    ['data-pjax' => 0 ]); 
+                        },
+                        'format' => 'raw',
                     ],
                     [
                         'attribute' => 'teacherFullname',

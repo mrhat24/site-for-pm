@@ -113,8 +113,9 @@ class StudentController extends Controller
     public function actionCreate()
     {
         $model = new Student();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+      
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {  
+            
             return $this->redirect(['manage']);
         } else {
             return $this->renderAjax('create', [

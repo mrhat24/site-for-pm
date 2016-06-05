@@ -77,7 +77,7 @@ AppAsset::register($this);
         
         if((Yii::$app->user->can('chief'))){   
             $menuSubItems[] = ['label' => 'Кабинет заведующего','url' => Url::to(['/chief/cabinet'])];
-            $menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];            
+            //$menuSubItems[] = ['label' => '','url' => '#','options' => ['class' => 'divider']];            
             $menuItems[] = ['label' => 'Заведующему',
                 'items' => $menuSubItems];
             $menuSubItems = null;

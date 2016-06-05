@@ -43,7 +43,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find()->where('id != '.Yii::$app->user->id);
+        $query = User::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -78,8 +78,7 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'first_name', $this->first_name])
             ->andFilterWhere(['like', 'middle_name', $this->middle_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
-            ->andFilterWhere(['like', 'roleDescription', $this->role]);
+            ->andFilterWhere(['like', 'last_name', $this->last_name]);            
 
         $query->andWhere('first_name LIKE "%' . $this->fullname . '%" ' .
         'OR last_name LIKE "%' . $this->fullname . '%"'.

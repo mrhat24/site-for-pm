@@ -30,11 +30,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],            
             'workTitle.name',
-            'disciplineName',
+            [
+                'attribute' => 'disciplineName',
+                'value' => function($model){
+                    return Html::a($model->disciplineName,Url::to(['//group-has-discipline','id' => $model->groupHasDiscipline->id]));
+                },
+                'format' => 'raw'
+                ],
             'status',
             [
                 'label' => 'Преподаватель',
                 'attribute' => 'teacher.user.fullname',
+                'value' => function($model) {
+                    return Html::button($model->teacher->user->fullname,['value' => Url::to(['//teacher/view','id' => $model->teacher->id]),'class' => 'btn btn-link btn-xs modalButton']);
+                },
+                'format' => 'raw',
             ],
             [
                 'label' => 'Дата назначения',

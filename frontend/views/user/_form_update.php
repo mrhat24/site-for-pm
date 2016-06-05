@@ -11,7 +11,12 @@ use yii\helpers\ArrayHelper;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin([
+        'options' => ['enctype' => 'multipart/form-data',
+        'id'=>'user-form',
+        'enableAjaxValidation' => true,   
+         
+            ]]); ?>
 
     <?= $form->field($model, 'email')->textInput() ?>
     
@@ -23,12 +28,12 @@ use yii\helpers\ArrayHelper;
     
     <?= $form->field($model, 'last_name')->textInput() ?>    
     
-    <?= $form->field($model, 'authAssignments')->widget(MultipleInput::className(),  ['min' => 1,'limit' => 1,'columns' => [
+    <?= $form->field($model, 'authAssignments')->widget(MultipleInput::className(),  ['min' => 1,'limit' => 10,'columns' => [
         [
             'name'  => 'item_name',
             'type'  => 'dropDownList',
             //'title' => 'Преподаватель',
-            'defaultValue' => 1,            
+            'defaultValue' => 'user',            
             'items' => ArrayHelper::map(\common\models\AuthItem::find()->all(),'name','description')
         ],
     ]])?>

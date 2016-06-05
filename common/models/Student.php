@@ -51,7 +51,8 @@ class Student extends \yii\db\ActiveRecord
             'education_end_date' => 'Дата окончания',
             'fullname' => 'Ф.И.О.',
             'groupName' => 'Группа',
-            'srb' => 'Номер зачетной книжки'
+            'srb' => 'Номер зачетной книжки',
+            'group.currentSemesterNumber' => 'Текущий семестр'
         ];
     }
 
@@ -113,12 +114,21 @@ class Student extends \yii\db\ActiveRecord
     
     public function beforeSave($insert) {
         parent::beforeSave($insert);                
-        $this->education_start_date = Yii::$app->formatter->asTimestamp($this->education_start_date);
-        $this->education_end_date = Yii::$app->formatter->asTimestamp($this->education_end_date);
+        if($this->isNewRecord){
+            $this->education_start_date = Yii::$app->formatter->asTimestamp($this->education_start_date);
+            $this->education_end_date = Yii::$app->formatter->asTimestamp($this->education_end_date);
+        }
         return true;
     }
     
-    public function getRate()
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        $studentRole = Yii::$app->authManager->getRole('student');
+            if(Yii::$app->authManager->getAssignment('student', $this->user->id) === null)
+                Yii::$app->authManager->assign($studentRole, $this->user->id);
+    }
+
+        public function getRate()
     {
        return 0;
     }
@@ -153,5 +163,12 @@ class Student extends \yii\db\ActiveRecord
     public function getTasksCount()
     {
         return GivenTask::find()->where(['student_id' => $this->id])->count();
+    }
+    
+    public function afterDelete() {
+        parent::afterDelete();
+        $studentRole = Yii::$app->authManager->getRole('student');
+            if(Yii::$app->authManager->getAssignment('student', $this->user->id) !== null)
+                Yii::$app->authManager->revoke($studentRole, $this->user->id);
     }
 }

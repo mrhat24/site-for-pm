@@ -125,12 +125,13 @@ class UserController extends Controller
         if($model->load(Yii::$app->request->post())){
             $model->save();  
             //return $model->id;
-            //return json_encode(Yii::$app->request->post()['User']['authAssignments']['item_name']['0']);
-            if(Yii::$app->request->post()['User']['authAssignments']['item_name'][0]){                               
-                    $modelTHD = AuthAssignment::find()->where(['user_id' => $model->id])->one();                    
-                    $modelTHD->item_name = Yii::$app->request->post()['User']['authAssignments']['item_name'][0];
-                    $modelTHD->save();
-            }               
+            //return json_encode(Yii::$app->request->post()['User']['authAssignments']['item_name']['0']);\
+            Yii::$app->authManager->revokeAll($model->id);
+            foreach(Yii::$app->request->post()['User']['authAssignments']['item_name'] as $roleName)
+            {                
+                $role = Yii::$app->authManager->getRole($roleName);
+                Yii::$app->authManager->assign($role, $model->id);
+            }     
             return $this->redirect(Yii::$app->request->referrer);
         }
          return $this->renderAjax('update_user', [

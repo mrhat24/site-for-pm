@@ -26,12 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'username',           
             'fullname',
             'email:email', 
-            [
-                'label' => 'Статус',
-                'value' => function($model){
-                        return $model->role->description;
-                },
-            ],
+            'role',
             ['class' => 'common\components\ActionColumn',
             'header'=>'Действия', 
             //'headerOptions' => ['width' => '200'],
@@ -55,7 +50,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 Modal::begin([                        
             'id' => 'modal',
-            'size' => 'modal-lg',                      
+            'size' => 'modal-lg',    
+            'options' => [
+                        //'id' => 'kartik-modal',
+                        'tabindex' => false // important for Select2 to work properly
+                    ],
         ]);        
     echo "<div id='modalContent'></div>";
     Modal::end();

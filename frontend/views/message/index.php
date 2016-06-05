@@ -10,8 +10,8 @@ use common\models\User;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Диалоги';
-//$this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => Url::to(['site/cabinet'])];
 //$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => Url::to(['user/index'])];
+$this->params['breadcrumbs'][] = ['label' => 'Личный кабинет', 'url' => ['site/cabinet']]; 
 $this->params['breadcrumbs'][] = $this->title;
   
 

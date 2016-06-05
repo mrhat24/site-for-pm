@@ -89,7 +89,7 @@ $this->endBlock('desk');
             echo Html::endTag('ul');
                        
             
-        ?>Добавить статьи и файлы</div>
+        ?></div>
         <div class="col-md-9">
                 <?php echo Html::tag('div', $btngr ,['class' => '']);?>
             </div>
