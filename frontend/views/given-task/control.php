@@ -50,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'studentFullname',
                         'value' => function($model){
-                            return Html::button($model->studentFullname,['value' => Url::to(['//student/view','id' => $model->student->id]),'class' => 'btn btn-link modalButton']);
+                            return Html::button($model->studentFullname,['value' => Url::to(['//student/view','id' => $model->student->id]),'class' => 'btn-link modalButton']);
                         },
                         'format' => 'raw'
                     ],
