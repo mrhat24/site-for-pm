@@ -41,11 +41,26 @@ $this->params['breadcrumbs'][] = $this->title;
                     'taskName',
                     [
                         'attribute' => 'disciplineName',
-                        'value' => 'disciplineName',
+                        'value' => function($model){
+                            return Html::a($model->disciplineName,Url::to(['//group-has-discipline','id' => $model->groupHasDiscipline->id]),['data-pjax' => 0]);
+                        },
+                        'format' => 'raw',
                         'label' => 'Дисциплина',   
                     ],
-                    'studentFullname',
-                    'group',
+                    [
+                        'attribute' => 'studentFullname',
+                        'value' => function($model){
+                            return Html::button($model->studentFullname,['value' => Url::to(['//student/view','id' => $model->student->id]),'class' => 'btn btn-link modalButton']);
+                        },
+                        'format' => 'raw'
+                    ],
+                    [
+                        'attribute' => 'group',
+                        'value' => function($model){
+                            return Html::a($model->student->group->name,Url::to(['//group/view','id' => $model->student->group->id]),['data-pjax' => 0]);
+                        },
+                        'format' => 'raw'
+                    ],                    
                     [
                         'attribute' => 'status',
                         'value' => function ($model, $key, $index, $grid)

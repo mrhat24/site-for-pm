@@ -24,17 +24,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <hr/>
-    <?php
-   echo Markdown::process($takenTask->task->text);
-   echo Html::tag("h6",'Дата выдачи задания: '.$formatter->asDate($takenTask->given_date),['class' => 'date']);
-   echo Html::tag("h6",'Дисциплина: '.$takenTask->groupHasDiscipline->discipline->name,['class' => 'date']);
-   $teacher = Html::a($takenTask->teacher->user->fullname,Url::to(['//teacher/view','id' => $takenTask->teacher->id]));
-   echo Html::tag("h6",'Преподаватель: '.$teacher,['class' => 'date']);
-         
-    ?>
-     <hr/>
-    
-    <?php
+    <?php          
+    echo Html::tag("h6",'Дата выдачи задания: '.$formatter->asDateTime($takenTask->given_date));
+    echo Html::tag("h6",'Дисциплина: '.$takenTask->groupHasDiscipline->discipline->name);
+    $teacher = Html::button($takenTask->teacher->user->fullname,['value' => Url::to(['//teacher/view','id' => $takenTask->teacher->id]), 'class' => 'btn btn-xs btn-link modalButton']);
+    echo Html::tag("h6",'Преподаватель: '.$teacher);    
+    echo "<hr/>"; 
+    echo Markdown::process($takenTask->task->text);
+    echo "<hr/>"; 
     Pjax::begin(['enablePushState' => false, 'id' => 'send']);
     echo "<div class='btn-group'>";
     switch ($takenTask->status)
@@ -63,10 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <hr/>
     <?php
     
-    foreach ($takenTask->exercises as $key => $exercise){
-      //  if((($completeExersice = common\models\CompleteExercise::find()->where(['exercise_id' => $exercise->id])->andWhere(['given_task_id' => $takenTask->id])->one()) !== null)){
-      //      $complete = true;
-        //}
+    foreach ($takenTask->exercises as $key => $exercise){      
         $index = $key+1;        
         $remake = 'panel-primary';
         if($exercise->remake != 0) { $remake = 'panel-danger'; }
@@ -100,9 +94,9 @@ $this->params['breadcrumbs'][] = $this->title;
         echo "<hr/>";
     }     
     ?>
+</div>
     <?php
-    Modal::begin([
-            'header' => '<h2>Решение задачи</h2>',
+    Modal::begin([            
             //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
             'id' => 'modal',
             'size' => 'modal-lg',                      
@@ -111,5 +105,3 @@ $this->params['breadcrumbs'][] = $this->title;
     Modal::end();
     
     ?>
-
-</div>

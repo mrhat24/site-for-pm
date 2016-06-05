@@ -1,7 +1,7 @@
 <?php
 use yii\helpers\Html;
 use yii\bootstrap\Tabs;
-
+use yii\helpers\Url;
 //variables
 $student = Yii::$app->user->identity->student;
 $formatter = Yii::$app->formatter;
@@ -12,7 +12,7 @@ $this->beginBlock('info');
         <dl class="dl-horizontal">
             <div class="list-group-item"><?php
                 echo Html::tag('dt',"Ф.И.О.");
-                echo Html::tag('dd',$student->user->fullname);
+                echo Html::tag('dd',Html::button($student->user->fullname,['value' => Url::to(['//user/view','id' => $student->user->id]),'class' => 'btn btn-xs btn-link modalButton']));
             ?></div>
             <div class="list-group-item"><?php
                 echo Html::tag('dt',"Номер зачетки");
@@ -24,7 +24,7 @@ $this->beginBlock('info');
             ?></div>
             <div class="list-group-item"><?php
                 echo Html::tag('dt',"Группа");
-                echo Html::tag('dd',$student->group->name);
+                echo Html::tag('dd',Html::a($student->group->name,Url::to(['//group/my'])));
             ?></div>
             <div class="list-group-item"><?php
                 echo Html::tag('dt',"Текущий семестр");

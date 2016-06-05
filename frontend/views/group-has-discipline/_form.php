@@ -35,7 +35,7 @@ if($semesterList != []){
         'validateOnBlur'            => false,*/
         ]); ?>
     
-    <?= $form->field($model, 'teacherHasDiscipline')->widget(MultipleInput::className(),  ['min' => 0,'columns' => [
+    <?= $form->field($model, 'teacherHasDiscipline')->widget(MultipleInput::className(),  ['min' => 1,'columns' => [
         [
             'name'  => 'teacher_id',
             'type'  => 'dropDownList',

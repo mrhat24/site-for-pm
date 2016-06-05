@@ -64,7 +64,8 @@ class GivenTask extends \yii\db\ActiveRecord
             'teacherFullname' => 'Преподаватель',
             'studentFullname' => 'Студент',
             'taskName' => 'Название задания',
-            'group' => 'Группа'
+            'group' => 'Группа',
+            'disciplineName' => 'Дисциплина'
         ];
     }
         

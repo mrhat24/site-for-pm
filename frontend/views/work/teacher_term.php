@@ -29,32 +29,51 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [            
             //[ 'class' => 'yii\grid\CheckboxColumn',],
             //'id',
-            'disciplineName',
-            'groupName',
-            'studentFullname',            
+            [
+                'attribute' => 'disciplineName',
+                'value' => function($model){
+                    return Html::a($model->disciplineName,Url::to(['//group-has-discipline','id' => $model->groupHasDiscipline->id]),['data-pjax' => 0]);
+                },
+                'format' => 'raw',
+                'label' => 'Дисциплина',   
+            ],
+            [
+                'attribute' => 'studentFullname',
+                'value' => function($model){
+                    return Html::button($model->studentFullname,['value' => Url::to(['//student/view','id' => $model->student->id]),'class' => 'btn btn-link modalButton']);
+                },
+                'format' => 'raw'
+            ],
+            [
+                'attribute' => 'groupName',
+                'value' => function($model){
+                    return Html::a($model->student->group->name,Url::to(['//group/view','id' => $model->student->group->id]),['data-pjax' => 0]);
+                },
+                'format' => 'raw'
+            ],      
             'workTitle.name',
             'status',            
             [
-                        'class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {update} {delete}',
-                        'buttons' => [
-                            'view' => function ($url, $model)
-                            {
-                                return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> $url,
-        'class' => 'btn btn-default modalButton']);
-                            },
-                            'update' => function ($url, $model)
-                            {
-                                return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
-        'class' => 'btn btn-default modalButton']);
-                            },
-                            'delete' => function ($url, $model)
-                            {
-                                return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
-        'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?', 'data-pjax' => true]);
-                            },
-                        ]
-                     ],
+                'class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update} {delete}',
+                'buttons' => [
+                    'view' => function ($url, $model)
+                    {
+                        return Html::button('<span class="glyphicon glyphicon-eye-open"></span>',['value'=> $url,
+'class' => 'btn btn-default modalButton']);
+                    },
+                    'update' => function ($url, $model)
+                    {
+                        return Html::button('<span class="glyphicon glyphicon glyphicon-pencil"></span>',['value'=> $url,
+'class' => 'btn btn-default modalButton']);
+                    },
+                    'delete' => function ($url, $model)
+                    {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>',$url,[
+'class' => 'btn btn-default', 'data-method' => 'post', 'data-confirm' => 'Вы уверены что хотите это удалить?', 'data-pjax' => true]);
+                    },
+                ]
+            ],
         ]
     ]);
                             

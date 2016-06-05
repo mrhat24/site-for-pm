@@ -161,4 +161,18 @@ class Teacher extends \yii\db\ActiveRecord
                     ->count();
         return $isTeacherHasDiscipline;
     }
+    
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+        $teacherRole = Yii::$app->authManager->getRole('teacher');
+            if(Yii::$app->authManager->getAssignment('teacher', $this->user->id) === null)
+                Yii::$app->authManager->assign($teacherRole, $this->user->id);
+    }
+    
+    public function afterDelete() {
+        parent::afterDelete();
+        $teacherRole = Yii::$app->authManager->getRole('teacher');
+            if(Yii::$app->authManager->getAssignment('teacher', $this->user->id) !== null)
+                Yii::$app->authManager->revoke($teacherRole, $this->user->id);
+    }
 }

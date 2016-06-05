@@ -43,10 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'first_name',
             'middle_name',
             'last_name',
-            [
-                'label' => 'Статус',
-                'value' => $model->role->description,
-            ],
+            'role'
         ],
     ]) ?>
     

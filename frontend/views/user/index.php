@@ -31,7 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'template' => '{view} {message}',
             'buttons' => [  
                             'message' => function ($url,$model,$key) {                    
-                                return Html::button('<span class="glyphicon glyphicon-envelope"></span> Сообщение',                                   
+                                if(isset(Yii::$app->user->id)&&(Yii::$app->user->id !== $model->id))
+                                    return Html::button('<span class="glyphicon glyphicon-envelope"></span> Сообщение',                                   
                                     ['value' =>  Url::to(['/message/create','id' => $model->id]), 'class' => 'btn btn-primary modalButton']);                                 
                             },
                             'view' => function($url,$model,$key){

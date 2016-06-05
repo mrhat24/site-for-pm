@@ -9,6 +9,7 @@ use common\models\Teacher;
 use yii\web\NotFoundHttpException;
 use yii\bootstrap\Tabs;
 use common\widgets\Schedule;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $date = new DateTime();
@@ -23,7 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lesson-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= "Расписание преподавателя: ".Html::button($Teacher->user->fullname,
+            ['class' => 'btn btn-lg btn-link modalButton','value' => Url::to(['//teacher/view','id' => $Teacher->id])]); ?></h3>
     
     
     <?php
@@ -53,3 +55,13 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
 </div>
+<?php
+Modal::begin([
+    'header' => '',
+    //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+    'id' => 'modal',
+    'size' => 'modal-lg',                      
+]);        
+echo "<div id='modalContent'></div>";
+Modal::end();
+?>

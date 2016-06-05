@@ -6,7 +6,7 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * CommentsController implements the CRUD actions for Comments model.
  */
@@ -18,6 +18,17 @@ class ChiefController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['cabinet','approve-graduate'],
+                'rules' => [
+                    [   
+                        'actions' =>  ['cabinet','approve-graduate'],
+                        'allow' => true,
+                        'roles' => ['chief'],
+                    ],                  
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

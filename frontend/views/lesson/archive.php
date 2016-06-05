@@ -11,6 +11,7 @@ use yii\helpers\ArrayHelper;
 use common\widgets\Schedule;
 use common\models\Group;
 use common\models\GroupSemesters;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 $formatter = Yii::$app->formatter;
@@ -24,9 +25,9 @@ $this->params['breadcrumbs'][] = ['label' => 'Расписание', 'url' => Ur
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="lesson-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <h3><?= Html::encode($formatter->asDate($semesterModel->begin_date)."-".$formatter->asDate($semesterModel->end_date))?></h3>
+    
+    <h3><?= "Архив расписания группы: ".Html::a($groupModel->name,['//group/view','id' => $groupModel->id])  ?>
+        <?= Html::encode($formatter->asDate($semesterModel->begin_date)."-".$formatter->asDate($semesterModel->end_date))?></h3>
     <?php
     /*
     $ghd_id_arr = array();
@@ -57,3 +58,14 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 
+
+<?php
+Modal::begin([
+    'header' => '',
+    //'toggleButton' => ['label' => 'Решить' , 'class' => 'btn btn-success'],
+    'id' => 'modal',
+    'size' => 'modal-lg',                      
+]);        
+echo "<div id='modalContent'></div>";
+Modal::end();
+?>

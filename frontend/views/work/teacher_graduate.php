@@ -27,8 +27,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [            
             //[ 'class' => 'yii\grid\CheckboxColumn',],
             //'id',
-            'studentFullname',
-            'groupName',
+            [
+                'attribute' => 'studentFullname',
+                'value' => function($model){
+                    return Html::button($model->studentFullname,['value' => Url::to(['//student/view','id' => $model->student->id]),'class' => 'btn btn-link modalButton']);
+                },
+                'format' => 'raw'
+            ],
+            [
+                'attribute' => 'groupName',
+                'value' => function($model){
+                    return Html::a($model->student->group->name,Url::to(['//group/view','id' => $model->student->group->id]),['data-pjax' => 0]);
+                },
+                'format' => 'raw'
+            ],
             'workTitle.name',
             'status',
             [

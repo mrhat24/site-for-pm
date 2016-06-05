@@ -32,17 +32,13 @@ $this->params['breadcrumbs'][] = $this->title;
         ];                
         ?>
         <div class="row">
-            <div class="col-md-2">
                 <?php
                 echo Nav::widget(['items' => $menuItems,
                     'options' => ['class' => 'nav'], 
                     'encodeLabels' => false,
                     ]);
                 ?>
-            </div>
-            <div class="col-md-10">
-                <?php // if(Yii::$app->user->can('student')) echo $this->render('_cabinet_student.php'); ?>
-            </div>
+
         </div>
     </div>
 
