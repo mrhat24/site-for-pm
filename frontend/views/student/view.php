@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 echo "<div class='list-group-item list-group-item-success'>Статистика заданий</div>";
                 echo "<div class='list-group-item list-group-item-info'><span class='badge'>{$student->gpa}</span>Средний балл</div>";
                 foreach($student->taskStat as $stat){
-                    if(Yii::$app->user->identity->student->tasksCount)
+                    if($student->tasksCount)
                         $taskPercent = round(($stat['value']/$student->tasksCount)*100,2);
                     else $taskPercent = $student->tasksCount;
                     echo "<div class='list-group-item '><span class='badge'>{$stat['value']} ({$taskPercent}%)</span>{$stat['status']}</div>";
