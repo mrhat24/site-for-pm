@@ -32,8 +32,9 @@ else  {
     ['class' => $p_class]);*/
 $img = Html::img($model->sender->image,['class' => "media-object img-thumbnail center-block",'style' => 'max-width: 128px; max-height: 128px;']);
 $img = Html::tag('div',$img,['class' => 'media-left','style' => 'min-width: 140px;']);
-$info = Html::tag('h6',Yii::$app->formatter->asDateTime($model->datetime));
-$message = Html::tag('div',$model->text.$info,['class' => "media-body alert {$isnew}"]);
-echo Html::tag('div',$img.$message,['class' => 'media alert list-group-item']);
+$info = Html::tag('span',Yii::$app->formatter->asDateTime($model->datetime),['class' => 'pull-right']);
+$username = Html::tag('h5',$model->sender->fullname);
+$message = Html::tag('div',$info.$username.$model->text,['class' => "media-body alert"]);
+echo Html::tag('div',$img.$message,['class' => "media list-group-item {$isnew}"]);
     
 ?>

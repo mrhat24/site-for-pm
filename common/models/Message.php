@@ -3,7 +3,8 @@
 namespace common\models;
 
 use Yii;
-
+use yii\data\ActiveDataProvider;
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "message".
  *
@@ -62,8 +63,38 @@ class Message extends \yii\db\ActiveRecord
         return false;
         
     }
+    
+    public static function DialogList($user){
+        
+        $query = Message::find()        
+        ->where(['and',"sender_id={$user}","recipient_id!={$user}"])
+        ->orWhere(['and',"sender_id!={$user}","recipient_id={$user}"]);       
+        $message_list = new ActiveDataProvider([
+                'query' => $query                 
+            ]);              
+        $message_list->query->orderBy(['datetime' =>  SORT_DESC, 'id' => SORT_DESC]);       
+        $count = $message_list->count;
+        $messages = $message_list->getModels();
+        $dialog_list = array();
+                
+        foreach($messages as $message)
+        {    
+            if($message->sender_id == Yii::$app->user->id){
+                $dialog_list[$message->recipient_id][] = $message;
+            }
+            elseif($message->recipient_id == Yii::$app->user->id){
+                $dialog_list[$message->sender_id][] = $message;
+            }
+        }        
+        ArrayHelper::multisort($dialog_list, ['id'], SORT_DESC);
+        $result = array();
+        foreach($dialog_list as $dialog){
+            $result[] = $dialog[0];
+        }        
+        return $result;
+    }
 
-        /**
+    /**
      * @get user 
      */
     public function getSender()
