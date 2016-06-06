@@ -9,7 +9,7 @@ use yii\helpers\Url;
 /* @var $searchModel frontend\models\ExerciseSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Упражнения';
+$this->title = 'Управление упражнениями';
 $this->params['breadcrumbs'][] = ['label' => 'Преподавателю','url' => ['/teacher/cabinet']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
