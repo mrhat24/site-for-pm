@@ -30,7 +30,7 @@ class GroupController extends Controller
                     [
                         'actions' =>  ['view','index','create-anounce'],
                         'allow' => true,
-                        'roles' => ['teacher'],
+                        'roles' => ['teacher','chief','manager'],
                     ],
                     [
                         'actions' =>  ['my','view','index','create-anounce'],
