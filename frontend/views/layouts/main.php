@@ -103,9 +103,9 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Информация', 'items' => [
             ['label' => 'Расписание','url' => Url::to(['/lesson/index'])],            
             ['label' => 'Пользователи','url' => Url::to(['/user/index'])],
-            ['label' => 'Группы','url' => Url::to(['/group/index'])],
-            //['label' => 'Преподаватели','url' => Url::to(['teacher/list'])],
-            ]];
+            ['label' => 'Группы','url' => Url::to(['/group/index']), "visible" => ((Yii::$app->user->can('chief'))||(Yii::$app->user->can('admin'))||
+                    (Yii::$app->user->can('manager'))||(Yii::$app->user->can('teacher'))||(Yii::$app->user->can('student')))]
+        ]];
         
         $newMessages = Yii::$app->user->identity->newMessagesCount ? '<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>' : "";
         $menuItems[] = ['label' => "Личный кабинет {$newMessages}", 'url' => ['/site/cabinet']];
