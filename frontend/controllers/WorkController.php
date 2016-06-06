@@ -29,7 +29,7 @@ class WorkController extends Controller
                     [   
                         'actions' =>  ['create','teacher-graduate','delete','index','update','view','assign-term','studentfromghd','studentfromgroup'],
                         'allow' => true,
-                        'roles' => ['teacher'],
+                        'roles' => ['teacher','chief'],
                     ],
                     [
                         'actions' =>  ['graduate','term','begin-graduate','edit-graduate','edit-term'],
