@@ -30,6 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
     $listArray = array();
     $listArray[] = ['name' => $model->getAttributeLabel('speciality_id'),
         'val' => $model->speciality->name];
+    if(isset($model->steward))
     $listArray[] = ['name' => $model->getAttributeLabel('steward_student_id'),
         'val' => Html::button($model->steward->user->fullname,['value' => Url::to(['//student/view','id' => $model->steward->id]), 'class' => 'btn-link modalButton'] )];
     $listArray[] = ['name' => 'Количество студентов',
