@@ -8,21 +8,15 @@ use yii\widgets\Pjax;
 use common\models\User;
 use common\components\DateHelper;
 use yii\data\ActiveDataProvider;
-
+$user = Yii::$app->user->id;
+$query = Message::find()->where(['and',"sender_id={$user}","recipient_id!={$user}"])->orWhere(['and',"sender_id!={$user}","recipient_id={$user}"]);
 $message_list = new ActiveDataProvider([
-    'query' => Message::find()->where(['sender_id' => Yii::$app->user->id])
-        ->orWhere(['recipient_id' => Yii::$app->user->id])
-        ->select(['sender_id', 'recipient_id'])
-]);        
-        $message_list->query->orderBy(['datetime' =>  SORT_DESC, 'id' => SORT_DESC]);
+        'query' => $query/*Message::find()->where(['sender_id' => Yii::$app->user->id])
+            ->orWhere(['recipient_id' => Yii::$app->user->id])
+            ->select(['sender_id', 'recipient_id'])*/
+    ]);        
+       $message_list->query->orderBy(['datetime' =>  SORT_DESC, 'id' => SORT_DESC]);
        $messages = $message_list->getModels(); 
-        /*Message::find()
-        ->from(['new_table' => Message::find()->orderBy(['active' => SORT_ASC])])
-        ->where(['sender_id' => Yii::$app->user->id])
-        ->orWhere(['recipient_id' => Yii::$app->user->id])
-        ->select(['sender_id', 'recipient_id'])
-        ->distinct()
-        ->all(); */
 
 $dialog_list = array();
 
