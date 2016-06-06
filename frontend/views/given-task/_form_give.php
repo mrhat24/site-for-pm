@@ -61,6 +61,7 @@ $this->registerJs('
                 'depends'=>['discipline_list'],
                 'url' => Url::to(['//group/lists']),
                 'loadingText' => 'Загрузка групп ...',
+                'placeholder' => 'Выберите группу ...'
             ]
         ]);
         /*echo Select2::widget([
@@ -92,6 +93,7 @@ $this->registerJs('
                 'depends'=>['group_list'],
                 'url' => Url::to(['//student/lists']),
                 'loadingText' => 'Загрузка студентов ...',
+                'placeholder' => 'Выберите студентов ...'
             ]
         ]);
     ?>
@@ -180,7 +182,7 @@ $this->registerJs('
     <?= Select2::widget([
         'name' => 'exersices',
         'id' => 'exersices',     
-        'options' => ['placeholder' => 'Select a color ...', 'multiple' => true, 'onchange'=>'
+        'options' => ['placeholder' => 'Выберите упражнения ...', 'multiple' => true, 'onchange'=>'
                 var arr = []; 
                 $("#exersices :selected").each(function(i, selected){ 
                   arr[i] = $(selected).val(); 
