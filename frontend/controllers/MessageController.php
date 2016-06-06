@@ -49,7 +49,9 @@ class MessageController extends Controller
         if($usr == null) {
             return $this->render('index');
         }
-        
+        if($usr == Yii::$app->user->id){
+            return $this->render('index');
+        }
         $model_new = new Message();
         $model_new->recipient_id = Yii::$app->request->get()['usr'];
         $model_new->sender_id = Yii::$app->user->id;
