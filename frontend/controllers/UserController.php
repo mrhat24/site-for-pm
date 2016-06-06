@@ -23,13 +23,13 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['index','view','update'],
+                'only' => ['index','view','update','manage','update-user'],
                 'rules' => [
-                   /* [
+                    [
                         'allow' => true,
-                        'actions' => ['login', 'signup'],
-                        'roles' => ['?'],
-                    ], */
+                        'actions' => ['manage', 'update-user'],
+                        'roles' => ['chief','manager','admin'],
+                    ], 
                     [
                         'allow' => true,
                         'actions' => ['index','view','update'],

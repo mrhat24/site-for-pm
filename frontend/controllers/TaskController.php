@@ -30,7 +30,7 @@ class TaskController extends Controller
                 'rules' => [
                     [   
                         'actions' =>  ['create','update','give','control',
-                            'given-list','listbytype','givepreview','exersicespreview'],
+                            'given-list','listbytype','givepreview','exersicespreview','pdf-task'],
                         'allow' => true,
                         'roles' => ['teacher'],
                     ],

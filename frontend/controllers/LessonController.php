@@ -32,7 +32,7 @@ class LessonController extends Controller
                     [
                         'actions' => ['create','update','delete','view'],
                         'allow' => true,
-                        'roles' => ['chief'],
+                        'roles' => ['chief','admin','manager'],
                     ],
                 ],
             ],

@@ -28,7 +28,7 @@ class SpecialityController extends Controller
                     [
                         'actions' => ['index', 'manage', 'view','create','update','delete'],
                         'allow' => true,
-                        'roles' => ['chief'],
+                        'roles' => ['chief','manager','admin'],
                     ],
                 ],
             ],

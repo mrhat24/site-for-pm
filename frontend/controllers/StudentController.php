@@ -27,7 +27,7 @@ class StudentController extends Controller
                     [   
                         'actions' =>  ['manage','create','update','delete'],
                         'allow' => true,
-                        'roles' => ['chief'],
+                        'roles' => ['chief','manager','admin'],
                     ],
                     [
                         'actions' =>  ['index','cabinet'],

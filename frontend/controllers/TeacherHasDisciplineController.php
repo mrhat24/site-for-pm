@@ -8,6 +8,7 @@ use frontend\models\TeacherHasDisciplineSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * TeacherHasDisciplineController implements the CRUD actions for TeacherHasDiscipline model.
@@ -20,6 +21,17 @@ class TeacherHasDisciplineController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index','view','update','create','delete'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index','view','update','create','delete'],
+                        'roles' => ['chief','manager','admin'],
+                    ]
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
