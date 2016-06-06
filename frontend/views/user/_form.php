@@ -19,7 +19,7 @@ use yii\widgets\ActiveForm;
     
     <?= $form->field($model, 'last_name')->textInput() ?>
     
-    <?= $form->field($model, 'imageFile')->fileInput() ?>
+    <?//= $form->field($model, 'imageFile')->fileInput() ?>
     
     <?php $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL); 
     $list = array();
