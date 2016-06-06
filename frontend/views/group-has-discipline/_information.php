@@ -11,9 +11,13 @@ use yii\widgets\Pjax;
 
 Pjax::begin(['enablePushState' => false, 'id' => 'ghd-info']);
 
+if(isset(Yii::$app->user->identity->teacher)&&$model->checkTeacher(Yii::$app->user->identity->teacher->id))
 $editBtn = Html::button('<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>',
             ['value' => Url::to(['//group-has-discipline/update-info','id' => $model->id]),
                 'class' => 'btn btn-sm btn-primary modalButton']);
+else
+    $editBtn = "";
+
 $mdText = Markdown::process($model->information);
 $info = Html::tag('span','Информация');
 $data = Html::tag('div',$editBtn,['class' => 'panel-heading']);
