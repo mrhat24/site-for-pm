@@ -26,17 +26,22 @@ class GroupHasDisciplineController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['manage','index', 'view', 'create','update','delete'],
+                'only' => ['manage','index', 'view', 'create','update','delete','semlist','semesters','update-info'],
                 'rules' => [
                     [   
-                        'actions' =>  ['manage','view', 'create','update','delete'],
+                        'actions' =>  ['index','manage','view', 'create','update','delete'],
                         'allow' => true,
-                        'roles' => ['chief'],
+                        'roles' => ['chief','manager','admin'],
                     ],    
                     [   
-                        'actions' =>  ['index'],
+                        'actions' =>  ['index','semlist','semesters'],
                         'allow' => true,
                         'roles' => ['student'],
+                    ],  
+                    [   
+                        'actions' =>  ['index','semlist','semesters','update-info'],
+                        'allow' => true,
+                        'roles' => ['teacher','chief'],
                     ],  
                 ],
             ],

@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\models\Work;
+use yii\filters\AccessControl;
 
 /**
  * WorkListController implements the CRUD actions for WorkList model.
@@ -21,6 +22,17 @@ class WorkListController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),                
+                'only' => ['index', 'view', 'create','update','delete'],
+                'rules' => [
+                    [   
+                        'actions' =>  ['index', 'view', 'create','update','delete'],
+                        'allow' => true,
+                        'roles' => ['teacher'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

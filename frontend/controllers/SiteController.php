@@ -29,7 +29,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['logout', 'signup', 'cabinet','teacher','student'],
+                'only' => ['logout', 'signup', 'cabinet'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -37,7 +37,7 @@ class SiteController extends Controller
                         'roles' => ['?'],
                     ],
                     [
-                        'actions' => ['logout','cabinet','teacher','student'],
+                        'actions' => ['logout','cabinet'],
                         'allow' => true,
                         'roles' => ['user'],
                     ],

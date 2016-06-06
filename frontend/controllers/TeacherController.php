@@ -21,12 +21,17 @@ class TeacherController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['manage','list' ,'view', 'create','update','delete'],
+                'only' => ['manage','list' ,'view', 'create','update','delete','cabinet'],
                 'rules' => [
                     [
                         'actions' =>  ['manage', 'create','update','delete'],
                         'allow' => true,
-                        'roles' => ['chief'],
+                        'roles' => ['chief','manager','admin'],
+                    ],
+                    [
+                        'actions' =>  ['cabinet'],
+                        'allow' => true,
+                        'roles' => ['teacher'],
                     ],
                     [
                         'actions' =>  ['list', 'view'],

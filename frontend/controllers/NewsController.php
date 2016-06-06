@@ -32,7 +32,7 @@ class NewsController extends Controller
                     [
                         'allow' => true,
                         'actions' => ['view-manage','manage','create','update','delete'],
-                        'roles' => ['chief'],
+                        'roles' => ['chief','manager','admin'],
                     ],
                 ],
             ],

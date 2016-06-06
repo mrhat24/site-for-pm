@@ -164,40 +164,45 @@ class GivenTask extends \yii\db\ActiveRecord
     
     public static function createGivenTask($post)
     {
-        $exersices = $post['exersices'];
-        $students = $post['students'];
-        $discipline = $post['discipline'];
-        $teacher = Yii::$app->user->identity->teacher->id;
-        $task = $post['task'];
-        $deadline = 0;
-        if(isset($post['deadline_date']))
-            $deadline = Yii::$app->formatter->asTimestamp($post['deadline_date']);
-        $given_date = date('U');
-        if(isset($post['given_date']))
-            $given_date = Yii::$app->formatter->asTimestamp($post['given_date']);
-        $group_key = md5($given_date);
-        $noerror = true;
-        foreach($students as $student)
-        {            
-            $model = new GivenTask();
-            $model->given_date = $given_date;
-            $model->student_id = $student;
-            $model->teacher_id = $teacher;
-            $model->ghd_id = $discipline;
-            $model->task_id = $task;
-            $model->deadline_date = $deadline;
-            $model->group_key = $group_key;
-            if($model->save()){ 
-            foreach($exersices as $exersice)
-            {
-                $eModel = new GivenExercise();
-                $eModel->exercise_id = $exersice;
-                $eModel->given_task_id = $model->getPrimaryKey();
-                $eModel->save();  
-            }
-            } else $noerror = false;
-        }        
-        return $noerror;
+        if(isset($post['exersices'])&&isset($post['students'])&&isset($post['discipline'])&&isset($post['task']))
+        {
+            $exersices = $post['exersices'];
+            $students = $post['students'];
+            $discipline = $post['discipline'];
+            $teacher = Yii::$app->user->identity->teacher->id;
+            $task = $post['task'];
+            $deadline = 0;
+            if(isset($post['deadline_date']))
+                $deadline = Yii::$app->formatter->asTimestamp($post['deadline_date']);
+            $given_date = date('U');
+            if(isset($post['given_date']))
+                $given_date = Yii::$app->formatter->asTimestamp($post['given_date']);
+            $group_key = md5($given_date);
+            $noerror = true;
+            foreach($students as $student)
+            {            
+                $model = new GivenTask();
+                $model->given_date = $given_date;
+                $model->student_id = $student;
+                $model->teacher_id = $teacher;
+                $model->ghd_id = $discipline;
+                $model->task_id = $task;
+                $model->deadline_date = $deadline;
+                $model->group_key = $group_key;
+                if($model->save()){ 
+                foreach($exersices as $exersice)
+                {
+                    $eModel = new GivenExercise();
+                    $eModel->exercise_id = $exersice;
+                    $eModel->given_task_id = $model->getPrimaryKey();
+                    $eModel->save();  
+                }
+                } else $noerror = false;
+            }        
+            return $noerror;
+        }
+        else
+            return false;
     }
     
     public static function updateGivenTask($post,$model)

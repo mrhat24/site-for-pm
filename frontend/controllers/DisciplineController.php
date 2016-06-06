@@ -28,7 +28,7 @@ class DisciplineController extends Controller
                     [   
                         'actions' =>  ['manage','index', 'view', 'create','update','delete'],
                         'allow' => true,
-                        'roles' => ['chief','manager'],
+                        'roles' => ['chief','manager','admin'],
                     ],                  
                 ],
             ],

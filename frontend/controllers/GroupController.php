@@ -40,7 +40,7 @@ class GroupController extends Controller
                     [
                         'actions' =>  ['create','update','delete','manage','preview'],
                         'allow' => true,
-                        'roles' => ['chief'],
+                        'roles' => ['chief','manager','admin'],
                     ],
                 ],
             ],

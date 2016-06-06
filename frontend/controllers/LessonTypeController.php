@@ -8,7 +8,7 @@ use frontend\models\LessonTypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * LessonTypeController implements the CRUD actions for LessonType model.
  */
@@ -20,6 +20,17 @@ class LessonTypeController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create','update','view','delete'],
+                'rules' => [
+                    [
+                        'actions' => ['create','update','delete','view','index'],
+                        'allow' => true,
+                        'roles' => ['chief','manager', 'admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
