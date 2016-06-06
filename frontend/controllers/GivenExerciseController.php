@@ -26,7 +26,12 @@ class GivenExerciseController extends Controller
                         'actions' =>  ['index','edit', 'view', 'create','update','delete'],
                         'allow' => true,
                         'roles' => ['teacher'],
-                    ],                  
+                    ], 
+                    [   
+                        'actions' =>  ['edit'],
+                        'allow' => true,
+                        'roles' => ['student'],
+                    ],
                 ],
             ],
             'verbs' => [
