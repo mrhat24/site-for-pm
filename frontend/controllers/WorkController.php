@@ -23,15 +23,16 @@ class WorkController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['index', 'view', 'create','update','graduate','term','teacher-graduate','delete'],
+                'only' => ['index', 'view', 'create','update','graduate','term','teacher-graduate','delete','begin-graduate',
+                    'edit-graduate','assign-term','studentfromghd','studentfromgroup','edit-term'],
                 'rules' => [
                     [   
-                        'actions' =>  ['create','teacher-graduate','delete'],
+                        'actions' =>  ['create','teacher-graduate','delete','index','update','view','assign-term','studentfromghd','studentfromgroup'],
                         'allow' => true,
                         'roles' => ['teacher'],
                     ],
                     [
-                        'actions' =>  ['graduate','term','update','index','view'],
+                        'actions' =>  ['graduate','term','begin-graduate','edit-graduate','edit-term'],
                         'allow' => true,
                         'roles' => ['student'],
                     ],
