@@ -83,7 +83,7 @@ AppAsset::register($this);
             $menuSubItems = null;
         }
         
-        if((Yii::$app->user->can('chief'))){
+        if((Yii::$app->user->can('chief'))||(Yii::$app->user->can('manager'))){
             $menuSubItems[] = ['label' => 'Группы', 'url' => Url::to(['/group/manage'])];
             $menuSubItems[] = ['label' => 'Дисциплины', 'url' => Url::to(['/discipline/manage'])];
             $menuSubItems[] = ['label' => 'Предметы', 'url' => Url::to(['/group-has-discipline/manage'])];
