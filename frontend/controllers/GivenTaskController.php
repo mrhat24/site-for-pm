@@ -21,13 +21,18 @@ class GivenTaskController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),                
-                'only' => ['index','control','give','check','view', 'create','update','delete'],
+                'only' => ['index','control','give','check','view', 'create','update','delete','taken'],
                 'rules' => [
                     [   
                         'actions' =>  ['index','control','give','check','view', 'create','update','delete'],
                         'allow' => true,
                         'roles' => ['teacher'],
-                    ],                  
+                    ], 
+                    [   
+                        'actions' =>  ['taken'],
+                        'allow' => true,
+                        'roles' => ['student'],
+                    ],      
                 ],
             ],
             'verbs' => [
