@@ -68,8 +68,8 @@ class Schedule extends \yii\bootstrap\Widget
                         ['value' => Url::to(['//teacher/view','id' => $lesson->teacherHasDiscipline->teacher->id]),
                             'class' => 'btn-link modalButton']));    
                 }
-                elseif(($attr == $this->discipline)&&(Yii::$app->user->can('chief')||isset(Yii::$app->user->identity->student))&&(($lesson->groupHasDiscipline->checkStudent(Yii::$app->user->identity->student->id))
-                        ||($lesson->groupHasDiscipline->checkTeacher(Yii::$app->user->identity->teacher->id)))){                          
+                elseif(($attr == $this->discipline)&&(Yii::$app->user->can('chief')||(isset(Yii::$app->user->identity->student))&&(($lesson->groupHasDiscipline->checkStudent(Yii::$app->user->identity->student->id))
+                        )||($lesson->groupHasDiscipline->checkTeacher(Yii::$app->user->identity->teacher->id)))){                          
                        $items[] = Html::tag('td',Html::a($lesson->groupHasDiscipline->discipline->name,Url::to(['//group-has-discipline','id' => $lesson->groupHasDiscipline->id]),
                         ['class' => 'btn-link']));
                 }
