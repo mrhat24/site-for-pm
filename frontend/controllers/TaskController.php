@@ -195,7 +195,9 @@ class TaskController extends Controller
     public function CTask($id)
     {
         $gtask = GivenTask::findOne($id);
-        if(!GivenExercise::find()->where(['given_task_id' => $gtask->id])->andWhere(['solution' => ''])->all()){
+        $exercises = ArrayHelper::getColumn($gtask->exercises, 'id');
+        if((\common\models\GivenExerciseTestAnswers::find()->where(['in','given_exercise_id',$exercises]))||
+                (!GivenExercise::find()->where(['given_task_id' => $gtask->id])->andWhere(['solution' => ''])->all())){
         $gtask->status = 1;
         $gtask->complete_date = date('U');
         $gtask->save();

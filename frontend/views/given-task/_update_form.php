@@ -96,7 +96,6 @@ $this->registerJs('
             '],
         'pluginOptions' => [
             'tags' => true,
-            'maximumInputLength' => 10
         ],
     ]); ?>
     
@@ -121,7 +120,6 @@ $this->registerJs('
             '],
         'pluginOptions' => [
             'tags' => true,
-            'maximumInputLength' => 10
         ],
     ]);?>    
     
