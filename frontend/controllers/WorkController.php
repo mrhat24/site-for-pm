@@ -114,13 +114,13 @@ class WorkController extends Controller
                     $workFromList = \common\models\WorkList::findOne(Yii::$app->request->post()['workList']);
                     $teacher = $workFromList->teacher_id;
                     $stringName = $workFromList->name;
-                    $work_list_id = $workFromList->id;
+                    $work_list_id = $workFromList->id;                    
+                    $workModel->reserved_id = $workFromList->id;
                 }
                     $workModel->work_type_id = 1;
                     $workModel->teacher_id = $teacher;
                     $workModel->student_id = Yii::$app->user->identity->student->id;
-                    $workModel->date = $nowDate;
-                    $workModel->reserved_id = $workFromList->id;
+                    $workModel->date = $nowDate;                    
                     if($workModel->validate()){
                         $workModel->save();
                         $workHistory->work_id = $workModel->getPrimaryKey();
